@@ -8,7 +8,7 @@
     "contains": "padding",
     "resize": true
   },
-  "padding": 8,
+  "padding": 0,
   "config": {
     "background": null,
     "font": "Arial",
@@ -39,7 +39,7 @@
       "labelColor": "#625c61",
       "titleColor": "#625c61",
       "orient": "bottom",
-      "padding": 10,
+      "padding": 0,
       "offset": 16
     },
     "title": {
@@ -71,6 +71,10 @@
     {
       "calculate": "(datum.y0+datum.y1)/2",
       "as": "cy"
+    },
+    {
+      "calculate": "format(datum.value,'.1f') + '%'",
+      "as": "percentage_label"
     },
     {
       "calculate": "datum.y1-datum.y0 < 18 ? format(datum.value,'.1f')+'%' : (datum.label === 'Both thresholds' ? 'Both\\nthresholds' : datum.label === 'Weekly only' ? 'Weekly\\nonly' : datum.label) + '\\n' + format(datum.value,'.1f') + '%'",
@@ -174,10 +178,17 @@
     {
       "mark": {
         "type": "text",
+        "baseline": "middle",
         "fontSize": 11,
         "fontWeight": 600,
         "lineBreak": "\n",
-        "lineHeight": 13
+        "lineHeight": 13,
+        "dy": {
+          "expr": "(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65 ? 0 : -(length(split(datum.display,'\\n'))-1)*13/2"
+        },
+        "limit": {
+          "expr": "max(25, (datum.x1-datum.x0) * width / 100 - 12)"
+        }
       },
       "encoding": {
         "x": {
@@ -189,6 +200,10 @@
           "type": "quantitative"
         },
         "text": {
+          "condition": {
+            "test": "(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65",
+            "field": "percentage_label"
+          },
           "field": "display"
         },
         "color": {

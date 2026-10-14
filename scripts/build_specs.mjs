@@ -5,11 +5,11 @@ import {fileURLToPath} from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'site/specs');
 await fs.mkdir(output, {recursive: true});
-const C = {ink:'#29252e', teal:'#397b76', plum:'#80516b', rust:'#bb5939', gold:'#d59e51', pale:'#eee8dc', grey:'#a39e98'};
+const C = {ink:'#29252e', teal:'#397b76', plum:'#80516b', rust:'#bb5939', gold:'#d59e51', pale:'#e4dccf', grey:'#a39e98'};
 const config = {
   background:null, font:'Arial', view:{stroke:null},
   axis:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',domain:false,tickColor:'#ddd4c6',gridColor:'#e5ded3',gridOpacity:.8,titlePadding:13,labelPadding:7},
-  legend:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',orient:'bottom',padding:10,offset:16},
+  legend:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',orient:'bottom',padding:0,offset:16},
   title:{font:'Arial',color:C.ink}, text:{font:'Arial',color:C.ink},
 };
 const data = name => ({url:`data/${name}.json`});
@@ -21,7 +21,7 @@ const parameter = (name,value) => ({name,value});
 const specs = {};
 function add(id,spec,height=310) {
   specs[id] = {$schema:'https://vega.github.io/schema/vega-lite/v6.json',description:spec.description,
-    width:'container',height,autosize:{type:'fit',contains:'padding',resize:true},padding:8,config,...spec};
+    width:'container',height,autosize:{type:'fit',contains:'padding',resize:true},padding:0,config,...spec};
 }
 
 add('world', {
@@ -107,12 +107,13 @@ add('mosaic', {
   description:'NDSHS Table4.31 joint weekly/episodic-risk distribution. Areas are proportional to published shares, normalised only for rounding. Weekly categories follow explicit source row labels rather than reversed source footnotes.',
   data:data('risk-mosaic'),params:[parameter('mosaicGender','Persons')],transform:[{filter:'datum.gender === mosaicGender'},
     {calculate:'(datum.x0+datum.x1)/2',as:'cx'},{calculate:'(datum.y0+datum.y1)/2',as:'cy'},
+    {calculate:"format(datum.value,'.1f') + '%'",as:'percentage_label'},
     {calculate:"datum.y1-datum.y0 < 18 ? format(datum.value,'.1f')+'%' : (datum.label === 'Both thresholds' ? 'Both\\nthresholds' : datum.label === 'Weekly only' ? 'Weekly\\nonly' : datum.label) + '\\n' + format(datum.value,'.1f') + '%'",as:'display'}],
   encoding:{x:q('x0',null,{scale:{domain:[0,100]},axis:null}),y:q('y0',null,{scale:{domain:[100,0]},axis:null})},
   layer:[
     {mark:{type:'rect',stroke:'#fffaf3',strokeWidth:4},encoding:{x2:{field:'x1'},y2:{field:'y1'},color:n('label',null,{scale:{domain:['No alcohol','Neither threshold','Episodic only','Weekly only','Both thresholds'],range:['#dfdbd2','#aac7c0',C.gold,C.plum,C.rust]},legend:{columns:2}}),
       tooltip:[tooltip('gender','nominal','Survey population'),tooltip('label','nominal','Category'),tooltip('value','quantitative','Population share (%)','.1f'),tooltip('weekly','nominal','Weekly threshold'),tooltip('episodic','nominal','Episodic threshold')]}},
-    {mark:{type:'text',fontSize:11,fontWeight:600,lineBreak:'\n',lineHeight:13},encoding:{x:{field:'cx',type:'quantitative'},y:{field:'cy',type:'quantitative'},text:{field:'display'},color:{condition:{test:"datum.label === 'Both thresholds' || datum.label === 'Weekly only'",value:'#fffaf3'},value:C.ink}}}
+    {mark:{type:'text',baseline:'middle',fontSize:11,fontWeight:600,lineBreak:'\n',lineHeight:13,dy:{expr:"(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65 ? 0 : -(length(split(datum.display,'\\n'))-1)*13/2"},limit:{expr:'max(25, (datum.x1-datum.x0) * width / 100 - 12)'}},encoding:{x:{field:'cx',type:'quantitative'},y:{field:'cy',type:'quantitative'},text:{condition:{test:'(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65',field:'percentage_label'},field:'display'},color:{condition:{test:"datum.label === 'Both thresholds' || datum.label === 'Weekly only'",value:'#fffaf3'},value:C.ink}}}
   ]
 },300);
 
