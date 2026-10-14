@@ -39,7 +39,7 @@
       "labelColor": "#625c61",
       "titleColor": "#625c61",
       "orient": "bottom",
-      "padding": 0,
+      "padding": 10,
       "offset": 16
     },
     "title": {
@@ -71,7 +71,7 @@
       },
       "mark": {
         "type": "geoshape",
-        "fill": "#e4dccf",
+        "fill": "#eee8dc",
         "stroke": "#fffaf3",
         "strokeWidth": 0.55
       },

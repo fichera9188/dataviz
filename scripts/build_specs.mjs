@@ -5,11 +5,11 @@ import {fileURLToPath} from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'site/specs');
 await fs.mkdir(output, {recursive: true});
-const C = {ink:'#29252e', teal:'#397b76', plum:'#80516b', rust:'#bb5939', gold:'#d59e51', pale:'#e4dccf', grey:'#a39e98'};
+const C = {ink:'#29252e', teal:'#397b76', plum:'#80516b', rust:'#bb5939', gold:'#d59e51', pale:'#eee8dc', grey:'#a39e98'};
 const config = {
   background:null, font:'Arial', view:{stroke:null},
   axis:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',domain:false,tickColor:'#ddd4c6',gridColor:'#e5ded3',gridOpacity:.8,titlePadding:13,labelPadding:7},
-  legend:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',orient:'bottom',padding:0,offset:16},
+  legend:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',orient:'bottom',padding:10,offset:16},
   title:{font:'Arial',color:C.ink}, text:{font:'Arial',color:C.ink},
 };
 const data = name => ({url:`data/${name}.json`});
