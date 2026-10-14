@@ -1,0 +1,204 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "ABDS2024 alcohol-attributable healthy life years lost. Child categories excluded; residual is explicitly total minus five listed major groups. Binary treemap layout precomputed proportional to values.",
+  "width": "container",
+  "height": 310,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/burden-treemap.json"
+  },
+  "params": [
+    {
+      "name": "burdenSex",
+      "value": "All"
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.sex === burdenSex"
+    },
+    {
+      "calculate": "datum.disease === 'Cardiovascular diseases' ? 'Cardiovascular\\ndiseases' : datum.disease === 'Not itemised in this extract' ? 'Not\\nitemised' : datum.disease === 'Chronic liver disease' ? (datum.share < 0.04 ? 'Liver' : 'Liver\\ndisease') : datum.disease === 'Alcohol use disorder' ? 'Alcohol use\\ndisorder' : datum.disease",
+      "as": "short"
+    },
+    {
+      "calculate": "datum.short + '\\n' + format(datum.value,',')",
+      "as": "display"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "x0",
+      "type": "quantitative",
+      "title": null,
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "axis": null
+    },
+    "y": {
+      "field": "y0",
+      "type": "quantitative",
+      "title": null,
+      "scale": {
+        "domain": [
+          1,
+          0
+        ]
+      },
+      "axis": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#fffaf3",
+        "strokeWidth": 4
+      },
+      "encoding": {
+        "x2": {
+          "field": "x1"
+        },
+        "y2": {
+          "field": "y1"
+        },
+        "color": {
+          "field": "disease",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Alcohol use disorder",
+              "Injuries",
+              "Cancers",
+              "Cardiovascular diseases",
+              "Chronic liver disease",
+              "Not itemised in this extract"
+            ],
+            "range": [
+              "#80516b",
+              "#bb5939",
+              "#d59e51",
+              "#397b76",
+              "#799595",
+              "#c4beb5"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "disease",
+            "type": "nominal",
+            "title": "Disease group"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Healthy life years lost",
+            "format": ",.0f"
+          },
+          {
+            "field": "share",
+            "type": "quantitative",
+            "title": "Share of alcohol burden",
+            "format": ".1%"
+          },
+          {
+            "field": "attributable_percent",
+            "type": "quantitative",
+            "title": "Share of this disease due to alcohol (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "derived",
+            "type": "nominal",
+            "title": "Derived remainder"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": {
+          "expr": "datum.share < 0.17 ? 10 : 12"
+        },
+        "fontWeight": 600,
+        "lineBreak": "\n",
+        "lineHeight": 14
+      },
+      "encoding": {
+        "x": {
+          "field": "cx",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "cy",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "display"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.disease === 'Cancers' || datum.disease === 'Not itemised in this extract'",
+            "value": "#29252e"
+          },
+          "value": "#fffaf3"
+        }
+      }
+    }
+  ]
+}

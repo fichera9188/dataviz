@@ -1,0 +1,204 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "NDSHS Table4.31 joint weekly/episodic-risk distribution. Areas are proportional to published shares, normalised only for rounding. Weekly categories follow explicit source row labels rather than reversed source footnotes.",
+  "width": "container",
+  "height": 300,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/risk-mosaic.json"
+  },
+  "params": [
+    {
+      "name": "mosaicGender",
+      "value": "Persons"
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.gender === mosaicGender"
+    },
+    {
+      "calculate": "(datum.x0+datum.x1)/2",
+      "as": "cx"
+    },
+    {
+      "calculate": "(datum.y0+datum.y1)/2",
+      "as": "cy"
+    },
+    {
+      "calculate": "datum.y1-datum.y0 < 18 ? format(datum.value,'.1f')+'%' : (datum.label === 'Both thresholds' ? 'Both\\nthresholds' : datum.label === 'Weekly only' ? 'Weekly\\nonly' : datum.label) + '\\n' + format(datum.value,'.1f') + '%'",
+      "as": "display"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "x0",
+      "type": "quantitative",
+      "title": null,
+      "scale": {
+        "domain": [
+          0,
+          100
+        ]
+      },
+      "axis": null
+    },
+    "y": {
+      "field": "y0",
+      "type": "quantitative",
+      "title": null,
+      "scale": {
+        "domain": [
+          100,
+          0
+        ]
+      },
+      "axis": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#fffaf3",
+        "strokeWidth": 4
+      },
+      "encoding": {
+        "x2": {
+          "field": "x1"
+        },
+        "y2": {
+          "field": "y1"
+        },
+        "color": {
+          "field": "label",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "No alcohol",
+              "Neither threshold",
+              "Episodic only",
+              "Weekly only",
+              "Both thresholds"
+            ],
+            "range": [
+              "#dfdbd2",
+              "#aac7c0",
+              "#d59e51",
+              "#80516b",
+              "#bb5939"
+            ]
+          },
+          "legend": {
+            "columns": 2
+          }
+        },
+        "tooltip": [
+          {
+            "field": "gender",
+            "type": "nominal",
+            "title": "Survey population"
+          },
+          {
+            "field": "label",
+            "type": "nominal",
+            "title": "Category"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Population share (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "weekly",
+            "type": "nominal",
+            "title": "Weekly threshold"
+          },
+          {
+            "field": "episodic",
+            "type": "nominal",
+            "title": "Episodic threshold"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": 600,
+        "lineBreak": "\n",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "cx",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "cy",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "display"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.label === 'Both thresholds' || datum.label === 'Weekly only'",
+            "value": "#fffaf3"
+          },
+          "value": "#29252e"
+        }
+      }
+    }
+  ]
+}

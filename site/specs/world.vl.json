@@ -1,0 +1,215 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "WHO estimated litres of pure alcohol per person aged15+; three-year-average indicator. Country geometry is Natural Earth. Grey means no matched estimate.",
+  "width": "container",
+  "height": 390,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "params": [
+    {
+      "name": "mapYear",
+      "value": 2024
+    }
+  ],
+  "projection": {
+    "type": "equalEarth"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/world.geo.json",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eee8dc",
+        "stroke": "#fffaf3",
+        "strokeWidth": 0.55
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "properties.name",
+            "type": "nominal",
+            "title": "Country"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/world-consumption.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.year === mapYear"
+        },
+        {
+          "lookup": "iso3",
+          "from": {
+            "data": {
+              "url": "data/world.geo.json",
+              "format": {
+                "type": "json",
+                "property": "features"
+              }
+            },
+            "key": "properties.iso3",
+            "fields": [
+              "geometry",
+              "properties.name"
+            ]
+          },
+          "as": [
+            "geometry",
+            "name"
+          ]
+        },
+        {
+          "filter": "isValid(datum.geometry)"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#fffaf3",
+        "strokeWidth": 0.55
+      },
+      "encoding": {
+        "shape": {
+          "field": "geometry",
+          "type": "geojson"
+        },
+        "color": {
+          "field": "value",
+          "type": "quantitative",
+          "title": "Litres of pure alcohol per adult",
+          "scale": {
+            "domain": [
+              0,
+              15
+            ],
+            "range": [
+              "#f1e5cf",
+              "#d9ab72",
+              "#ae744d",
+              "#795447",
+              "#43323c"
+            ],
+            "clamp": true
+          },
+          "legend": {
+            "gradientLength": 220,
+            "values": [
+              0,
+              3,
+              6,
+              9,
+              12,
+              15
+            ],
+            "labelExpr": "datum.value >= 15 ? '15+' : datum.label"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "name",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Estimate year"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Litres per adult",
+            "format": ".1f"
+          },
+          {
+            "field": "lower",
+            "type": "quantitative",
+            "title": "Lower estimate",
+            "format": ".1f"
+          },
+          {
+            "field": "upper",
+            "type": "quantitative",
+            "title": "Upper estimate",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/world.geo.json",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "transform": [
+        {
+          "filter": "datum.properties.iso3 === 'AUS'"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#29252e",
+        "strokeWidth": 1.5
+      }
+    }
+  ]
+}

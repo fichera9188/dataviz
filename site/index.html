@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f3eb">
+  <meta name="description" content="Explore how alcohol consumption has changed across ages, genders and places. A data story by Teh Ming Dong, using WHO, AIHW, ABS and ASSAD data.">
+  <meta name="author" content="Teh Ming Dong">
+  <title>A changing drinking culture · Teh Ming Dong</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="assets/vendor/vega.min.js"></script>
+  <script defer src="assets/vendor/vega-lite.min.js"></script>
+  <script defer src="assets/vendor/vega-embed.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#context">Skip to the data story</a>
+  <header class="masthead wrap">
+    <a class="wordmark" href="#top" aria-label="A changing drinking culture, back to top"><span class="brand-mark" aria-hidden="true">a.</span> THE DRINKING CULTURE</a>
+    <p class="masthead-credit">A data story by <strong>Teh Ming Dong</strong></p>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap" aria-labelledby="story-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-line" aria-hidden="true"></span> AGE · GENDER · PLACE</p>
+        <h1 id="story-title">Who’s drinking,<br><span>and what’s changed?</span></h1>
+        <p class="hero-deck">Australia’s drinking culture is changing. But a national average can conceal very different habits across generations, genders and places.</p>
+        <a class="read-link" href="#context">Follow the story <span aria-hidden="true">↓</span></a>
+      </div>
+      <aside class="hero-stat" aria-label="Australian alcohol availability in2023–24">
+        <p class="eyebrow">THE LONG VIEW</p>
+        <p class="hero-number">9.8<span>L</span></p>
+        <p class="stat-definition">of pure alcohol available per person aged 15+, in 2023–24.</p>
+        <div class="stat-comparison"><span class="stat-arrow" aria-hidden="true">↘</span><div><strong>25% below</strong><span>the 1974–75 peak</span></div></div>
+        <p class="micro-note">Availability measures supply, rather than the amount each person reports drinking. <a href="#source-D06">AIHW, Table 7</a></p>
+      </aside>
+    </section>
+
+    <nav class="chapter-nav" aria-label="Story chapters">
+      <div class="wrap nav-inner">
+        <a href="#context"><span>01</span> The world</a>
+        <a href="#habits"><span>02</span> Changing habits</a>
+        <a href="#people"><span>03</span> Age & gender</a>
+        <a href="#places"><span>04</span> Different places</a>
+        <a href="#consequences"><span>05</span> Lasting consequences</a>
+      </div>
+      <div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+    </nav>
+
+    <noscript><div class="wrap notice">This story uses interactive Vega-Lite charts. Please enable JavaScript to display them. The <a href="data/sources.json">source information</a> and <a href="specs/manifest.json">chart specifications</a> are available directly.</div></noscript>
+
+    <section id="context" class="chapter wrap" aria-labelledby="context-title">
+      <div class="chapter-heading"><p class="chapter-number">01 / THE WORLD</p><h2 id="context-title">First, put the average<br>in perspective.</h2><p>How much a country drinks is one question. How its people drink is another. Start with the global picture, then look beyond the average.</p></div>
+
+      <figure class="chart-panel featured" aria-labelledby="world-title">
+        <div class="panel-head"><div><p class="chart-kicker">01 · TOTAL CONSUMPTION</p><h3 id="world-title">Alcohol consumption around the world</h3><p class="chart-subtitle">WHO estimates · litres of pure alcohol per person aged 15+</p></div><div class="control"><label for="world-year">Estimate year</label><select id="world-year" data-chart="world" data-signal="mapYear" data-type="number"><option>2000</option><option>2005</option><option>2010</option><option>2015</option><option>2020</option><option selected>2024</option></select></div></div>
+        <div class="map-layout"><div id="chart-world" class="viz" role="img" aria-label="World map of estimated alcohol consumption"><span class="chart-loading">Drawing the global picture…</span></div><aside class="chart-aside"><p class="callout-number" id="world-australia-value">10.5<span>L</span></p><h4>Australia in context</h4><p id="world-australia-note">WHO’s 2024 estimate is 10.5 litres per person aged 15+. Australia is outlined on the map.</p><p class="aside-note">This indicator combines recorded and estimated unrecorded alcohol, with a tourism adjustment. It uses three-year averages.</p><p class="map-key-note"><i aria-hidden="true"></i> Grey: no matched estimate</p></aside></div>
+        <figcaption><span><a href="#source-D01">WHO · D01</a> · Country/territory estimates, 2000–2024. Hover or tap a country for its value. Some small territories have no separately keyed geometry.</span><a class="spec-link" href="specs/world.vl.json" target="_blank" rel="noopener">Chart specification ↗</a></figcaption>
+      </figure>
+
+      <figure class="chart-panel" aria-labelledby="episodic-title">
+        <div class="panel-head"><div><p class="chart-kicker">02 · DRINKING PATTERNS</p><h3 id="episodic-title">A similar average can hide a different habit</h3><p class="chart-subtitle">Heavy episodic drinking across countries · 2020 · age-standardised</p></div><div class="control"><label for="hed-sex">Sex</label><select id="hed-sex" data-chart="episodic" data-signal="hedSex"><option value="All">All people</option><option value="Male">Male</option><option value="Female">Female</option></select></div></div>
+        <div class="chart-and-copy"><div id="chart-episodic" class="viz" role="img" aria-label="Regional box plot of country heavy episodic drinking estimates"><span class="chart-loading">Comparing drinking patterns…</span></div><aside class="chart-aside compact"><h4>What counts as an episode?</h4><p>At least <strong>60 grams of pure alcohol</strong> on one occasion in the past 30 days, among people aged 15+.</p><p class="aside-note">The box covers the middle half of country estimates; its line marks the middle country. Whiskers show the lowest and highest. The orange dot marks Australia. Each country has equal weight here.</p></aside></div>
+        <figcaption><span><a href="#source-D02">WHO · D02</a> · 2020 is the latest year in this extract. The measure includes abstainers and differs from Australian drinking thresholds.</span><a class="spec-link" href="specs/episodic.vl.json" target="_blank" rel="noopener">Chart specification ↗</a></figcaption>
+      </figure>
+    </section>
+
+    <div class="chapter-band">
+    <section id="habits" class="chapter wrap" aria-labelledby="habits-title">
+      <div class="chapter-heading"><p class="chapter-number">02 / CHANGING HABITS</p><h2 id="habits-title">The long view is<br>far from a straight line.</h2><p>Alcohol availability peaked in the 1970s, rose again in the early 2020s, and has since fallen. The drinks making up that total have changed too.</p></div>
+
+      <figure class="chart-panel featured" aria-labelledby="availability-title">
+        <div class="panel-head"><div><p class="chart-kicker">03 · SIX DECADES OF CHANGE</p><h3 id="availability-title">Below the peak, after another recent rise</h3><p class="chart-subtitle">Australian pure-alcohol availability · 1960–61 to 2023–24</p></div><div class="mini-finding"><strong>−10.0%</strong><span>since 2020–21</span></div></div>
+        <div id="chart-availability" class="viz" role="img" aria-label="Line chart of Australian alcohol availability over time"><span class="chart-loading">Tracing six decades…</span></div>
+        <figcaption><span><a href="#source-D06">AIHW · D06, Table 7</a> · Financial years. Supply is not adjusted for all wastage, cooking or cellaring. The recent decline is calculated from 10.88 to 9.79 litres.</span><a class="spec-link" href="specs/availability.vl.json" target="_blank" rel="noopener">Chart specification ↗</a></figcaption>
+      </figure>
+
+      <div class="charts-grid">
+        <figure class="chart-panel" aria-labelledby="beverages-title">
+          <div class="panel-head"><div><p class="chart-kicker">04 · WHAT IS IN THE GLASS?</p><h3 id="beverages-title">The mix has shifted</h3><p class="chart-subtitle">Share of available pure alcohol · 2011–12 to 2023–24</p></div></div>
+          <p class="panel-insight">Wine now contributes more pure alcohol than beer. Spirits and ready-to-drink beverages also make up a substantial share.</p>
+          <div id="chart-beverages" class="viz" role="img" aria-label="Stacked area chart of beverage shares"><span class="chart-loading">Comparing the beverage mix…</span></div>
+          <figcaption><span><a href="#source-D06">AIHW · D06, Tables 1, 3, 5, 6</a> · Shares use pure alcohol, not beverage volume. Complete, reconciling composition is shown from 2011–12.</span><a class="spec-link" href="specs/beverages.vl.json" target="_blank" rel="noopener">Specification ↗</a></figcaption>
+        </figure>
+        <figure class="chart-panel" aria-labelledby="age-title">
+          <div class="panel-head"><div><p class="chart-kicker">05 · GENERATIONS</p><h3 id="age-title">The change is not evenly shared</h3><p class="chart-subtitle">People in each age group (%) · NDSHS, 2001 to 2022–23</p></div></div>
+          <div class="control horizontal"><label for="age-measure">Compare a habit</label><select id="age-measure" data-chart="age" data-signal="ageMeasure"><option>More than 4 drinks monthly</option><option>Daily drinking</option><option>More than 10 drinks weekly</option><option>Risky drinking</option></select></div>
+          <div id="chart-age" class="viz" role="img" aria-label="Heatmap of drinking habits by age and survey year"><span class="chart-loading">Finding the generational pattern…</span></div>
+          <figcaption><span><a href="#source-D03">AIHW · D03, Tables 4.5 & 4.27</a> · “Monthly” means more than four drinks in one day at least monthly. Blank cells are unavailable or unsuitable estimates.</span><a class="spec-link" href="specs/age.vl.json" target="_blank" rel="noopener">Specification ↗</a></figcaption>
+        </figure>
+      </div>
+
+      <aside class="story-pullquote"><p>Among 18–24-year-olds, monthly high-volume drinking fell from <strong>57.3% to 40.8%</strong>. Among people aged 60–69, it rose from <strong>12.8% to 19.4%</strong>.</p><span>NDSHS · 2001 to 2022–23 · Different samples at each survey wave</span></aside>
+
+      <figure class="chart-panel" aria-labelledby="adolescent-title">
+        <div class="panel-head"><div><p class="chart-kicker">06 · BEFORE ADULTHOOD</p><h3 id="adolescent-title">Ever drinking and current drinking tell different stories</h3><p class="chart-subtitle">Australian secondary-school students aged 12–17 · 2022–23</p></div><div class="control-pair"><div class="control"><label for="student-group">Student group</label><select id="student-group" data-chart="adolescent" data-signal="studentGroup"><option>All students</option><option>Male students</option><option>Female students</option><option>Ages 12–15</option><option>Ages 16–17</option></select></div><div class="control"><label for="student-measure">Drinking period</label><select id="student-measure" data-chart="adolescent" data-signal="studentMeasure"><option>Ever</option><option>Past year</option><option selected>Past month</option><option>Past week</option><option>Risky past week</option></select></div></div></div>
+        <div class="waffle-layout"><div id="chart-adolescent" class="viz" role="img" aria-label="Percentage waffle chart of adolescent drinking"><span class="chart-loading">Looking at adolescent drinking…</span></div><aside class="waffle-summary"><p class="callout-number rust" id="student-value">22.2<span>%</span></p><p id="student-description">of all surveyed secondary-school students had consumed alcohol in the past month.</p><p class="aside-note">One square represents one percentage point. A partial square preserves the exact estimate; these are not 100 individual students.</p><p class="aside-note" id="student-definition">Ever drinking includes even part of a drink. The survey covers school students, rather than every adolescent.</p></aside></div>
+        <figcaption><span><a href="#source-D05">ASSAD · D05, Table 2</a> · Weighted percentages. Survey administration changed in this wave; historical comparisons need caution.</span><a class="spec-link" href="specs/adolescent.vl.json" target="_blank" rel="noopener">Chart specification ↗</a></figcaption>
+      </figure>
+    </section>
+    </div>
+
+    <section id="people" class="chapter wrap" aria-labelledby="people-title">
+      <div class="chapter-heading"><p class="chapter-number">03 / AGE & GENDER</p><h2 id="people-title">Different people.<br>Different kinds of risk.</h2><p>Men and women report different drinking patterns, and weekly volume is only part of the picture. Occasional high-volume drinking can occur even below the weekly threshold.</p></div>
+      <div class="charts-grid">
+        <figure class="chart-panel" aria-labelledby="gender-title">
+          <div class="panel-head"><div><p class="chart-kicker">07 · THE GENDER GAP</p><h3 id="gender-title">A gap across adult age groups</h3><p class="chart-subtitle">Adults exceeding the Australian alcohol guideline · NHS 2022</p></div></div>
+          <p class="panel-insight"><strong>35.8%</strong> of adult males and <strong>18.1%</strong> of adult females exceeded the guideline.</p>
+          <div id="chart-gender" class="viz" role="img" aria-label="Dumbbell chart of male and female guideline exceedance by age"><span class="chart-loading">Comparing adult age groups…</span></div>
+          <figcaption><span><a href="#source-D04">ABS · D04, Table 7.3</a> · Ages 18+. NHS and NDSHS are separate surveys; their estimates are not spliced into one trend.</span><a class="spec-link" href="specs/gender.vl.json" target="_blank" rel="noopener">Specification ↗</a></figcaption>
+        </figure>
+        <figure class="chart-panel" aria-labelledby="mosaic-title">
+          <div class="panel-head"><div><p class="chart-kicker">08 · THE OVERLAP</p><h3 id="mosaic-title">Two thresholds, five distinct groups</h3><p class="chart-subtitle">Drinking patterns among people aged 14+ · NDSHS 2022–23</p></div></div>
+          <div class="control horizontal"><label for="mosaic-gender">Survey population</label><select id="mosaic-gender" data-chart="mosaic" data-signal="mosaicGender"><option value="Persons">All people</option><option>Males</option><option>Females</option></select></div>
+          <div id="chart-mosaic" class="viz" role="img" aria-label="Mosaic chart of joint weekly and episodic drinking risk"><span class="chart-loading">Showing overlapping drinking patterns…</span></div>
+          <figcaption><span><a href="#source-D03">AIHW · D03, Table 4.31</a> · Area shows population share. Weekly: more than 10 drinks. Episodic: more than 4 in one day, at least monthly. Adult thresholds are used for comparison, including under-18s.</span><a class="spec-link" href="specs/mosaic.vl.json" target="_blank" rel="noopener">Specification ↗</a></figcaption>
+        </figure>
+      </div>
+      <div class="definition-strip"><span class="definition-label">READ THE MEASURES</span><p>A <strong>percentage</strong> describes how common a behaviour is. A <strong>volume</strong> describes how much alcohol is available. A <strong>count</strong> describes events. Each answers a different question.</p></div>
+    </section>
+
+    <div class="chapter-band">
+    <section id="places" class="chapter wrap" aria-labelledby="places-title">
+      <div class="chapter-heading"><p class="chapter-number">04 / DIFFERENT PLACES</p><h2 id="places-title">Where you look<br>changes what you see.</h2><p>Prevalence and treatment demand are two different views of geography. Equal-size state tiles compare proportions; circles on the map compare the number of recorded treatment episodes.</p></div>
+      <div class="charts-grid">
+        <figure class="chart-panel" aria-labelledby="states-title">
+          <div class="panel-head"><div><p class="chart-kicker">09 · HOW COMMON?</p><h3 id="states-title">Risky drinking differs by state</h3><p class="chart-subtitle">People aged 14+ (%) · NDSHS 2022–23</p></div></div>
+          <div class="control horizontal"><label for="state-gender">Survey population</label><select id="state-gender" data-chart="states" data-signal="stateGender"><option value="Persons">All people</option><option>Males</option><option>Females</option></select></div>
+          <div id="chart-states" class="viz" role="img" aria-label="Tile cartogram of state risky drinking prevalence"><span class="chart-loading">Comparing places fairly…</span></div>
+          <figcaption><span><a href="#source-D03">AIHW · D03, Table 9b.16</a> · Tiles have equal area and approximate geographic positions. “Risky” combines weekly and episodic thresholds.</span><a class="spec-link" href="specs/states.vl.json" target="_blank" rel="noopener">Specification ↗</a></figcaption>
+        </figure>
+        <figure class="chart-panel" aria-labelledby="treatment-title">
+          <div class="panel-head"><div><p class="chart-kicker">10 · RECORDED SERVICE DEMAND</p><h3 id="treatment-title">Treatment counts tell another story</h3><p class="chart-subtitle">Alcohol-principal-concern closed treatment episodes</p></div></div>
+          <div class="control horizontal"><label for="treatment-year">Financial year</label><select id="treatment-year" data-chart="treatment" data-signal="treatmentYear" data-type="number"><option value="2015">2015–16</option><option value="2018">2018–19</option><option value="2021">2021–22</option><option value="2023">2023–24</option><option value="2024" selected>2024–25</option></select></div>
+          <div id="chart-treatment" class="viz" role="img" aria-label="Proportional symbol map of alcohol treatment episodes"><span class="chart-loading">Mapping recorded service demand…</span></div>
+          <figcaption><span><a href="#source-D08">AIHW · D08, state Tables .6</a> · Circle area represents episodes, not unique clients. State populations and service access affect counts. ACT’s symbol is offset with a leader.</span><a class="spec-link" href="specs/treatment.vl.json" target="_blank" rel="noopener">Specification ↗</a></figcaption>
+        </figure>
+      </div>
+      <aside class="story-pullquote"><p>In 2022–23, risky-drinking prevalence ranged from <strong>26.4% in Victoria</strong> to <strong>40.4% in the Northern Territory</strong>. That is a different comparison from the size of the treatment caseload.</p><span>NDSHS · all people aged 14+ · estimates within this survey</span></aside>
+    </section>
+    </div>
+
+    <section id="consequences" class="chapter wrap" aria-labelledby="consequences-title">
+      <div class="chapter-heading"><p class="chapter-number">05 / LASTING CONSEQUENCES</p><h2 id="consequences-title">A falling average<br>doesn’t erase the burden.</h2><p>Changes in supply and reported habits do not immediately translate into fewer hospitalisations or deaths. Consequences have their own age patterns, timescales and definitions.</p></div>
+      <div class="charts-grid">
+        <figure class="chart-panel" aria-labelledby="hospital-title">
+          <div class="panel-head"><div><p class="chart-kicker">11 · HOSPITAL CARE</p><h3 id="hospital-title">Most episodes occur after age 45</h3><p class="chart-subtitle">Alcohol-related hospitalisations by age and sex · 2023–24</p></div></div>
+          <p class="panel-insight"><strong>84,318</strong> episodes were recorded nationally; approximately <strong>60%</strong> were for people aged 45+.</p>
+          <div id="chart-hospital" class="viz" role="img" aria-label="Age-sex pyramid of alcohol-related hospitalisations"><span class="chart-loading">Showing the hospital age profile…</span></div>
+          <figcaption><span><a href="#source-D10">AIHW · D10, NHMD3</a> · Episodes, not unique people or population rates. The open-ended 55+ group spans more ages. National totals include age/sex categories outside these bars.</span><a class="spec-link" href="specs/hospital.vl.json" target="_blank" rel="noopener">Specification ↗</a></figcaption>
+        </figure>
+        <figure class="chart-panel" aria-labelledby="burden-title">
+          <div class="panel-head"><div><p class="chart-kicker">12 · BEYOND ONE DIAGNOSIS</p><h3 id="burden-title">The burden spreads across conditions</h3><p class="chart-subtitle">Healthy life years lost attributable to alcohol · 2024 estimates</p></div></div>
+          <div class="control horizontal"><label for="burden-sex">Sex</label><select id="burden-sex" data-chart="burden" data-signal="burdenSex"><option value="All">All people</option><option value="Male">Male</option><option value="Female">Female</option></select></div>
+          <div id="chart-burden" class="viz" role="img" aria-label="Treemap of alcohol-attributable disease burden"><span class="chart-loading">Showing the wider health burden…</span></div>
+          <figcaption><span><a href="#source-D09">AIHW · D09, ABDS1</a> · Healthy life years lost combine early death and time lived with illness. “Not itemised here” is the published total minus the five listed groups, rather than an inferred disease category.</span><a class="spec-link" href="specs/burden.vl.json" target="_blank" rel="noopener">Specification ↗</a></figcaption>
+        </figure>
+      </div>
+
+      <figure class="chart-panel featured" aria-labelledby="mortality-title">
+        <div class="panel-head"><div><p class="chart-kicker">13 · MORTALITY OVER TIME</p><h3 id="mortality-title">Recorded deaths remain above a decade ago</h3><p class="chart-subtitle">Alcohol-induced deaths registered in Australia · 2015 to 2024</p></div><div class="control"><label for="mortality-sex">Sex</label><select id="mortality-sex" data-chart="mortality" data-signal="mortalitySex"><option value="All">All people</option><option value="Male">Male</option><option value="Female">Female</option></select></div></div>
+        <div id="chart-mortality" class="viz" role="img" aria-label="Waterfall chart of changes in alcohol-induced deaths"><span class="chart-loading">Accounting for the yearly changes…</span></div>
+        <div class="mortality-context"><p id="mortality-note"><strong>1,362 → 1,765 deaths</strong><span>2015 to 2024 · registration years</span></p><p><strong id="mortality-rate">5.2 → 5.9 per 100,000</strong><span>Age-standardised rate · accounts for age structure</span></p></div>
+        <figcaption><span><a href="#source-D07">ABS · D07, Table 13.11</a> · Changes account for the difference in totals, without explaining its causes. Recent years are provisional/revised; 2024 is preliminary. Alcohol-induced deaths are narrower than all alcohol-attributable deaths.</span><a class="spec-link" href="specs/mortality.vl.json" target="_blank" rel="noopener">Chart specification ↗</a></figcaption>
+      </figure>
+
+      <div class="closing-thought"><p class="eyebrow">THE PATTERN THAT MATTERS</p><p>There is no single drinking story.<br><span>The average changes. The differences remain.</span></p><div>Understanding alcohol means looking at <strong>who drinks, how they drink, and which consequences follow</strong>—with a clear measure for each question.</div></div>
+    </section>
+
+    <section id="sources" class="sources-section" aria-labelledby="sources-title"><div class="wrap">
+      <div class="sources-head"><div><p class="eyebrow">FOLLOW THE EVIDENCE</p><h2 id="sources-title">Sources & definitions</h2></div><p>Ten published data products. Each chart preserves its source’s population, period and unit.</p></div>
+      <div id="source-list" class="source-list"><p>Loading source information…</p></div>
+      <p class="geography-credit">Map boundaries: <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noopener">Natural Earth, public domain</a>. Generalised for display. <a href="data/geography-sources.json" target="_blank" rel="noopener">Geographic provenance</a>.</p>
+      <details class="about-story"><summary>About this story: purpose, data and design</summary><div class="about-grid"><div><h4>Why & who</h4><p>This story helps general readers understand how alcohol patterns vary across age, gender and geography. Global estimates provide context for the detailed Australian case study.</p></div><div><h4>What</h4><p>Published WHO, AIHW, ABS and ASSAD aggregate data. Survey percentages, supply, treatment episodes, hospitalisations and mortality remain distinct measures. The data snapshot was collected on 13 October 2026.</p></div><div><h4>How</h4><p>Maps show geographic patterns; lines show time; heatmaps compare ages across waves; connected dots show gender gaps. Mosaic areas show joint risk categories, while burden and mortality charts describe consequences. All maps and charts render through Vega-Lite.</p></div></div><p class="about-footnote">Source tables are converted to compact chart data without replacing missing values with zeros. Mosaic proportions are normalised for published rounding only; treemap coordinates and mortality differences are documented derivations. <a href="data/sources.json" target="_blank" rel="noopener">Machine-readable sources</a> · <a href="specs/manifest.json" target="_blank" rel="noopener">All chart specifications</a></p></details>
+    </div></section>
+  </main>
+
+  <footer class="page-footer wrap"><div><strong>Teh Ming Dong</strong><span>FIT3179 Data Visualisation · 14 October 2026</span></div><p>Research, data preparation, writing and implementation assisted by OpenAI Codex. Original data credited above.</p><a href="#top">Back to top ↑</a></footer>
+</body>
+</html>

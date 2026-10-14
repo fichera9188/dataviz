@@ -1,0 +1,188 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Published pure-alcohol supply per person aged15+, financial years1960–61 to2023–24. Availability is not individual reported consumption.",
+  "width": "container",
+  "height": 320,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/availability.json"
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": null,
+      "scale": {
+        "domain": [
+          1960,
+          2027
+        ]
+      },
+      "axis": {
+        "format": "d",
+        "values": [
+          1960,
+          1970,
+          1980,
+          1990,
+          2000,
+          2010,
+          2020
+        ],
+        "grid": false
+      }
+    },
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Litres per person aged 15+",
+      "scale": {
+        "domain": [
+          0,
+          15
+        ]
+      },
+      "axis": {
+        "tickCount": 5
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "color": "#397b76",
+        "opacity": 0.09
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#397b76",
+        "strokeWidth": 2.8
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "opacity": 0,
+        "size": 110
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "period",
+            "type": "nominal",
+            "title": "Financial year"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Litres per person aged15+",
+            "format": ".2f"
+          },
+          {
+            "field": "volume",
+            "type": "quantitative",
+            "title": "Pure alcohol (thousand litres)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year === 1974 || datum.year === 2023"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 65,
+        "color": "#397b76"
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year === 1974"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "text": "13.09 L · 1974–75 peak",
+        "align": "left",
+        "dx": 10,
+        "dy": -15,
+        "fontSize": 11,
+        "fontWeight": 600,
+        "color": "#397b76"
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year === 2023"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "text": "9.79 L",
+        "align": "right",
+        "dx": -10,
+        "dy": -15,
+        "fontSize": 12,
+        "fontWeight": 700,
+        "color": "#397b76"
+      }
+    }
+  ]
+}

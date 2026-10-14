@@ -1,0 +1,182 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Accounting waterfall of year-to-year changes in registered alcohol-induced death counts2015–2024. Recent data provisional. These deltas are not causal explanations.",
+  "width": "container",
+  "height": 330,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/death-waterfall.json"
+  },
+  "params": [
+    {
+      "name": "mortalitySex",
+      "value": "All"
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.sex === mortalitySex"
+    },
+    {
+      "calculate": "max(datum.start,datum.end)",
+      "as": "top"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "step",
+      "type": "ordinal",
+      "sort": {
+        "field": "order"
+      },
+      "title": null,
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 10,
+        "labelExpr": "replace(datum.label,' total','')",
+        "grid": false
+      }
+    },
+    "y": {
+      "field": "start",
+      "type": "quantitative",
+      "title": "Registered alcohol-induced deaths",
+      "scale": {
+        "domain": [
+          0,
+          2100
+        ]
+      },
+      "axis": {
+        "tickCount": 5
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 2
+      },
+      "encoding": {
+        "y2": {
+          "field": "end"
+        },
+        "color": {
+          "field": "kind",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Total",
+              "Increase",
+              "Decrease"
+            ],
+            "range": [
+              "#29252e",
+              "#bb5939",
+              "#397b76"
+            ]
+          },
+          "legend": {
+            "orient": "top"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "step",
+            "type": "nominal",
+            "title": "Year / total"
+          },
+          {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Registered deaths",
+            "format": ",.0f"
+          },
+          {
+            "field": "change",
+            "type": "quantitative",
+            "title": "Change or total",
+            "format": ",.0f"
+          },
+          {
+            "field": "rate",
+            "type": "quantitative",
+            "title": "Age-standardised rate per100,000",
+            "format": ".1f"
+          },
+          {
+            "field": "status",
+            "type": "nominal",
+            "title": "Revision status"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "dy": -9,
+        "fontSize": 10,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "y": {
+          "field": "top",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ]
+}

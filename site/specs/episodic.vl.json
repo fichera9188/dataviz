@@ -1,0 +1,182 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Distribution of country-level heavy episodic drinking prevalence by WHO region,2020. Each country contributes one observation. The boxes are not individual drinking distributions.",
+  "width": "container",
+  "height": 290,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/episodic-country.json"
+  },
+  "params": [
+    {
+      "name": "hedSex",
+      "value": "All"
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.sex === hedSex"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "region",
+      "type": "nominal",
+      "title": null,
+      "sort": [
+        "Africa",
+        "Americas",
+        "Eastern Mediterranean",
+        "Europe",
+        "South-East Asia",
+        "Western Pacific"
+      ],
+      "axis": {
+        "labelLimit": 140,
+        "labelFontSize": 11
+      }
+    },
+    "x": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "People aged 15+ (%)",
+      "scale": {
+        "domain": [
+          0,
+          70
+        ]
+      },
+      "axis": {
+        "tickCount": 5,
+        "labelExpr": "datum.label + '%'"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "boxplot",
+        "extent": "min-max",
+        "size": 17,
+        "color": "#397b76",
+        "box": {
+          "fillOpacity": 0.35,
+          "stroke": "#397b76"
+        },
+        "median": {
+          "color": "#397b76",
+          "strokeWidth": 2
+        },
+        "rule": {
+          "strokeWidth": 1
+        },
+        "ticks": {
+          "strokeWidth": 1
+        }
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "region",
+            "type": "nominal",
+            "title": "WHO region"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.iso3 === 'AUS'"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "color": "#bb5939",
+        "size": 100,
+        "stroke": "#fffaf3",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "sex",
+            "type": "nominal",
+            "title": "Australia, sex"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Prevalence (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.iso3 === 'AUS'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "text": "Australia",
+        "align": "left",
+        "dx": 9,
+        "dy": -13,
+        "color": "#bb5939",
+        "fontSize": 11,
+        "fontWeight": 600
+      }
+    }
+  ]
+}

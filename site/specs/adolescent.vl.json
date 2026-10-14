@@ -1,0 +1,174 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "ASSAD Table2 weighted prevalence among secondary students12–17 in2022–23. Each square is one percentage point, with a fractional square preserving the precise percentage.",
+  "width": "container",
+  "height": 280,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/adolescent-waffle.json"
+  },
+  "params": [
+    {
+      "name": "studentGroup",
+      "value": "All students"
+    },
+    {
+      "name": "studentMeasure",
+      "value": "Past month"
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.group === studentGroup && datum.measure === studentMeasure"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "x0",
+      "type": "quantitative",
+      "title": null,
+      "scale": {
+        "domain": [
+          0,
+          10
+        ]
+      },
+      "axis": null
+    },
+    "y": {
+      "field": "y0",
+      "type": "quantitative",
+      "title": null,
+      "scale": {
+        "domain": [
+          10,
+          0
+        ]
+      },
+      "axis": null
+    },
+    "x2": {
+      "field": "x1"
+    },
+    "y2": {
+      "field": "y1"
+    }
+  },
+  "layer": [
+    {
+      "transform": [
+        {
+          "calculate": "datum.x0 + 0.86",
+          "as": "cellEnd"
+        }
+      ],
+      "mark": {
+        "type": "rect",
+        "fill": "#eee8dc",
+        "cornerRadius": 2
+      },
+      "encoding": {
+        "x2": {
+          "field": "cellEnd"
+        },
+        "tooltip": [
+          {
+            "field": "group",
+            "type": "nominal",
+            "title": "Student group"
+          },
+          {
+            "field": "measure",
+            "type": "nominal",
+            "title": "Drinking period"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Percentage",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.filled"
+        }
+      ],
+      "mark": {
+        "type": "rect",
+        "fill": "#bb5939",
+        "cornerRadius": 2
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "group",
+            "type": "nominal",
+            "title": "Student group"
+          },
+          {
+            "field": "measure",
+            "type": "nominal",
+            "title": "Drinking period"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Percentage",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ]
+}

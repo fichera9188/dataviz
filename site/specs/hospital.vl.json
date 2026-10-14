@@ -1,0 +1,141 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "NHMD2023–24 alcohol-principal-diagnosis hospitalisation episodes by published age/sex categories; counts not rates, and55+ is an open-ended band.",
+  "width": "container",
+  "height": 290,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/hospital-age-sex.json"
+  },
+  "mark": {
+    "type": "bar",
+    "size": 27,
+    "cornerRadiusEnd": 2
+  },
+  "encoding": {
+    "y": {
+      "field": "age",
+      "type": "nominal",
+      "title": null,
+      "sort": [
+        "15–24",
+        "25–34",
+        "35–44",
+        "45–54",
+        "55+"
+      ],
+      "axis": {
+        "grid": false
+      }
+    },
+    "x": {
+      "field": "signed",
+      "type": "quantitative",
+      "title": "Hospitalisation episodes",
+      "scale": {
+        "domain": [
+          -18000,
+          18000
+        ]
+      },
+      "axis": {
+        "values": [
+          -15000,
+          -10000,
+          -5000,
+          0,
+          5000,
+          10000,
+          15000
+        ],
+        "labelExpr": "format(abs(datum.value),'.2s')"
+      }
+    },
+    "color": {
+      "field": "sex",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "domain": [
+          "Male",
+          "Female"
+        ],
+        "range": [
+          "#397b76",
+          "#80516b"
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "age",
+        "type": "nominal",
+        "title": "Age"
+      },
+      {
+        "field": "sex",
+        "type": "nominal",
+        "title": "Sex"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Episodes",
+        "format": ",.0f"
+      },
+      {
+        "field": "share_within_sex",
+        "type": "quantitative",
+        "title": "Share within sex (%)",
+        "format": ".1f"
+      }
+    ]
+  }
+}

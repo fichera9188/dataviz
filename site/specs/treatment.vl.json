@@ -1,0 +1,255 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Alcohol-principal-concern closed treatment episodes for own drug use by jurisdiction. Symbol area encodes episodes, not people or prevalence. ACT anchor offset with a leader for readability.",
+  "width": "container",
+  "height": 370,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "params": [
+    {
+      "name": "treatmentYear",
+      "value": 2024
+    }
+  ],
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia.geo.json",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eee8dc",
+        "stroke": "#fffaf3",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 149.1,
+            "lat": -35.35,
+            "lon2": 153,
+            "lat2": -35.8
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#a39e98",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "lon2"
+        },
+        "latitude2": {
+          "field": "lat2"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/treatment-states.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.year === treatmentYear"
+        },
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "values": [
+                {
+                  "state": "WA",
+                  "lon": 122,
+                  "lat": -26
+                },
+                {
+                  "state": "NT",
+                  "lon": 133.5,
+                  "lat": -19.5
+                },
+                {
+                  "state": "SA",
+                  "lon": 135.5,
+                  "lat": -31.5
+                },
+                {
+                  "state": "QLD",
+                  "lon": 144.8,
+                  "lat": -22
+                },
+                {
+                  "state": "NSW",
+                  "lon": 146.8,
+                  "lat": -32
+                },
+                {
+                  "state": "VIC",
+                  "lon": 144.3,
+                  "lat": -37.5
+                },
+                {
+                  "state": "TAS",
+                  "lon": 146.7,
+                  "lat": -42.1
+                },
+                {
+                  "state": "ACT",
+                  "lon": 153,
+                  "lat": -35.8
+                }
+              ]
+            },
+            "key": "state",
+            "fields": [
+              "lon",
+              "lat"
+            ]
+          }
+        }
+      ],
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        }
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "circle",
+            "color": "#397b76",
+            "opacity": 0.65,
+            "stroke": "#245a56",
+            "strokeWidth": 1
+          },
+          "encoding": {
+            "size": {
+              "field": "episodes",
+              "type": "quantitative",
+              "title": "Closed treatment episodes",
+              "scale": {
+                "domain": [
+                  0,
+                  30000
+                ],
+                "range": [
+                  0,
+                  3000
+                ]
+              },
+              "legend": {
+                "values": [
+                  5000,
+                  15000,
+                  30000
+                ],
+                "format": ".2s"
+              }
+            },
+            "tooltip": [
+              {
+                "field": "state_name",
+                "type": "nominal",
+                "title": "Reporting jurisdiction"
+              },
+              {
+                "field": "period",
+                "type": "nominal",
+                "title": "Financial year"
+              },
+              {
+                "field": "episodes",
+                "type": "quantitative",
+                "title": "Alcohol treatment episodes",
+                "format": ",.0f"
+              }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fontWeight": 700,
+            "color": "#29252e",
+            "dy": -3
+          },
+          "encoding": {
+            "text": {
+              "field": "state"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

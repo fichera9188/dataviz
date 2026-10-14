@@ -1,0 +1,142 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Shares of available pure alcohol by beverage,2011–12 to2023–24. Component volumes are normalised; source figures reconcile to the reported total within rounding.",
+  "width": "container",
+  "height": 290,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/beverage-mix.json"
+  },
+  "mark": {
+    "type": "area",
+    "opacity": 0.9
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": null,
+      "axis": {
+        "format": "d",
+        "values": [
+          2011,
+          2014,
+          2017,
+          2020,
+          2023
+        ],
+        "grid": false
+      }
+    },
+    "y": {
+      "field": "share",
+      "type": "quantitative",
+      "title": "Share of pure alcohol",
+      "stack": "zero",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "axis": {
+        "format": ".0%",
+        "tickCount": 5
+      }
+    },
+    "color": {
+      "field": "beverage",
+      "type": "nominal",
+      "title": null,
+      "scale": {
+        "domain": [
+          "Beer",
+          "Wine",
+          "Spirits & RTDs",
+          "Cider"
+        ],
+        "range": [
+          "#d59e51",
+          "#80516b",
+          "#397b76",
+          "#aca598"
+        ]
+      }
+    },
+    "order": {
+      "field": "order",
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {
+        "field": "period",
+        "type": "nominal",
+        "title": "Financial year"
+      },
+      {
+        "field": "beverage",
+        "type": "nominal",
+        "title": "Beverage"
+      },
+      {
+        "field": "share",
+        "type": "quantitative",
+        "title": "Share",
+        "format": ".1%"
+      },
+      {
+        "field": "volume",
+        "type": "quantitative",
+        "title": "Thousand litres of pure alcohol",
+        "format": ",.0f"
+      }
+    ]
+  }
+}

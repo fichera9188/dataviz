@@ -1,0 +1,170 @@
+{
+  "prepared_date": "2026-10-14",
+  "assets": {
+    "age-trends": {
+      "dataset_id": "D03",
+      "source": "D03_NDSHS_alcohol.xlsx",
+      "tables": [
+        "Table 4.5!A4:I12",
+        "Table 4.27!A28:I35",
+        "Table 4.27!A50:I57",
+        "Table 4.27!A72:I79"
+      ],
+      "unit": "Percent of people in the age group, all genders",
+      "measures": [
+        "Daily drinking",
+        "Risky drinking",
+        "More than 10 drinks weekly",
+        "More than 4 drinks monthly"
+      ],
+      "definitions": {
+        "Daily drinking": "Consumed alcohol daily.",
+        "Risky drinking": "More than 10 standard drinks weekly OR more than 4 on a single day at least monthly, average over previous 12 months; fixed 2020 guideline definition applied to all displayed waves.",
+        "More than 10 drinks weekly": "More than 10 standard drinks per week on average in previous 12 months.",
+        "More than 4 drinks monthly": "More than 4 standard drinks on one occasion at least once a month over previous 12 months."
+      },
+      "handling": "Original flags preserved. n.p., censored <0.1 and ** estimates unsuitable for most uses have null chart value; original published string retained. Main age bins only, excluding overlapping additional bins and totals.",
+      "limitations": "Repeated cross-sections, not people tracked over time. A wave labelled 2022–2023 has numeric ordering key 2022. # is significance versus 2019 only, not versus2001.",
+      "rows": 256,
+      "bytes": 41829
+    },
+    "risk-mosaic": {
+      "dataset_id": "D03",
+      "source": "D03_NDSHS_alcohol.xlsx",
+      "tables": [
+        "Table 4.31!B6:D16; reliabilityB31:D41",
+        "Marginal cross-check Table 4.27!I36,I58,I80"
+      ],
+      "period": "2022–2023",
+      "population": "People aged14+",
+      "unit": "Table percent within each gender",
+      "definitions": "Weekly threshold is >10 standard drinks per week on average. Episodic threshold is >4 drinks on an occasion at least monthly over past12 months. Abstainer is no alcohol in past12 months.",
+      "source_correction": "Footnotes(d)/(e) in Table4.31 reverse the weekly definitions. Followed explicit row labels, independently checked against Table4.27 marginal totals.",
+      "geometry": "Within each gender, x-width is weekly marginal / sum published cells; y-height is cell / weekly marginal. All geometries use0–100 coordinates. Female sum99.9 due to rounding; only geometry normalized, published values unchanged. n.a. structural combinations are omitted, never converted to invented data.",
+      "rows": 15,
+      "bytes": 3300
+    },
+    "state-risk": {
+      "dataset_id": "D03",
+      "source": "D03_NDSHS_states.xlsx",
+      "tables": [
+        "Table 9b.16 rows9,13,17; columnsG,M,S,Y,AE,AK,AQ,AW",
+        "RSE rows35,39,43; MOE rows54,58,62"
+      ],
+      "unit": "Percent of people aged14+ within state and gender",
+      "definition": "Derived from2020 NHMRC guideline1: more than10 standard drinks weekly OR more than4 on a single day at least monthly, on average.",
+      "notes": "Latest2022–2023 wave only. Crude survey prevalence, not age-standardised. Sampled prevalence and ranking have sampling uncertainty. # refers to significant change since2019, not differences between states.",
+      "rows": 24,
+      "bytes": 4958
+    },
+    "adult-gap": {
+      "dataset_id": "D04",
+      "source": "D04_ABS_NHS_alcohol_age_sex.xlsx",
+      "tables": [
+        "Table 7.3_Proportions!C37:G37,M37:N37,Q37",
+        "Table 7.3_Proportions!C61:G61,M61:N61,Q61",
+        "Table 7.2_RSEs same cells",
+        "Table 7.4_MoEs same cells"
+      ],
+      "year": 2022,
+      "unit": "Percent of adults in the corresponding age/sex group",
+      "definition": "Total exceeded2020 adult guideline: >10 drinks in last week or5+ on any day in last12 months at least monthly. At least monthly interpreted as12+ times in last12 months.",
+      "sex_definition": "Sex recorded at birth; table uses Males/Females. ABS persons totals can include other terms.",
+      "notes": "Do not splice this NHS snapshot into NDSHS series. Published cells are randomly adjusted for confidentiality; component sums can differ. moe is a percentage-point margin; rse is percent. Adult total is a summary and must not be summed with age groups.",
+      "rows": 16,
+      "bytes": 1962
+    },
+    "treatment-states": {
+      "dataset_id": "D08",
+      "source": "D08_treatment_states_2024_2025.xlsx",
+      "tables": [
+        "Table ST NSW.6!D11:M11; periodsD3:M3",
+        "Table ST VIC.6!D11:M11; periodsD3:M3",
+        "Table ST QLD.6!D11:M11; periodsD3:M3",
+        "Table ST WA.6!D11:M11; periodsD3:M3",
+        "Table ST SA.6!D11:M11; periodsD3:M3",
+        "Table ST TAS.6!D11:M11; periodsD3:M3",
+        "Table ST ACT.6!D11:M11; periodsD3:M3",
+        "Table ST NT.6!D11:M11; periodsD3:M3"
+      ],
+      "unit": "Closed treatment episodes",
+      "definition": "Closed treatment episodes for own drug use where principal drug of concern is Alcohol.",
+      "notes": "Counts are episodes, not unique patients. State totals reflect population size, service coverage, access and reporting. Fiscal year uses starting numeric year. No per-capita denominator is provided or inferred.",
+      "rows": 80,
+      "bytes": 10441
+    }
+  },
+  "inputs": {
+    "D03_NDSHS_alcohol.xlsx": {
+      "sha256": "5ae0d3ef406468cf7c8846edb892ad6e4263092eaafa336aa7cc612af47631af"
+    },
+    "D03_NDSHS_states.xlsx": {
+      "sha256": "5496cc63ff651330ab87ed85585eab91be7d926ea1cc1108c396797bb4556936"
+    },
+    "D04_ABS_NHS_alcohol_age_sex.xlsx": {
+      "sha256": "f8350f7855330a0f2c9688b3b42a20daa35ab415cec40606482d9066ea0177ef"
+    },
+    "D08_treatment_states_2024_2025.xlsx": {
+      "sha256": "7f52b175829a6443a94859fe73553705360f76caa031de49301c1de085fbb14e"
+    }
+  },
+  "checks": {
+    "age_trends": {
+      "18–24_monthly_2001_2022": [
+        57.3,
+        40.8
+      ],
+      "60–69_monthly_2001_2022": [
+        12.8,
+        19.4
+      ],
+      "70+_daily_2001_2022": [
+        19.1,
+        11.7
+      ],
+      "null_points": 7
+    },
+    "mosaic": {
+      "Males": {
+        "published_sum_percent": 100.0,
+        "total_rectangle_area": 1.0
+      },
+      "Females": {
+        "published_sum_percent": 99.9,
+        "total_rectangle_area": 1.0
+      },
+      "Persons": {
+        "published_sum_percent": 100.0,
+        "total_rectangle_area": 1.0
+      },
+      "persons_risky_percent": 30.7
+    },
+    "state_risk_persons": {
+      "NSW": 31.2,
+      "VIC": 26.4,
+      "QLD": 33.1,
+      "WA": 33.2,
+      "SA": 32.2,
+      "TAS": 34.0,
+      "ACT": 26.8,
+      "NT": 40.4
+    },
+    "adult_guideline_totals": {
+      "Males": 35.8,
+      "Females": 18.1,
+      "gap_percentage_points": 17.7
+    },
+    "treatment_state_sums": {
+      "2015–16": 63266,
+      "2016–17": 62438,
+      "2017–18": 70859,
+      "2018–19": 74744,
+      "2019–20": 75005,
+      "2020–21": 83552,
+      "2021–22": 87334,
+      "2022–23": 92417,
+      "2023–24": 91361,
+      "2024–25": 87632
+    }
+  }
+}

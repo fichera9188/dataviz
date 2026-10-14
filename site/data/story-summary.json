@@ -1,0 +1,36 @@
+{
+  "availability_latest": {
+    "year": 2023,
+    "period": "2023–24",
+    "volume": 217107,
+    "value": 9.79
+  },
+  "availability_peak": {
+    "year": 1974,
+    "period": "1974–75",
+    "volume": 130950,
+    "value": 13.09
+  },
+  "availability_peak_decline_percent": 25.2,
+  "availability_recent_decline_percent": 10.0,
+  "burden_total": 238262,
+  "burden_share_percent": 4.1,
+  "hospitalisations": 84318,
+  "hospitalisations_45plus_percent": 59.7,
+  "deaths_latest": {
+    "year": 2024,
+    "sex": "All",
+    "count": 1765,
+    "rate": 5.9,
+    "status": "Preliminary"
+  },
+  "deaths_2015": {
+    "year": 2015,
+    "sex": "All",
+    "count": 1362,
+    "rate": 5.2,
+    "status": "Final"
+  },
+  "data_snapshot_date": "2026-10-13",
+  "page_date": "2026-10-14"
+}

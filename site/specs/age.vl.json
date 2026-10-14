@@ -1,0 +1,166 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "NDSHS published drinking percentages by age and survey year. Each wave is a different population sample. Unreliable/suppressed observations are null.",
+  "width": "container",
+  "height": 310,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/age-trends.json"
+  },
+  "params": [
+    {
+      "name": "ageMeasure",
+      "value": "More than 4 drinks monthly"
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.measure === ageMeasure"
+    },
+    {
+      "calculate": "datum.year === 2022 ? '2022–23' : toString(datum.year)",
+      "as": "short_period"
+    }
+  ],
+  "mark": {
+    "type": "rect",
+    "stroke": "#fffaf3",
+    "strokeWidth": 3,
+    "cornerRadius": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "short_period",
+      "type": "ordinal",
+      "title": null,
+      "sort": {
+        "field": "year"
+      },
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 10,
+        "grid": false
+      }
+    },
+    "y": {
+      "field": "age",
+      "type": "ordinal",
+      "title": null,
+      "sort": [
+        "14–17",
+        "18–24",
+        "25–29",
+        "30–39",
+        "40–49",
+        "50–59",
+        "60–69",
+        "70+"
+      ],
+      "axis": {
+        "grid": false
+      }
+    },
+    "color": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "People in the age group (%)",
+      "scale": {
+        "domain": [
+          0,
+          65
+        ],
+        "range": [
+          "#f3ebda",
+          "#dfc89b",
+          "#b99a73",
+          "#986d60",
+          "#704d58",
+          "#49323f"
+        ]
+      },
+      "legend": {
+        "gradientLength": 180
+      }
+    },
+    "tooltip": [
+      {
+        "field": "age",
+        "type": "nominal",
+        "title": "Age"
+      },
+      {
+        "field": "period",
+        "type": "nominal",
+        "title": "Survey year"
+      },
+      {
+        "field": "measure",
+        "type": "nominal",
+        "title": "Measure"
+      },
+      {
+        "field": "value",
+        "type": "quantitative",
+        "title": "Percentage",
+        "format": ".1f"
+      },
+      {
+        "field": "flag",
+        "type": "nominal",
+        "title": "Reliability"
+      },
+      {
+        "field": "published_value",
+        "type": "nominal",
+        "title": "Published value"
+      }
+    ]
+  }
+}

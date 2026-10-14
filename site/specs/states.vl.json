@@ -1,0 +1,249 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "Equal-size tile cartogram with approximate Australian state arrangement. NDSHS2022–23 prevalence of exceeding the adult risk thresholds, people14+.",
+  "width": "container",
+  "height": 370,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "padding": 8,
+  "config": {
+    "background": null,
+    "font": "DM Sans",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "domain": false,
+      "tickColor": "#ddd4c6",
+      "gridColor": "#e5ded3",
+      "gridOpacity": 0.8,
+      "titlePadding": 13,
+      "labelPadding": 7
+    },
+    "legend": {
+      "labelFont": "DM Sans",
+      "titleFont": "DM Sans",
+      "labelFontSize": 11,
+      "titleFontSize": 11,
+      "titleFontWeight": 500,
+      "labelColor": "#655f66",
+      "titleColor": "#655f66",
+      "orient": "bottom",
+      "padding": 10,
+      "offset": 16
+    },
+    "title": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    },
+    "text": {
+      "font": "DM Sans",
+      "color": "#29252e"
+    }
+  },
+  "data": {
+    "url": "data/state-risk.json"
+  },
+  "params": [
+    {
+      "name": "stateGender",
+      "value": "Persons"
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.gender === stateGender"
+    },
+    {
+      "lookup": "state",
+      "from": {
+        "data": {
+          "values": [
+            {
+              "state": "WA",
+              "col": 0,
+              "row": 1
+            },
+            {
+              "state": "NT",
+              "col": 1,
+              "row": 0
+            },
+            {
+              "state": "QLD",
+              "col": 2,
+              "row": 0
+            },
+            {
+              "state": "SA",
+              "col": 1,
+              "row": 1
+            },
+            {
+              "state": "NSW",
+              "col": 2,
+              "row": 1
+            },
+            {
+              "state": "ACT",
+              "col": 3,
+              "row": 1
+            },
+            {
+              "state": "VIC",
+              "col": 2,
+              "row": 2
+            },
+            {
+              "state": "TAS",
+              "col": 2,
+              "row": 3
+            }
+          ]
+        },
+        "key": "state",
+        "fields": [
+          "col",
+          "row"
+        ]
+      }
+    },
+    {
+      "calculate": "format(datum.value,'.1f')+'%'",
+      "as": "display"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "col",
+      "type": "ordinal",
+      "scale": {
+        "domain": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "padding": 0.06
+      },
+      "axis": null
+    },
+    "y": {
+      "field": "row",
+      "type": "ordinal",
+      "scale": {
+        "domain": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "padding": 0.06
+      },
+      "axis": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "cornerRadius": 2
+      },
+      "encoding": {
+        "color": {
+          "field": "value",
+          "type": "quantitative",
+          "title": "Risky drinking (%)",
+          "scale": {
+            "domain": [
+              0,
+              60
+            ],
+            "range": [
+              "#efe7d6",
+              "#dfbc90",
+              "#be8b6e",
+              "#925e60",
+              "#664052"
+            ]
+          },
+          "legend": {
+            "gradientLength": 160
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state_name",
+            "type": "nominal",
+            "title": "State or territory"
+          },
+          {
+            "field": "gender",
+            "type": "nominal",
+            "title": "Population"
+          },
+          {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Risky drinking (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "flag",
+            "type": "nominal",
+            "title": "Reliability"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 15,
+        "fontWeight": 700,
+        "dy": -8
+      },
+      "encoding": {
+        "text": {
+          "field": "state"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.value >= 40",
+            "value": "#fffaf3"
+          },
+          "value": "#29252e"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "dy": 13
+      },
+      "encoding": {
+        "text": {
+          "field": "display"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.value >= 40",
+            "value": "#fffaf3"
+          },
+          "value": "#29252e"
+        }
+      }
+    }
+  ]
+}

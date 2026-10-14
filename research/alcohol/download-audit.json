@@ -1,0 +1,62 @@
+[
+  {
+    "file": "D03_NDSHS_alcohol.xlsx",
+    "status": "copied browser download",
+    "bytes": 1024922
+  },
+  {
+    "file": "D06_alcohol_availability_2023_2024.xlsx",
+    "status": "copied browser download",
+    "bytes": 73298
+  },
+  {
+    "file": "D09_alcohol_attributable_burden_2024.xlsx",
+    "status": "copied browser download",
+    "bytes": 127755
+  },
+  {
+    "file": "D10_alcohol_hospitalisations_2023_2024.xlsx",
+    "status": "copied browser download",
+    "bytes": 290909
+  },
+  {
+    "file": "D04_ABS_NHS_alcohol_age_sex.xlsx",
+    "url": "https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey/2022/NHSDC07.xlsx",
+    "status": "downloaded",
+    "bytes": 93460
+  },
+  {
+    "file": "D05_ASSAD_2022_2023.pdf",
+    "url": "https://www.health.gov.au/sites/default/files/2024-02/australian-secondary-school-students-use-of-alcohol-and-other-substances-2022-2023.pdf",
+    "status": "downloaded",
+    "bytes": 1078704
+  },
+  {
+    "file": "D07_ABS_alcohol_induced_deaths_2024.xlsx",
+    "url": "https://www.abs.gov.au/statistics/health/causes-death/causes-death-australia/2024/2024_13%20Drug%20and%20alcohol-induced%20deaths%20%28Australia%29.xlsx",
+    "status": "downloaded",
+    "bytes": 279693
+  },
+  {
+    "dataset": "D01_WHO_total_consumption",
+    "url": "https://ghoapi.azureedge.net/api/SA_0000001688",
+    "status": "downloaded",
+    "rows": 5175,
+    "years": [
+      2000,
+      2024
+    ],
+    "duplicate_keys": 0
+  },
+  {
+    "dataset": "D02_WHO_heavy_episodic_drinking",
+    "url": "https://ghoapi.azureedge.net/api/SA_0000001739",
+    "status": "downloaded",
+    "rows": 11809,
+    "years": [
+      2000,
+      2020
+    ],
+    "duplicate_keys": 0
+  }
+]

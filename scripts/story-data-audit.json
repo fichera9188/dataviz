@@ -1,0 +1,61 @@
+{
+  "world-consumption": {
+    "rows": 5175,
+    "bytes": 347581
+  },
+  "episodic-country": {
+    "rows": 561,
+    "bytes": 43025
+  },
+  "availability": {
+    "rows": 64,
+    "bytes": 4130
+  },
+  "beverage-mix": {
+    "rows": 52,
+    "bytes": 5840,
+    "note": "Composition shown from2011–12: earlier published beverage totals have discrepancies beyond rounding against Table7. Retained source values; no adjustments made. 2011–12 onwards reconciles within independently rounded thousands of litres."
+  },
+  "adolescent": {
+    "rows": 25,
+    "bytes": 2500,
+    "provenance": "Manual transcription verified against ASSAD Table 2 (PDF page 9) rendered in previous research turn; published weighted percentages, not sample counts."
+  },
+  "adolescent-waffle": {
+    "rows": 2500,
+    "bytes": 317273
+  },
+  "deaths": {
+    "rows": 30,
+    "bytes": 2098
+  },
+  "death-waterfall": {
+    "rows": 33,
+    "bytes": 5370
+  },
+  "hospital-age-sex": {
+    "rows": 10,
+    "bytes": 1166,
+    "published_totals": {
+      "Male": 49354,
+      "Female": 34944,
+      "Persons": 84318
+    },
+    "note": "Totals include under15/unknown age and other/unknown sex. Displayed bars do not exhaust total. These are episodes, not unique people."
+  },
+  "burden-treemap": {
+    "rows": 18,
+    "bytes": 3374,
+    "published_totals": {
+      "Male": 165797,
+      "Female": 72465,
+      "All": 238262
+    },
+    "derived_residuals": {
+      "Male": 5965,
+      "Female": 3897,
+      "All": 9860
+    },
+    "note": "Five listed major groups do not exhaust the published alcohol-attributable total. Not itemised in this extract is explicitly derived as total minus five mutually exclusive top-level groups; not a newly observed disease category. Child rows are excluded."
+  }
+}
