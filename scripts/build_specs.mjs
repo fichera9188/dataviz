@@ -135,20 +135,29 @@ add('states', {
 },370);
 
 const anchors=[
-  {state:'WA',lon:122,lat:-26},{state:'NT',lon:133.5,lat:-19.5},{state:'SA',lon:135.5,lat:-31.5},
-  {state:'QLD',lon:144.8,lat:-22},{state:'NSW',lon:146.8,lat:-32},{state:'VIC',lon:144.3,lat:-37.5},
-  {state:'TAS',lon:146.7,lat:-42.1},{state:'ACT',lon:153,lat:-35.8}
+  {state:'WA',lon:122,lat:-26,label_lon:117.5,label_lat:-26},
+  {state:'NT',lon:133.5,lat:-19.5,label_lon:133.5,label_lat:-16.2},
+  {state:'SA',lon:135.5,lat:-31.5,label_lon:130.3,label_lat:-32.3},
+  {state:'QLD',lon:144.8,lat:-22,label_lon:149.3,label_lat:-21.6},
+  {state:'NSW',lon:146.8,lat:-32,label_lon:152,label_lat:-30},
+  {state:'VIC',lon:144.3,lat:-37.5,label_lon:140.2,label_lat:-38.7},
+  {state:'TAS',lon:146.7,lat:-42.1,label_lon:150.5,label_lat:-42.4},
+  {state:'ACT',lon:153,lat:-35.8,label_lon:156,label_lat:-35.5}
 ];
+const treatmentLabelEncoding={longitude:q('label_lon'),latitude:q('label_lat'),text:{field:'label'}};
+const treatmentLabelMark={type:'text',fontSize:11,fontWeight:600,lineBreak:'\n',lineHeight:13,baseline:'middle',dy:-6};
 add('treatment', {
   description:'Alcohol-principal-concern closed treatment episodes for own drug use by jurisdiction. Symbol area encodes episodes, not people or prevalence. ACT anchor offset with a leader for readability.',
   params:[parameter('treatmentYear',2024)],projection:{type:'mercator'},
   layer:[
-    {data:{...data('australia.geo'),format:{type:'json',property:'features'}},mark:{type:'geoshape',fill:C.pale,stroke:'#fffaf3',strokeWidth:1}},
+    {data:{...data('australia.geo'),format:{type:'json',property:'features'}},mark:{type:'geoshape',fill:C.pale,stroke:'#fffaf3',strokeWidth:1.2}},
     {data:{values:[{lon:149.1,lat:-35.35,lon2:153,lat2:-35.8}]},mark:{type:'rule',color:C.grey,strokeWidth:1},encoding:{longitude:q('lon'),latitude:q('lat'),longitude2:{field:'lon2'},latitude2:{field:'lat2'}}},
-    {data:data('treatment-states'),transform:[{filter:'datum.year === treatmentYear'},{lookup:'state',from:{data:{values:anchors},key:'state',fields:['lon','lat']}}],
+    {data:{values:anchors},mark:{type:'rule',color:'#807c72',strokeWidth:1,opacity:.6},encoding:{longitude:q('lon'),latitude:q('lat'),longitude2:{field:'label_lon'},latitude2:{field:'label_lat'}}},
+    {data:data('treatment-states'),transform:[{filter:'datum.year === treatmentYear'},{lookup:'state',from:{data:{values:anchors},key:'state',fields:['lon','lat','label_lon','label_lat']}},{calculate:"datum.state + '\\n' + format(datum.episodes,',.0f')",as:'label'}],
       encoding:{longitude:q('lon'),latitude:q('lat')},layer:[
-        {mark:{type:'circle',color:C.teal,opacity:.65,stroke:'#245a56',strokeWidth:1},encoding:{size:q('episodes','Closed treatment episodes',{scale:{domain:[0,30000],range:[0,3000]},legend:{values:[5000,15000,30000],format:'.2s'}}),tooltip:[tooltip('state_name','nominal','Reporting jurisdiction'),tooltip('period','nominal','Financial year'),tooltip('episodes','quantitative','Alcohol treatment episodes',',.0f')]}},
-        {mark:{type:'text',fontSize:10,fontWeight:700,color:C.ink,dy:-3},encoding:{text:{field:'state'}}}
+        {mark:{type:'circle',color:C.teal,opacity:.85,stroke:'#fffaf3',strokeWidth:2},encoding:{size:q('episodes','Closed treatment episodes',{scale:{domain:[0,30000],range:[0,1900]},legend:{values:[5000,15000,30000],format:',.0f'}}),tooltip:[tooltip('state_name','nominal','Reporting jurisdiction'),tooltip('period','nominal','Financial year'),tooltip('episodes','quantitative','Alcohol treatment episodes',',.0f')]}},
+        {mark:{...treatmentLabelMark,color:'#fffaf3',stroke:'#fffaf3',strokeWidth:3},encoding:treatmentLabelEncoding},
+        {mark:{...treatmentLabelMark,color:C.ink},encoding:treatmentLabelEncoding}
       ]}
   ]
 },370);

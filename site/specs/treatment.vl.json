@@ -73,7 +73,7 @@
         "type": "geoshape",
         "fill": "#eee8dc",
         "stroke": "#fffaf3",
-        "strokeWidth": 1
+        "strokeWidth": 1.2
       }
     },
     {
@@ -111,6 +111,90 @@
     },
     {
       "data": {
+        "values": [
+          {
+            "state": "WA",
+            "lon": 122,
+            "lat": -26,
+            "label_lon": 117.5,
+            "label_lat": -26
+          },
+          {
+            "state": "NT",
+            "lon": 133.5,
+            "lat": -19.5,
+            "label_lon": 133.5,
+            "label_lat": -16.2
+          },
+          {
+            "state": "SA",
+            "lon": 135.5,
+            "lat": -31.5,
+            "label_lon": 130.3,
+            "label_lat": -32.3
+          },
+          {
+            "state": "QLD",
+            "lon": 144.8,
+            "lat": -22,
+            "label_lon": 149.3,
+            "label_lat": -21.6
+          },
+          {
+            "state": "NSW",
+            "lon": 146.8,
+            "lat": -32,
+            "label_lon": 152,
+            "label_lat": -30
+          },
+          {
+            "state": "VIC",
+            "lon": 144.3,
+            "lat": -37.5,
+            "label_lon": 140.2,
+            "label_lat": -38.7
+          },
+          {
+            "state": "TAS",
+            "lon": 146.7,
+            "lat": -42.1,
+            "label_lon": 150.5,
+            "label_lat": -42.4
+          },
+          {
+            "state": "ACT",
+            "lon": 153,
+            "lat": -35.8,
+            "label_lon": 156,
+            "label_lat": -35.5
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#807c72",
+        "strokeWidth": 1,
+        "opacity": 0.6
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "label_lon"
+        },
+        "latitude2": {
+          "field": "label_lat"
+        }
+      }
+    },
+    {
+      "data": {
         "url": "data/treatment-states.json"
       },
       "transform": [
@@ -125,51 +209,73 @@
                 {
                   "state": "WA",
                   "lon": 122,
-                  "lat": -26
+                  "lat": -26,
+                  "label_lon": 117.5,
+                  "label_lat": -26
                 },
                 {
                   "state": "NT",
                   "lon": 133.5,
-                  "lat": -19.5
+                  "lat": -19.5,
+                  "label_lon": 133.5,
+                  "label_lat": -16.2
                 },
                 {
                   "state": "SA",
                   "lon": 135.5,
-                  "lat": -31.5
+                  "lat": -31.5,
+                  "label_lon": 130.3,
+                  "label_lat": -32.3
                 },
                 {
                   "state": "QLD",
                   "lon": 144.8,
-                  "lat": -22
+                  "lat": -22,
+                  "label_lon": 149.3,
+                  "label_lat": -21.6
                 },
                 {
                   "state": "NSW",
                   "lon": 146.8,
-                  "lat": -32
+                  "lat": -32,
+                  "label_lon": 152,
+                  "label_lat": -30
                 },
                 {
                   "state": "VIC",
                   "lon": 144.3,
-                  "lat": -37.5
+                  "lat": -37.5,
+                  "label_lon": 140.2,
+                  "label_lat": -38.7
                 },
                 {
                   "state": "TAS",
                   "lon": 146.7,
-                  "lat": -42.1
+                  "lat": -42.1,
+                  "label_lon": 150.5,
+                  "label_lat": -42.4
                 },
                 {
                   "state": "ACT",
                   "lon": 153,
-                  "lat": -35.8
+                  "lat": -35.8,
+                  "label_lon": 156,
+                  "label_lat": -35.5
                 }
               ]
             },
             "key": "state",
             "fields": [
               "lon",
-              "lat"
+              "lat",
+              "label_lon",
+              "label_lat"
             ]
           }
+        },
+        {
+          "calculate": "datum.state + '\\n' + format(datum.episodes,',.0f')",
+          "as": "label"
         }
       ],
       "encoding": {
@@ -187,9 +293,9 @@
           "mark": {
             "type": "circle",
             "color": "#397b76",
-            "opacity": 0.65,
-            "stroke": "#245a56",
-            "strokeWidth": 1
+            "opacity": 0.85,
+            "stroke": "#fffaf3",
+            "strokeWidth": 2
           },
           "encoding": {
             "size": {
@@ -203,7 +309,7 @@
                 ],
                 "range": [
                   0,
-                  3000
+                  1900
                 ]
               },
               "legend": {
@@ -212,7 +318,7 @@
                   15000,
                   30000
                 ],
-                "format": ".2s"
+                "format": ",.0f"
               }
             },
             "tooltip": [
@@ -238,14 +344,52 @@
         {
           "mark": {
             "type": "text",
-            "fontSize": 10,
-            "fontWeight": 700,
-            "color": "#29252e",
-            "dy": -3
+            "fontSize": 11,
+            "fontWeight": 600,
+            "lineBreak": "\n",
+            "lineHeight": 13,
+            "baseline": "middle",
+            "dy": -6,
+            "color": "#fffaf3",
+            "stroke": "#fffaf3",
+            "strokeWidth": 3
           },
           "encoding": {
+            "longitude": {
+              "field": "label_lon",
+              "type": "quantitative"
+            },
+            "latitude": {
+              "field": "label_lat",
+              "type": "quantitative"
+            },
             "text": {
-              "field": "state"
+              "field": "label"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "fontSize": 11,
+            "fontWeight": 600,
+            "lineBreak": "\n",
+            "lineHeight": 13,
+            "baseline": "middle",
+            "dy": -6,
+            "color": "#29252e"
+          },
+          "encoding": {
+            "longitude": {
+              "field": "label_lon",
+              "type": "quantitative"
+            },
+            "latitude": {
+              "field": "label_lat",
+              "type": "quantitative"
+            },
+            "text": {
+              "field": "label"
             }
           }
         }
