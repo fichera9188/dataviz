@@ -7,10 +7,10 @@ const output = path.join(root, 'site/specs');
 await fs.mkdir(output, {recursive: true});
 const C = {ink:'#29252e', teal:'#397b76', plum:'#80516b', rust:'#bb5939', gold:'#d59e51', pale:'#eee8dc', grey:'#a39e98'};
 const config = {
-  background:null, font:'DM Sans', view:{stroke:null},
-  axis:{labelFont:'DM Sans',titleFont:'DM Sans',labelFontSize:11,titleFontSize:11,titleFontWeight:500,labelColor:'#655f66',titleColor:'#655f66',domain:false,tickColor:'#ddd4c6',gridColor:'#e5ded3',gridOpacity:.8,titlePadding:13,labelPadding:7},
-  legend:{labelFont:'DM Sans',titleFont:'DM Sans',labelFontSize:11,titleFontSize:11,titleFontWeight:500,labelColor:'#655f66',titleColor:'#655f66',orient:'bottom',padding:10,offset:16},
-  title:{font:'DM Sans',color:C.ink}, text:{font:'DM Sans',color:C.ink},
+  background:null, font:'Arial', view:{stroke:null},
+  axis:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',domain:false,tickColor:'#ddd4c6',gridColor:'#e5ded3',gridOpacity:.8,titlePadding:13,labelPadding:7},
+  legend:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',orient:'bottom',padding:10,offset:16},
+  title:{font:'Arial',color:C.ink}, text:{font:'Arial',color:C.ink},
 };
 const data = name => ({url:`data/${name}.json`});
 const q = (field,title,extra={}) => ({field,type:'quantitative',title,...extra});
@@ -170,7 +170,7 @@ add('burden', {
   encoding:{x:q('x0',null,{scale:{domain:[0,1]},axis:null}),y:q('y0',null,{scale:{domain:[1,0]},axis:null})},
   layer:[
     {mark:{type:'rect',stroke:'#fffaf3',strokeWidth:4},encoding:{x2:{field:'x1'},y2:{field:'y1'},color:n('disease',null,{scale:{domain:diseaseDomain,range:[C.plum,C.rust,C.gold,C.teal,'#799595','#c4beb5']},legend:null}),tooltip:[tooltip('disease','nominal','Disease group'),tooltip('value','quantitative','Healthy life years lost',',.0f'),tooltip('share','quantitative','Share of alcohol burden','.1%'),tooltip('attributable_percent','quantitative','Share of this disease due to alcohol (%)','.1f'),tooltip('derived','nominal','Derived remainder')]}},
-    {mark:{type:'text',fontSize:{expr:'datum.share < 0.17 ? 10 : 12'},fontWeight:600,lineBreak:'\n',lineHeight:14},encoding:{x:{field:'cx',type:'quantitative'},y:{field:'cy',type:'quantitative'},text:{field:'display'},color:{condition:{test:"datum.disease === 'Cancers' || datum.disease === 'Not itemised in this extract'",value:C.ink},value:'#fffaf3'}}}
+    {mark:{type:'text',fontSize:{expr:'(datum.x1 - datum.x0) * width < 70 ? 9 : datum.share < 0.17 ? 10 : 12'},fontWeight:600,lineBreak:'\n',lineHeight:14,limit:{expr:'max(28, (datum.x1 - datum.x0) * width - 10)'}},encoding:{x:{field:'cx',type:'quantitative'},y:{field:'cy',type:'quantitative'},text:{condition:{test:'(datum.x1 - datum.x0) * width < 58',field:'value',type:'quantitative',format:',.0f'},field:'display'},color:{condition:{test:"datum.disease === 'Cancers' || datum.disease === 'Not itemised in this extract'",value:C.ink},value:'#fffaf3'}}}
   ]
 },310);
 

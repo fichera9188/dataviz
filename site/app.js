@@ -111,6 +111,23 @@ function sourcesList(rows) {
   window.addEventListener('hashchange',expandSource);expandSource();
 }
 
+function highlightUpdate(id) {
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const elements=[document.getElementById(`chart-${id}`)];
+  if(id==='world') elements.push(document.getElementById('world-australia-value'));
+  if(id==='adolescent') elements.push(document.getElementById('student-value'));
+  if(id==='mortality') elements.push(document.querySelector('.mortality-context'));
+  for(const element of elements) {
+    element.classList.remove('is-updated');
+    // Restart a short emphasis animation even for consecutive filter changes.
+    void element.offsetWidth;
+    element.classList.add('is-updated');
+  }
+}
+document.addEventListener('animationend',event=>{
+  if(event.target.classList.contains('is-updated'))event.target.classList.remove('is-updated');
+});
+
 for(const control of document.querySelectorAll('[data-chart]')) {
   control.addEventListener('change',async()=>{
     const id=control.dataset.chart;
@@ -121,6 +138,11 @@ for(const control of document.querySelectorAll('[data-chart]')) {
       catch(error){console.error(`Parameter ${control.dataset.signal} failed`,error);await renderChart(id);}
     }
     updateNarrative();
+    highlightUpdate(id);
+    const selections=Array.from(document.querySelectorAll(`[data-chart="${id}"]`))
+      .map(input=>input.selectedOptions[0].textContent).join(', ');
+    const title=document.getElementById(`${id}-title`).textContent;
+    document.getElementById('chart-update-status').textContent=`${title}. View updated: ${selections}.`;
   });
 }
 

@@ -11,18 +11,18 @@
   "padding": 8,
   "config": {
     "background": null,
-    "font": "DM Sans",
+    "font": "Arial",
     "view": {
       "stroke": null
     },
     "axis": {
-      "labelFont": "DM Sans",
-      "titleFont": "DM Sans",
-      "labelFontSize": 11,
-      "titleFontSize": 11,
-      "titleFontWeight": 500,
-      "labelColor": "#655f66",
-      "titleColor": "#655f66",
+      "labelFont": "Arial",
+      "titleFont": "Arial",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": 400,
+      "labelColor": "#625c61",
+      "titleColor": "#625c61",
       "domain": false,
       "tickColor": "#ddd4c6",
       "gridColor": "#e5ded3",
@@ -31,23 +31,23 @@
       "labelPadding": 7
     },
     "legend": {
-      "labelFont": "DM Sans",
-      "titleFont": "DM Sans",
-      "labelFontSize": 11,
-      "titleFontSize": 11,
-      "titleFontWeight": 500,
-      "labelColor": "#655f66",
-      "titleColor": "#655f66",
+      "labelFont": "Arial",
+      "titleFont": "Arial",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": 400,
+      "labelColor": "#625c61",
+      "titleColor": "#625c61",
       "orient": "bottom",
       "padding": 10,
       "offset": 16
     },
     "title": {
-      "font": "DM Sans",
+      "font": "Arial",
       "color": "#29252e"
     },
     "text": {
-      "font": "DM Sans",
+      "font": "Arial",
       "color": "#29252e"
     }
   },
