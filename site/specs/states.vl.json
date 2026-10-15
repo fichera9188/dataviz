@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },
@@ -209,7 +211,7 @@
     {
       "mark": {
         "type": "text",
-        "fontSize": 15,
+        "fontSize": 12,
         "fontWeight": 700,
         "dy": -8
       },

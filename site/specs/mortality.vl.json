@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },
@@ -79,7 +81,7 @@
       "title": null,
       "axis": {
         "labelAngle": 0,
-        "labelFontSize": 10,
+        "labelFontSize": 12,
         "labelExpr": "replace(datum.label,' total','')",
         "grid": false
       }
@@ -165,7 +167,7 @@
       "mark": {
         "type": "text",
         "dy": -9,
-        "fontSize": 10,
+        "fontSize": 12,
         "fontWeight": 600
       },
       "encoding": {

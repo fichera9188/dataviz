@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },

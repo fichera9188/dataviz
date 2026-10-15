@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },
@@ -65,7 +67,7 @@
       "filter": "datum.sex === burdenSex"
     },
     {
-      "calculate": "datum.disease === 'Cardiovascular diseases' ? 'Cardiovascular\\ndiseases' : datum.disease === 'Not itemised in this extract' ? 'Not\\nitemised' : datum.disease === 'Chronic liver disease' ? (datum.share < 0.04 ? 'Liver' : 'Liver\\ndisease') : datum.disease === 'Alcohol use disorder' ? 'Alcohol use\\ndisorder' : datum.disease",
+      "calculate": "datum.disease === 'Cardiovascular diseases' ? 'Heart &\\nvessels' : datum.disease === 'Not itemised in this extract' ? 'Not\\nlisted' : datum.disease === 'Chronic liver disease' ? (datum.share < 0.04 ? 'Liver' : 'Liver\\ndisease') : datum.disease === 'Alcohol use disorder' ? 'Alcohol use\\ndisorder' : datum.disease",
       "as": "short"
     },
     {
@@ -172,12 +174,14 @@
     {
       "mark": {
         "type": "text",
-        "fontSize": {
-          "expr": "(datum.x1 - datum.x0) * width < 70 ? 9 : datum.share < 0.17 ? 10 : 12"
-        },
+        "fontSize": 12,
         "fontWeight": 600,
         "lineBreak": "\n",
-        "lineHeight": 14,
+        "lineHeight": 16,
+        "baseline": "middle",
+        "dy": {
+          "expr": "(datum.x1 - datum.x0) * width < 58 ? 0 : -(length(split(datum.display,'\\n'))-1)*16/2"
+        },
         "limit": {
           "expr": "max(28, (datum.x1 - datum.x0) * width - 10)"
         }

@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },
@@ -179,12 +181,12 @@
       "mark": {
         "type": "text",
         "baseline": "middle",
-        "fontSize": 11,
+        "fontSize": 12,
         "fontWeight": 600,
         "lineBreak": "\n",
-        "lineHeight": 13,
+        "lineHeight": 16,
         "dy": {
-          "expr": "(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65 ? 0 : -(length(split(datum.display,'\\n'))-1)*13/2"
+          "expr": "(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65 ? 0 : -(length(split(datum.display,'\\n'))-1)*16/2"
         },
         "limit": {
           "expr": "max(25, (datum.x1-datum.x0) * width / 100 - 12)"

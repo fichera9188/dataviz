@@ -27,7 +27,7 @@ async function renderChart(id) {
     const container = document.getElementById(`chart-${id}`);
     container.setAttribute('aria-busy', 'true');
     try {
-      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261014-chart-polish`);
+      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261015-type-scale`);
       specs.set(id, structuredClone(spec));
       applyInitialControls(id, spec);
       if (views.has(id)) views.get(id).finalize();

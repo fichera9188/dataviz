@@ -6,11 +6,14 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'site/specs');
 await fs.mkdir(output, {recursive: true});
 const C = {ink:'#29252e', teal:'#397b76', plum:'#80516b', rust:'#bb5939', gold:'#d59e51', pale:'#eee8dc', grey:'#a39e98'};
+// All plot text shares the page's 12px note size. Fit labels by shortening
+// their content rather than introducing smaller type sizes.
+const CHART_TEXT_SIZE = 12;
 const config = {
   background:null, font:'Arial', view:{stroke:null},
-  axis:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',domain:false,tickColor:'#ddd4c6',gridColor:'#e5ded3',gridOpacity:.8,titlePadding:13,labelPadding:7},
-  legend:{labelFont:'Arial',titleFont:'Arial',labelFontSize:12,titleFontSize:12,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',orient:'bottom',padding:10,offset:16},
-  title:{font:'Arial',color:C.ink}, text:{font:'Arial',color:C.ink},
+  axis:{labelFont:'Arial',titleFont:'Arial',labelFontSize:CHART_TEXT_SIZE,titleFontSize:CHART_TEXT_SIZE,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',domain:false,tickColor:'#ddd4c6',gridColor:'#e5ded3',gridOpacity:.8,titlePadding:13,labelPadding:7},
+  legend:{labelFont:'Arial',titleFont:'Arial',labelFontSize:CHART_TEXT_SIZE,titleFontSize:CHART_TEXT_SIZE,titleFontWeight:400,labelColor:'#625c61',titleColor:'#625c61',orient:'bottom',padding:10,offset:16},
+  title:{font:'Arial',fontSize:CHART_TEXT_SIZE,color:C.ink}, text:{font:'Arial',fontSize:CHART_TEXT_SIZE,color:C.ink},
 };
 const data = name => ({url:`data/${name}.json`});
 const q = (field,title,extra={}) => ({field,type:'quantitative',title,...extra});
@@ -42,11 +45,11 @@ add('world', {
 add('episodic', {
   description:'Distribution of country-level heavy episodic drinking prevalence by WHO region,2020. Each country contributes one observation. The boxes are not individual drinking distributions.',
   data:data('episodic-country'),params:[parameter('hedSex','All')],transform:[{filter:'datum.sex === hedSex'}],
-  encoding:{y:n('region',null,{sort:['Africa','Americas','Eastern Mediterranean','Europe','South-East Asia','Western Pacific'],axis:{labelLimit:140,labelFontSize:11}}),x:q('value','People aged 15+ (%)',{scale:{domain:[0,70]},axis:{tickCount:5,labelExpr:"datum.label + '%'"}})},
+  encoding:{y:n('region',null,{sort:['Africa','Americas','Eastern Mediterranean','Europe','South-East Asia','Western Pacific'],axis:{labelLimit:140,labelFontSize:CHART_TEXT_SIZE}}),x:q('value','People aged 15+ (%)',{scale:{domain:[0,70]},axis:{tickCount:5,labelExpr:"datum.label + '%'"}})},
   layer:[
     {mark:{type:'boxplot',extent:'min-max',size:17,color:C.teal,box:{fillOpacity:.35,stroke:C.teal},median:{color:C.teal,strokeWidth:2},rule:{strokeWidth:1},ticks:{strokeWidth:1}},encoding:{tooltip:[tooltip('region','nominal','WHO region')]}},
     {transform:[{filter:"datum.iso3 === 'AUS'"}],mark:{type:'point',filled:true,color:C.rust,size:100,stroke:'#fffaf3',strokeWidth:1.5},encoding:{tooltip:[tooltip('sex','nominal','Australia, sex'),tooltip('value','quantitative','Prevalence (%)','.1f')]}},
-    {transform:[{filter:"datum.iso3 === 'AUS'"}],mark:{type:'text',text:'Australia',align:'left',dx:9,dy:-13,color:C.rust,fontSize:11,fontWeight:600}}
+    {transform:[{filter:"datum.iso3 === 'AUS'"}],mark:{type:'text',text:'Australia',align:'left',dx:9,dy:-13,color:C.rust,fontSize:CHART_TEXT_SIZE,fontWeight:600}}
   ]
 },290);
 
@@ -58,8 +61,8 @@ add('availability', {
     {mark:{type:'line',color:C.teal,strokeWidth:2.8}},
     {mark:{type:'point',opacity:0,size:110},encoding:{tooltip:[tooltip('period','nominal','Financial year'),tooltip('value','quantitative','Litres per person aged15+','.2f'),tooltip('volume','quantitative','Pure alcohol (thousand litres)',',.0f')]}},
     {transform:[{filter:'datum.year === 1974 || datum.year === 2023'}],mark:{type:'point',filled:true,size:65,color:C.teal}},
-    {transform:[{filter:'datum.year === 1974'}],mark:{type:'text',text:'13.09 L · 1974–75 peak',align:'left',dx:10,dy:-15,fontSize:11,fontWeight:600,color:C.teal}},
-    {transform:[{filter:'datum.year === 2023'}],mark:{type:'text',text:'9.79 L',align:'right',dx:-10,dy:-15,fontSize:12,fontWeight:700,color:C.teal}}
+    {transform:[{filter:'datum.year === 1974'}],mark:{type:'text',text:'13.09 L · 1974–75 peak',align:'left',dx:10,dy:-15,fontSize:CHART_TEXT_SIZE,fontWeight:600,color:C.teal}},
+    {transform:[{filter:'datum.year === 2023'}],mark:{type:'text',text:'9.79 L',align:'right',dx:-10,dy:-15,fontSize:CHART_TEXT_SIZE,fontWeight:700,color:C.teal}}
   ]
 },320);
 
@@ -75,7 +78,7 @@ add('age', {
   description:'NDSHS published drinking percentages by age and survey year. Each wave is a different population sample. Unreliable/suppressed observations are null.',
   data:data('age-trends'),params:[parameter('ageMeasure','More than 4 drinks monthly')],transform:[{filter:'datum.measure === ageMeasure'},{calculate:"datum.year === 2022 ? '2022–23' : toString(datum.year)",as:'short_period'}],
   mark:{type:'rect',stroke:'#fffaf3',strokeWidth:3,cornerRadius:2},
-  encoding:{x:{field:'short_period',type:'ordinal',title:null,sort:{field:'year'},axis:{labelAngle:0,labelFontSize:10,grid:false}},
+  encoding:{x:{field:'short_period',type:'ordinal',title:null,sort:{field:'year'},axis:{labelAngle:0,labelFontSize:CHART_TEXT_SIZE,grid:false}},
     y:{field:'age',type:'ordinal',title:null,sort:['14–17','18–24','25–29','30–39','40–49','50–59','60–69','70+'],axis:{grid:false}},
     color:q('value','People in the age group (%)',{scale:{domain:[0,65],range:['#f3ebda','#dfc89b','#b99a73','#986d60','#704d58','#49323f']},legend:{gradientLength:180}}),
     tooltip:[tooltip('age','nominal','Age'),tooltip('period','nominal','Survey year'),tooltip('measure','nominal','Measure'),tooltip('value','quantitative','Percentage','.1f'),tooltip('flag','nominal','Reliability'),tooltip('published_value','nominal','Published value')]}
@@ -98,8 +101,8 @@ add('gender', {
   layer:[
     {mark:{type:'rule',stroke:'#c9c0b5',strokeWidth:2},encoding:{x:{aggregate:'min',field:'value',type:'quantitative'},x2:{aggregate:'max',field:'value'}}},
     {mark:{type:'point',filled:true,size:85},encoding:{color:n('sex',null,{scale:sexScale}),tooltip:[tooltip('age','nominal','Age'),tooltip('sex','nominal','Sex'),tooltip('value','quantitative','Adults exceeding guideline (%)','.1f'),tooltip('flag','nominal','Reliability')]}},
-    {transform:[{filter:"datum.sex === 'Males'"}],mark:{type:'text',align:'left',dx:9,fontSize:10,color:C.teal},encoding:{text:{field:'value',type:'quantitative',format:'.1f'}}},
-    {transform:[{filter:"datum.sex === 'Females'"}],mark:{type:'text',align:'right',dx:-9,fontSize:10,color:C.plum},encoding:{text:{field:'value',type:'quantitative',format:'.1f'}}}
+    {transform:[{filter:"datum.sex === 'Males'"}],mark:{type:'text',align:'left',dx:9,fontSize:CHART_TEXT_SIZE,color:C.teal},encoding:{text:{field:'value',type:'quantitative',format:'.1f'}}},
+    {transform:[{filter:"datum.sex === 'Females'"}],mark:{type:'text',align:'right',dx:-9,fontSize:CHART_TEXT_SIZE,color:C.plum},encoding:{text:{field:'value',type:'quantitative',format:'.1f'}}}
   ]
 },310);
 
@@ -113,7 +116,7 @@ add('mosaic', {
   layer:[
     {mark:{type:'rect',stroke:'#fffaf3',strokeWidth:4},encoding:{x2:{field:'x1'},y2:{field:'y1'},color:n('label',null,{scale:{domain:['No alcohol','Neither threshold','Episodic only','Weekly only','Both thresholds'],range:['#dfdbd2','#aac7c0',C.gold,C.plum,C.rust]},legend:{columns:2}}),
       tooltip:[tooltip('gender','nominal','Survey population'),tooltip('label','nominal','Category'),tooltip('value','quantitative','Population share (%)','.1f'),tooltip('weekly','nominal','Weekly threshold'),tooltip('episodic','nominal','Episodic threshold')]}},
-    {mark:{type:'text',baseline:'middle',fontSize:11,fontWeight:600,lineBreak:'\n',lineHeight:13,dy:{expr:"(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65 ? 0 : -(length(split(datum.display,'\\n'))-1)*13/2"},limit:{expr:'max(25, (datum.x1-datum.x0) * width / 100 - 12)'}},encoding:{x:{field:'cx',type:'quantitative'},y:{field:'cy',type:'quantitative'},text:{condition:{test:'(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65',field:'percentage_label'},field:'display'},color:{condition:{test:"datum.label === 'Both thresholds' || datum.label === 'Weekly only'",value:'#fffaf3'},value:C.ink}}}
+    {mark:{type:'text',baseline:'middle',fontSize:CHART_TEXT_SIZE,fontWeight:600,lineBreak:'\n',lineHeight:16,dy:{expr:"(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65 ? 0 : -(length(split(datum.display,'\\n'))-1)*16/2"},limit:{expr:'max(25, (datum.x1-datum.x0) * width / 100 - 12)'}},encoding:{x:{field:'cx',type:'quantitative'},y:{field:'cy',type:'quantitative'},text:{condition:{test:'(datum.y1-datum.y0) * height / 100 < 54 || (datum.x1-datum.x0) * width / 100 < 65',field:'percentage_label'},field:'display'},color:{condition:{test:"datum.label === 'Both thresholds' || datum.label === 'Weekly only'",value:'#fffaf3'},value:C.ink}}}
   ]
 },300);
 
@@ -129,8 +132,8 @@ add('states', {
   encoding:{x:{field:'col',type:'ordinal',scale:{domain:[0,1,2,3],padding:.06},axis:null},y:{field:'row',type:'ordinal',scale:{domain:[0,1,2,3],padding:.06},axis:null}},
   layer:[
     {mark:{type:'rect',cornerRadius:2},encoding:{color:q('value','Risky drinking (%)',{scale:{domain:[0,60],range:['#efe7d6','#dfbc90','#be8b6e','#925e60','#664052']},legend:{gradientLength:160}}),tooltip:[tooltip('state_name','nominal','State or territory'),tooltip('gender','nominal','Population'),tooltip('value','quantitative','Risky drinking (%)','.1f'),tooltip('flag','nominal','Reliability')]}},
-    {mark:{type:'text',fontSize:15,fontWeight:700,dy:-8},encoding:{text:{field:'state'},color:{condition:{test:'datum.value >= 40',value:'#fffaf3'},value:C.ink}}},
-    {mark:{type:'text',fontSize:12,dy:13},encoding:{text:{field:'display'},color:{condition:{test:'datum.value >= 40',value:'#fffaf3'},value:C.ink}}}
+    {mark:{type:'text',fontSize:CHART_TEXT_SIZE,fontWeight:700,dy:-8},encoding:{text:{field:'state'},color:{condition:{test:'datum.value >= 40',value:'#fffaf3'},value:C.ink}}},
+    {mark:{type:'text',fontSize:CHART_TEXT_SIZE,dy:13},encoding:{text:{field:'display'},color:{condition:{test:'datum.value >= 40',value:'#fffaf3'},value:C.ink}}}
   ]
 },370);
 
@@ -145,7 +148,7 @@ const anchors=[
   {state:'ACT',lon:153,lat:-35.8,label_lon:156,label_lat:-35.5}
 ];
 const treatmentLabelEncoding={longitude:q('label_lon'),latitude:q('label_lat'),text:{field:'label'}};
-const treatmentLabelMark={type:'text',fontSize:11,fontWeight:600,lineBreak:'\n',lineHeight:13,baseline:'middle',dy:-6};
+const treatmentLabelMark={type:'text',fontSize:CHART_TEXT_SIZE,fontWeight:600,lineBreak:'\n',lineHeight:16,baseline:'middle',dy:-8};
 add('treatment', {
   description:'Alcohol-principal-concern closed treatment episodes for own drug use by jurisdiction. Symbol area encodes episodes, not people or prevalence. ACT anchor offset with a leader for readability.',
   params:[parameter('treatmentYear',2024)],projection:{type:'mercator'},
@@ -175,12 +178,12 @@ const diseaseDomain=['Alcohol use disorder','Injuries','Cancers','Cardiovascular
 add('burden', {
   description:'ABDS2024 alcohol-attributable healthy life years lost. Child categories excluded; residual is explicitly total minus five listed major groups. Binary treemap layout precomputed proportional to values.',
   data:data('burden-treemap'),params:[parameter('burdenSex','All')],transform:[{filter:'datum.sex === burdenSex'},
-    {calculate:"datum.disease === 'Cardiovascular diseases' ? 'Cardiovascular\\ndiseases' : datum.disease === 'Not itemised in this extract' ? 'Not\\nitemised' : datum.disease === 'Chronic liver disease' ? (datum.share < 0.04 ? 'Liver' : 'Liver\\ndisease') : datum.disease === 'Alcohol use disorder' ? 'Alcohol use\\ndisorder' : datum.disease",as:'short'},
+    {calculate:"datum.disease === 'Cardiovascular diseases' ? 'Heart &\\nvessels' : datum.disease === 'Not itemised in this extract' ? 'Not\\nlisted' : datum.disease === 'Chronic liver disease' ? (datum.share < 0.04 ? 'Liver' : 'Liver\\ndisease') : datum.disease === 'Alcohol use disorder' ? 'Alcohol use\\ndisorder' : datum.disease",as:'short'},
     {calculate:"datum.short + '\\n' + format(datum.value,',')",as:'display'}],
   encoding:{x:q('x0',null,{scale:{domain:[0,1]},axis:null}),y:q('y0',null,{scale:{domain:[1,0]},axis:null})},
   layer:[
     {mark:{type:'rect',stroke:'#fffaf3',strokeWidth:4},encoding:{x2:{field:'x1'},y2:{field:'y1'},color:n('disease',null,{scale:{domain:diseaseDomain,range:[C.plum,C.rust,C.gold,C.teal,'#799595','#c4beb5']},legend:null}),tooltip:[tooltip('disease','nominal','Disease group'),tooltip('value','quantitative','Healthy life years lost',',.0f'),tooltip('share','quantitative','Share of alcohol burden','.1%'),tooltip('attributable_percent','quantitative','Share of this disease due to alcohol (%)','.1f'),tooltip('derived','nominal','Derived remainder')]}},
-    {mark:{type:'text',fontSize:{expr:'(datum.x1 - datum.x0) * width < 70 ? 9 : datum.share < 0.17 ? 10 : 12'},fontWeight:600,lineBreak:'\n',lineHeight:14,limit:{expr:'max(28, (datum.x1 - datum.x0) * width - 10)'}},encoding:{x:{field:'cx',type:'quantitative'},y:{field:'cy',type:'quantitative'},text:{condition:{test:'(datum.x1 - datum.x0) * width < 58',field:'value',type:'quantitative',format:',.0f'},field:'display'},color:{condition:{test:"datum.disease === 'Cancers' || datum.disease === 'Not itemised in this extract'",value:C.ink},value:'#fffaf3'}}}
+    {mark:{type:'text',fontSize:CHART_TEXT_SIZE,fontWeight:600,lineBreak:'\n',lineHeight:16,baseline:'middle',dy:{expr:"(datum.x1 - datum.x0) * width < 58 ? 0 : -(length(split(datum.display,'\\n'))-1)*16/2"},limit:{expr:'max(28, (datum.x1 - datum.x0) * width - 10)'}},encoding:{x:{field:'cx',type:'quantitative'},y:{field:'cy',type:'quantitative'},text:{condition:{test:'(datum.x1 - datum.x0) * width < 58',field:'value',type:'quantitative',format:',.0f'},field:'display'},color:{condition:{test:"datum.disease === 'Cancers' || datum.disease === 'Not itemised in this extract'",value:C.ink},value:'#fffaf3'}}}
   ]
 },310);
 
@@ -188,10 +191,10 @@ add('mortality', {
   description:'Accounting waterfall of year-to-year changes in registered alcohol-induced death counts2015–2024. Recent data provisional. These deltas are not causal explanations.',
   data:data('death-waterfall'),params:[parameter('mortalitySex','All')],transform:[{filter:'datum.sex === mortalitySex'},
     {calculate:'max(datum.start,datum.end)',as:'top'}],
-  encoding:{x:{field:'step',type:'ordinal',sort:{field:'order'},title:null,axis:{labelAngle:0,labelFontSize:10,labelExpr:"replace(datum.label,' total','')",grid:false}},y:q('start','Registered alcohol-induced deaths',{scale:{domain:[0,2100]},axis:{tickCount:5}})},
+  encoding:{x:{field:'step',type:'ordinal',sort:{field:'order'},title:null,axis:{labelAngle:0,labelFontSize:CHART_TEXT_SIZE,labelExpr:"replace(datum.label,' total','')",grid:false}},y:q('start','Registered alcohol-induced deaths',{scale:{domain:[0,2100]},axis:{tickCount:5}})},
   layer:[
     {mark:{type:'bar',cornerRadiusEnd:2},encoding:{y2:{field:'end'},color:n('kind',null,{scale:{domain:['Total','Increase','Decrease'],range:[C.ink,C.rust,C.teal]},legend:{orient:'top'}}),tooltip:[tooltip('step','nominal','Year / total'),tooltip('count','quantitative','Registered deaths',',.0f'),tooltip('change','quantitative','Change or total',',.0f'),tooltip('rate','quantitative','Age-standardised rate per100,000','.1f'),tooltip('status','nominal','Revision status')]}},
-    {mark:{type:'text',dy:-9,fontSize:10,fontWeight:600},encoding:{y:{field:'top',type:'quantitative'},text:{field:'label'}}}
+    {mark:{type:'text',dy:-9,fontSize:CHART_TEXT_SIZE,fontWeight:600},encoding:{y:{field:'top',type:'quantitative'},text:{field:'label'}}}
   ]
 },330);
 

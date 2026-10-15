@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },
@@ -80,7 +82,7 @@
       ],
       "axis": {
         "labelLimit": 140,
-        "labelFontSize": 11
+        "labelFontSize": 12
       }
     },
     "x": {
@@ -174,7 +176,7 @@
         "dx": 9,
         "dy": -13,
         "color": "#bb5939",
-        "fontSize": 11,
+        "fontSize": 12,
         "fontWeight": 600
       }
     }

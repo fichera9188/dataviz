@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },
@@ -344,12 +346,12 @@
         {
           "mark": {
             "type": "text",
-            "fontSize": 11,
+            "fontSize": 12,
             "fontWeight": 600,
             "lineBreak": "\n",
-            "lineHeight": 13,
+            "lineHeight": 16,
             "baseline": "middle",
-            "dy": -6,
+            "dy": -8,
             "color": "#fffaf3",
             "stroke": "#fffaf3",
             "strokeWidth": 3
@@ -371,12 +373,12 @@
         {
           "mark": {
             "type": "text",
-            "fontSize": 11,
+            "fontSize": 12,
             "fontWeight": 600,
             "lineBreak": "\n",
-            "lineHeight": 13,
+            "lineHeight": 16,
             "baseline": "middle",
-            "dy": -6,
+            "dy": -8,
             "color": "#29252e"
           },
           "encoding": {

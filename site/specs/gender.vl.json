@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },
@@ -169,7 +171,7 @@
         "type": "text",
         "align": "left",
         "dx": 9,
-        "fontSize": 10,
+        "fontSize": 12,
         "color": "#397b76"
       },
       "encoding": {
@@ -190,7 +192,7 @@
         "type": "text",
         "align": "right",
         "dx": -9,
-        "fontSize": 10,
+        "fontSize": 12,
         "color": "#80516b"
       },
       "encoding": {

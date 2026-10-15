@@ -44,10 +44,12 @@
     },
     "title": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     },
     "text": {
       "font": "Arial",
+      "fontSize": 12,
       "color": "#29252e"
     }
   },
@@ -85,7 +87,7 @@
       },
       "axis": {
         "labelAngle": 0,
-        "labelFontSize": 10,
+        "labelFontSize": 12,
         "grid": false
       }
     },
