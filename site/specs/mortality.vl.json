@@ -103,6 +103,7 @@
   },
   "layer": [
     {
+      "name": "mortality_bars",
       "mark": {
         "type": "bar",
         "cornerRadiusEnd": 2
@@ -164,6 +165,7 @@
       }
     },
     {
+      "name": "mortality_labels",
       "mark": {
         "type": "text",
         "dy": -9,

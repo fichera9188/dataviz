@@ -3,5 +3,5 @@
   "version": "1.0.0",
   "private": true,
   "description": "An alcohol-consumption story by Teh Ming Dong, rendered entirely with Vega-Lite.",
-  "scripts": {"dev": "node scripts/serve.mjs", "build:specs": "node scripts/build_specs.mjs", "check": "node scripts/verify_site.mjs"}
+  "scripts": {"dev": "node scripts/serve.mjs", "build:specs": "node scripts/build_specs.mjs", "check": "node scripts/verify_site.mjs && node scripts/verify_motion.mjs"}
 }

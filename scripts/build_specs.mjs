@@ -57,12 +57,12 @@ add('availability', {
   description:'Published pure-alcohol supply per person aged15+, financial years1960–61 to2023–24. Availability is not individual reported consumption.',
   data:data('availability'),encoding:{x:q('year',null,{scale:{domain:[1960,2027]},axis:{format:'d',values:[1960,1970,1980,1990,2000,2010,2020],grid:false}}),y:q('value','Litres per person aged 15+',{scale:{domain:[0,15]},axis:{tickCount:5}})},
   layer:[
-    {mark:{type:'area',color:C.teal,opacity:.09}},
-    {mark:{type:'line',color:C.teal,strokeWidth:2.8}},
-    {mark:{type:'point',opacity:0,size:110},encoding:{tooltip:[tooltip('period','nominal','Financial year'),tooltip('value','quantitative','Litres per person aged15+','.2f'),tooltip('volume','quantitative','Pure alcohol (thousand litres)',',.0f')]}},
-    {transform:[{filter:'datum.year === 1974 || datum.year === 2023'}],mark:{type:'point',filled:true,size:65,color:C.teal}},
-    {transform:[{filter:'datum.year === 1974'}],mark:{type:'text',text:'13.09 L · 1974–75 peak',align:'left',dx:10,dy:-15,fontSize:CHART_TEXT_SIZE,fontWeight:600,color:C.teal}},
-    {transform:[{filter:'datum.year === 2023'}],mark:{type:'text',text:'9.79 L',align:'right',dx:-10,dy:-15,fontSize:CHART_TEXT_SIZE,fontWeight:700,color:C.teal}}
+    {name:'availability_area',mark:{type:'area',color:C.teal,opacity:.09}},
+    {name:'availability_line',mark:{type:'line',color:C.teal,strokeWidth:2.8}},
+    {name:'availability_hover',mark:{type:'point',opacity:0,size:110},encoding:{tooltip:[tooltip('period','nominal','Financial year'),tooltip('value','quantitative','Litres per person aged15+','.2f'),tooltip('volume','quantitative','Pure alcohol (thousand litres)',',.0f')]}},
+    {name:'availability_focus',transform:[{filter:'datum.year === 1974 || datum.year === 2023'}],mark:{type:'point',filled:true,size:65,color:C.teal}},
+    {name:'availability_peak',transform:[{filter:'datum.year === 1974'}],mark:{type:'text',text:'13.09 L · 1974–75 peak',align:'left',dx:10,dy:-15,fontSize:CHART_TEXT_SIZE,fontWeight:600,color:C.teal}},
+    {name:'availability_latest',transform:[{filter:'datum.year === 2023'}],mark:{type:'text',text:'9.79 L',align:'right',dx:-10,dy:-15,fontSize:CHART_TEXT_SIZE,fontWeight:700,color:C.teal}}
   ]
 },320);
 
@@ -193,8 +193,8 @@ add('mortality', {
     {calculate:'max(datum.start,datum.end)',as:'top'}],
   encoding:{x:{field:'step',type:'ordinal',sort:{field:'order'},title:null,axis:{labelAngle:0,labelFontSize:CHART_TEXT_SIZE,labelExpr:"replace(datum.label,' total','')",grid:false}},y:q('start','Registered alcohol-induced deaths',{scale:{domain:[0,2100]},axis:{tickCount:5}})},
   layer:[
-    {mark:{type:'bar',cornerRadiusEnd:2},encoding:{y2:{field:'end'},color:n('kind',null,{scale:{domain:['Total','Increase','Decrease'],range:[C.ink,C.rust,C.teal]},legend:{orient:'top'}}),tooltip:[tooltip('step','nominal','Year / total'),tooltip('count','quantitative','Registered deaths',',.0f'),tooltip('change','quantitative','Change or total',',.0f'),tooltip('rate','quantitative','Age-standardised rate per100,000','.1f'),tooltip('status','nominal','Revision status')]}},
-    {mark:{type:'text',dy:-9,fontSize:CHART_TEXT_SIZE,fontWeight:600},encoding:{y:{field:'top',type:'quantitative'},text:{field:'label'}}}
+    {name:'mortality_bars',mark:{type:'bar',cornerRadiusEnd:2},encoding:{y2:{field:'end'},color:n('kind',null,{scale:{domain:['Total','Increase','Decrease'],range:[C.ink,C.rust,C.teal]},legend:{orient:'top'}}),tooltip:[tooltip('step','nominal','Year / total'),tooltip('count','quantitative','Registered deaths',',.0f'),tooltip('change','quantitative','Change or total',',.0f'),tooltip('rate','quantitative','Age-standardised rate per100,000','.1f'),tooltip('status','nominal','Revision status')]}},
+    {name:'mortality_labels',mark:{type:'text',dy:-9,fontSize:CHART_TEXT_SIZE,fontWeight:600},encoding:{y:{field:'top',type:'quantitative'},text:{field:'label'}}}
   ]
 },330);
 

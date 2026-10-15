@@ -98,6 +98,7 @@
   },
   "layer": [
     {
+      "name": "availability_area",
       "mark": {
         "type": "area",
         "color": "#397b76",
@@ -105,6 +106,7 @@
       }
     },
     {
+      "name": "availability_line",
       "mark": {
         "type": "line",
         "color": "#397b76",
@@ -112,6 +114,7 @@
       }
     },
     {
+      "name": "availability_hover",
       "mark": {
         "type": "point",
         "opacity": 0,
@@ -140,6 +143,7 @@
       }
     },
     {
+      "name": "availability_focus",
       "transform": [
         {
           "filter": "datum.year === 1974 || datum.year === 2023"
@@ -153,6 +157,7 @@
       }
     },
     {
+      "name": "availability_peak",
       "transform": [
         {
           "filter": "datum.year === 1974"
@@ -170,6 +175,7 @@
       }
     },
     {
+      "name": "availability_latest",
       "transform": [
         {
           "filter": "datum.year === 2023"

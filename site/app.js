@@ -25,9 +25,10 @@ async function renderChart(id) {
   if (pending.has(id)) return pending.get(id);
   const job = (async () => {
     const container = document.getElementById(`chart-${id}`);
+    window.storyMotion?.finish(container);
     container.setAttribute('aria-busy', 'true');
     try {
-      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261015-type-scale`);
+      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261015-story-motion`);
       specs.set(id, structuredClone(spec));
       applyInitialControls(id, spec);
       if (views.has(id)) views.get(id).finalize();
@@ -39,6 +40,7 @@ async function renderChart(id) {
       container.dataset.status = 'ready';
       container.setAttribute('aria-busy','false');
       updateNarrative();
+      window.storyMotion?.chart(id, container);
     } catch (error) {
       container.dataset.status='error';
       container.setAttribute('aria-busy','false');
@@ -131,6 +133,7 @@ document.addEventListener('animationend',event=>{
 for(const control of document.querySelectorAll('[data-chart]')) {
   control.addEventListener('change',async()=>{
     const id=control.dataset.chart;
+    window.storyMotion?.finish(document.getElementById(`chart-${id}`));
     if(pending.has(id)) await pending.get(id);
     const view=views.get(id);
     if(view) {
