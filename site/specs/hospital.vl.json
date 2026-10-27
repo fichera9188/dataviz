@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "NHMD2023–24 alcohol-principal-diagnosis hospitalisation episodes by published age/sex categories; counts not rates, and55+ is an open-ended band.",
+  "description": "Tornado chart of National Hospital Morbidity Database hospitalisation episodes, 2023–24: males extend left and females right from zero. Signed positions mirror positive counts; labels and tooltips show actual episode counts. The 55+ band is open-ended.",
   "width": "container",
   "height": 350,
   "autosize": {
@@ -56,6 +56,12 @@
   "data": {
     "url": "data/hospital-age-sex.json"
   },
+  "transform": [
+    {
+      "calculate": "datum.sex === 'Male' ? -datum.count : datum.count",
+      "as": "position"
+    }
+  ],
   "encoding": {
     "y": {
       "field": "age",
@@ -72,34 +78,25 @@
         "grid": false
       }
     },
-    "yOffset": {
-      "field": "sex",
-      "type": "nominal",
-      "title": null,
-      "sort": [
-        "Male",
-        "Female"
-      ]
-    },
     "x": {
-      "field": "count",
+      "field": "position",
       "type": "quantitative",
       "title": "Hospitalisation episodes",
       "scale": {
         "domain": [
-          0,
-          22000
+          -26000,
+          26000
         ]
       },
       "axis": {
         "values": [
+          -20000,
+          -10000,
           0,
-          5000,
           10000,
-          15000,
           20000
         ],
-        "labelExpr": "datum.value === 0 ? '0' : format(datum.value,'.2s')"
+        "labelExpr": "format(abs(datum.value),',.0f')"
       }
     }
   },
@@ -107,9 +104,12 @@
     {
       "mark": {
         "type": "bar",
-        "cornerRadiusEnd": 2
+        "size": 26
       },
       "encoding": {
+        "x2": {
+          "datum": 0
+        },
         "color": {
           "field": "sex",
           "type": "nominal",
@@ -123,6 +123,10 @@
               "#397b76",
               "#80516b"
             ]
+          },
+          "legend": {
+            "orient": "top",
+            "title": "Male: left · Female: right"
           }
         },
         "tooltip": [
@@ -152,6 +156,57 @@
       }
     },
     {
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#c9c0b5",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "datum": 0
+        },
+        "y": {
+          "value": 0
+        },
+        "y2": {
+          "value": {
+            "expr": "height"
+          }
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.sex === 'Male'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -5,
+        "fontSize": 12,
+        "color": "#29252e"
+      },
+      "encoding": {
+        "text": {
+          "field": "count",
+          "type": "quantitative",
+          "format": ",.0f"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.sex === 'Female'"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "left",

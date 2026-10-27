@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "ASSAD Table2 weighted prevalence among secondary students12–17 in2022–23. Each square is one percentage point, with a fractional square preserving the precise percentage.",
+  "description": "Australian Secondary Students’ Alcohol and Drug Survey Table2 weighted prevalence among secondary students12–17 in2022–23. Each square is one percentage point, with a fractional square preserving the precise percentage.",
   "width": "container",
   "height": 280,
   "autosize": {

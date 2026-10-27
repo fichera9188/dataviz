@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "WHO estimated litres of pure alcohol per person aged15+; three-year-average indicator. Country geometry is Natural Earth. Grey means no matched estimate.",
+  "description": "World Health Organization estimated litres of pure alcohol per person aged15+; three-year-average indicator. Country geometry is Natural Earth. Grey means no matched estimate.",
   "width": "container",
   "height": 390,
   "autosize": {

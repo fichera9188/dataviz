@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "NHS2022 adult guideline exceedance by age and sex. Source-specific sex categories. The all-adult aggregate is deliberately excluded from the age plot.",
+  "description": "National Health Survey 2022 adult guideline exceedance by age and sex. Source-specific sex categories. The all-adult aggregate is deliberately excluded from the age plot.",
   "width": "container",
   "height": 310,
   "autosize": {

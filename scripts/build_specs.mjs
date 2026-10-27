@@ -28,7 +28,7 @@ function add(id,spec,height=310) {
 }
 
 add('world', {
-  description:'WHO estimated litres of pure alcohol per person aged15+; three-year-average indicator. Country geometry is Natural Earth. Grey means no matched estimate.',
+  description:'World Health Organization estimated litres of pure alcohol per person aged15+; three-year-average indicator. Country geometry is Natural Earth. Grey means no matched estimate.',
   params:[parameter('mapYear',2024)], projection:{type:'equalEarth'},
   layer:[
     {data:{...data('world.geo'),format:{type:'json',property:'features'}},mark:{type:'geoshape',fill:C.missing,stroke:C.paper,strokeWidth:.55},encoding:{tooltip:[tooltip('properties.name','nominal','Country')] }},
@@ -43,14 +43,14 @@ add('world', {
 },390);
 
 add('episodic', {
-  description:'Distribution of country-level heavy episodic drinking prevalence by WHO region,2020. Each country contributes one observation. The boxes are not individual drinking distributions.',
+  description:'Distribution of country-level heavy episodic drinking prevalence by World Health Organization region,2020. Each country contributes one observation. The boxes are not individual drinking distributions.',
   data:data('episodic-country'),params:[parameter('hedSex','All')],transform:[{filter:'datum.sex === hedSex'},
     {joinaggregate:[{op:'valid',field:'value',as:'countries'},{op:'median',field:'value',as:'median'},
       {op:'q1',field:'value',as:'q1'},{op:'q3',field:'value',as:'q3'},
       {op:'min',field:'value',as:'minimum'},{op:'max',field:'value',as:'maximum'}],groupby:['region']}],
   encoding:{y:n('region',null,{sort:['Africa','Americas','Eastern Mediterranean','Europe','South-East Asia','Western Pacific'],axis:{labelLimit:140,labelFontSize:CHART_TEXT_SIZE}}),x:q('value','People aged 15+ (%)',{scale:{domain:[0,70]},axis:{tickCount:5,labelExpr:"datum.label + '%'"}})},
   layer:[
-    {mark:{type:'boxplot',extent:'min-max',size:17,color:C.series,box:{fillOpacity:.2,stroke:C.series},median:{color:C.series,strokeWidth:2},rule:{strokeWidth:1},ticks:{strokeWidth:1}},encoding:{tooltip:[tooltip('region','nominal','WHO region'),tooltip('countries','quantitative','Countries'),tooltip('median','quantitative','Median (%)','.1f'),tooltip('q1','quantitative','Lower quartile (%)','.1f'),tooltip('q3','quantitative','Upper quartile (%)','.1f'),tooltip('minimum','quantitative','Minimum (%)','.1f'),tooltip('maximum','quantitative','Maximum (%)','.1f')]}},
+    {mark:{type:'boxplot',extent:'min-max',size:17,color:C.series,box:{fillOpacity:.2,stroke:C.series},median:{color:C.series,strokeWidth:2},rule:{strokeWidth:1},ticks:{strokeWidth:1}},encoding:{tooltip:[tooltip('region','nominal','World Health Organization region'),tooltip('countries','quantitative','Countries'),tooltip('median','quantitative','Median (%)','.1f'),tooltip('q1','quantitative','Lower quartile (%)','.1f'),tooltip('q3','quantitative','Upper quartile (%)','.1f'),tooltip('minimum','quantitative','Minimum (%)','.1f'),tooltip('maximum','quantitative','Maximum (%)','.1f')]}},
     {transform:[{filter:"datum.iso3 === 'AUS'"}],mark:{type:'point',shape:'diamond',filled:true,color:C.paper,size:120,stroke:C.ink,strokeWidth:2},encoding:{tooltip:[tooltip('sex','nominal','Australia, sex'),tooltip('value','quantitative','Prevalence (%)','.1f')]}},
     {transform:[{filter:"datum.iso3 === 'AUS'"}],mark:{type:'text',text:'Australia',align:'left',dx:9,dy:-13,color:C.ink,fontSize:CHART_TEXT_SIZE,fontWeight:600}}
   ]
@@ -88,7 +88,7 @@ add('beverages', {
 },290);
 
 add('age', {
-  description:'NDSHS published drinking percentages by age and survey year. Each wave is a different population sample. Unreliable/suppressed observations are null.',
+  description:'National Drug Strategy Household Survey published drinking percentages by age and survey year. Each wave is a different population sample. Unreliable/suppressed observations are null.',
   data:data('age-trends'),params:[parameter('ageMeasure','More than 4 drinks monthly')],transform:[{filter:'datum.measure === ageMeasure'},{calculate:"datum.year === 2022 ? '2022–23' : toString(datum.year)",as:'short_period'}],
   mark:{type:'rect',stroke:'#fffaf3',strokeWidth:3,cornerRadius:2},
   encoding:{x:{field:'short_period',type:'ordinal',title:null,sort:{field:'year'},axis:{labelAngle:0,labelFontSize:CHART_TEXT_SIZE,grid:false}},
@@ -98,7 +98,7 @@ add('age', {
 },310);
 
 add('adolescent', {
-  description:'ASSAD Table2 weighted prevalence among secondary students12–17 in2022–23. Each square is one percentage point, with a fractional square preserving the precise percentage.',
+  description:'Australian Secondary Students’ Alcohol and Drug Survey Table2 weighted prevalence among secondary students12–17 in2022–23. Each square is one percentage point, with a fractional square preserving the precise percentage.',
   data:data('adolescent-waffle'),params:[parameter('studentGroup','All students'),parameter('studentMeasure','Past month')],transform:[{filter:'datum.group === studentGroup && datum.measure === studentMeasure'}],
   encoding:{x:q('x0',null,{scale:{domain:[0,10]},axis:null}),y:q('y0',null,{scale:{domain:[10,0]},axis:null}),x2:{field:'x1'},y2:{field:'y1'}},
   layer:[
@@ -108,7 +108,7 @@ add('adolescent', {
 },280);
 
 add('gender', {
-  description:'NHS2022 adult guideline exceedance by age and sex. Source-specific sex categories. The all-adult aggregate is deliberately excluded from the age plot.',
+  description:'National Health Survey 2022 adult guideline exceedance by age and sex. Source-specific sex categories. The all-adult aggregate is deliberately excluded from the age plot.',
   data:data('adult-gap'),transform:[{filter:"datum.age !== 'All adults 18+' && isValid(datum.value)"}],
   encoding:{y:n('age',null,{sort:['18–24','25–34','35–44','45–54','55–64','65–74','75+'],axis:{grid:false}}),x:q('value','Adults exceeding the guideline (%)',{scale:{domain:[0,55]},axis:{tickCount:6,labelExpr:"datum.label + '%'"}})},
   layer:[
@@ -120,7 +120,7 @@ add('gender', {
 },310);
 
 add('mosaic', {
-  description:'NDSHS Table4.31 joint weekly/episodic-risk distribution. Areas are proportional to published shares, normalised only for rounding. Weekly categories follow explicit source row labels rather than reversed source footnotes.',
+  description:'National Drug Strategy Household Survey Table4.31 joint weekly/episodic-risk distribution. Areas are proportional to published shares, normalised only for rounding. Weekly categories follow explicit source row labels rather than reversed source footnotes.',
   padding:{top:30,bottom:0,left:0,right:0},
   data:data('risk-mosaic'),params:[parameter('mosaicGender','Persons')],transform:[{filter:'datum.gender === mosaicGender'},
     {calculate:'(datum.x0+datum.x1)/2',as:'cx'},{calculate:'(datum.y0+datum.y1)/2',as:'cy'},
@@ -143,7 +143,7 @@ const tiles = [
   {state:'NSW',col:2,row:1},{state:'ACT',col:3,row:1},{state:'VIC',col:2,row:2},{state:'TAS',col:2,row:3}
 ];
 add('states', {
-  description:'Equal-size tile cartogram with approximate Australian state arrangement. NDSHS2022–23 prevalence of exceeding the adult risk thresholds, people14+.',
+  description:'Equal-size tile cartogram with approximate Australian state arrangement. National Drug Strategy Household Survey 2022–23 prevalence of exceeding the adult risk thresholds, people14+.',
   data:data('state-risk'),params:[parameter('stateGender','Persons')],transform:[{filter:'datum.gender === stateGender'},
     {lookup:'state',from:{data:{values:tiles},key:'state',fields:['col','row']}},
     {calculate:"format(datum.value,'.1f')+'%'",as:'display'}],
@@ -186,20 +186,22 @@ add('treatment', {
 },370);
 
 add('hospital', {
-  description:'NHMD2023–24 alcohol-principal-diagnosis hospitalisation episodes by published age/sex categories; counts not rates, and55+ is an open-ended band.',
+  description:'Tornado chart of National Hospital Morbidity Database hospitalisation episodes, 2023–24: males extend left and females right from zero. Signed positions mirror positive counts; labels and tooltips show actual episode counts. The 55+ band is open-ended.',
   data:data('hospital-age-sex'),
+  transform:[{calculate:"datum.sex === 'Male' ? -datum.count : datum.count",as:'position'}],
   encoding:{y:n('age',null,{sort:['15–24','25–34','35–44','45–54','55+'],axis:{grid:false}}),
-    yOffset:n('sex',null,{sort:['Male','Female']}),
-    x:q('count','Hospitalisation episodes',{scale:{domain:[0,22000]},axis:{values:[0,5000,10000,15000,20000],labelExpr:"datum.value === 0 ? '0' : format(datum.value,'.2s')"}})},
+    x:q('position','Hospitalisation episodes',{scale:{domain:[-26000,26000]},axis:{values:[-20000,-10000,0,10000,20000],labelExpr:"format(abs(datum.value),',.0f')"}})},
   layer:[
-    {mark:{type:'bar',cornerRadiusEnd:2},encoding:{color:n('sex',null,{scale:genderScale()}),
+    {mark:{type:'bar',size:26},encoding:{x2:{datum:0},color:n('sex',null,{scale:genderScale(),legend:{orient:'top',title:'Male: left · Female: right'}}),
       tooltip:[tooltip('age','nominal','Age'),tooltip('sex','nominal','Sex'),tooltip('count','quantitative','Episodes',',.0f'),tooltip('share_within_sex','quantitative','Share within sex (%)','.1f')]}},
-    {mark:{type:'text',align:'left',dx:5,fontSize:CHART_TEXT_SIZE,color:C.ink},encoding:{text:{field:'count',type:'quantitative',format:',.0f'}}}
+    {data:{values:[{}]},mark:{type:'rule',color:C.rule,strokeWidth:1},encoding:{x:{datum:0},y:{value:0},y2:{value:{expr:'height'}}}},
+    {transform:[{filter:"datum.sex === 'Male'"}],mark:{type:'text',align:'right',dx:-5,fontSize:CHART_TEXT_SIZE,color:C.ink},encoding:{text:{field:'count',type:'quantitative',format:',.0f'}}},
+    {transform:[{filter:"datum.sex === 'Female'"}],mark:{type:'text',align:'left',dx:5,fontSize:CHART_TEXT_SIZE,color:C.ink},encoding:{text:{field:'count',type:'quantitative',format:',.0f'}}}
   ]
 },350);
 
 add('burden', {
-  description:'Ranked horizontal bars of ABDS2024 alcohol-attributable healthy life years lost. All populations use the same positive count scale. The labelled residual is total minus five listed major groups; no disease allocation is invented.',
+  description:'Ranked horizontal bars of Australian Burden of Disease Study 2024 alcohol-attributable healthy life years lost. All populations use the same positive count scale. The labelled residual is total minus five listed major groups; no disease allocation is invented.',
   data:data('burden-treemap'),params:[parameter('burdenSex','All')],transform:[{filter:'datum.sex === burdenSex'},
     {calculate:"datum.disease === 'Cardiovascular diseases' ? 'Cardiovascular\\ndiseases' : datum.disease === 'Not itemised in this extract' ? 'Not itemised\\n(derived residual)' : datum.disease === 'Chronic liver disease' ? 'Chronic liver\\ndisease' : datum.disease === 'Alcohol use disorder' ? 'Alcohol use\\ndisorder' : datum.disease",as:'category'},
     {calculate:"format(datum.value,',.0f') + ' · ' + format(datum.share,'.1%')",as:'display'},

@@ -28,7 +28,7 @@ async function renderChart(id) {
     window.storyMotion?.finish(container);
     container.setAttribute('aria-busy', 'true');
     try {
-      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261027-colour-roles`);
+      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261027-tornado-sources`);
       specs.set(id, structuredClone(spec));
       applyInitialControls(id, spec);
       if (views.has(id)) views.get(id).finalize();
@@ -63,7 +63,7 @@ function updateNarrative() {
     const element=document.getElementById('world-australia-value');
     element.replaceChildren(document.createTextNode(australia.value.toFixed(1)));
     const unit=document.createElement('span');unit.textContent='L';element.append(unit);
-    document.getElementById('world-australia-note').textContent=`WHO’s ${year} estimate is ${australia.value.toFixed(1)} litres per person aged 15+. Australia is outlined on the map.`;
+    document.getElementById('world-australia-note').textContent=`World Health Organization’s ${year} estimate is ${australia.value.toFixed(1)} litres per person aged 15+. Australia is outlined on the map.`;
   }
   const group=document.getElementById('student-group').value;
   const measure=document.getElementById('student-measure').value;
@@ -101,7 +101,7 @@ function sourcesList(rows) {
   for(const row of rows) {
     const details=document.createElement('details');details.className='source-entry';details.id=`source-${row.id}`;
     const summary=document.createElement('summary');
-    const number=document.createElement('span');number.className='source-id';number.textContent=row.id;
+    const number=document.createElement('span');number.className='source-id';number.textContent=`Dataset ${row.id.slice(1)}`;
     const title=document.createElement('span');title.textContent=row.title;
     summary.append(number,title);details.append(summary);
     const body=document.createElement('div');body.className='source-body';
@@ -170,7 +170,7 @@ async function start() {
     json('data/world-consumption.json').then(d=>{worldData=d;}),
     json('data/adolescent.json').then(d=>{adolescentData=d;}),
     json('data/deaths.json').then(d=>{deathsData=d;}),
-    json('data/sources.json').then(sourcesList)
+    json('data/sources.json?v=20261027-tornado-sources').then(sourcesList)
   ]);
   if(document.fonts)await document.fonts.ready;
   if(typeof vegaEmbed==='undefined') {

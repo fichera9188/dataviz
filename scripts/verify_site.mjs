@@ -58,9 +58,19 @@ for(const id of manifest) {
     for(const item of marks)assert.equal(item.fill,palette.gender[item.datum.sex.startsWith('Male')?'Male':'Female'],`${id}: gender colour mapping changed`);
   }
   if(id==='hospital') {
-    assert.equal(spec.encoding.x.field,'count');
-    assert(spec.encoding.x.scale.domain[0]===0,'Hospital bars need a shared positive baseline');
+    assert.equal(spec.encoding.x.field,'position');
+    const [lo,hi]=spec.encoding.x.scale.domain;
+    assert.equal(-lo,hi,'Tornado sides need identical count scales');
+    assert.equal(spec.layer[0].encoding.x2.datum,0,'Tornado bars must extend from zero');
     assert.deepEqual(spec.layer[0].encoding.color.scale,genderScale());
+    const bars=dataMarks().filter(item=>item.datum.sex);
+    assert.equal(bars.length,10,'Tornado needs both sexes in each of five age bands');
+    for(const {datum} of bars) {
+      assert(datum.count>0,'Hospital episode counts must remain positive');
+      assert.equal(datum.position,datum.sex==='Male'?-datum.count:datum.count,'Tornado direction changed');
+      assert(svg.includes(datum.count.toLocaleString('en-US')),`Missing exact count label: ${datum.count}`);
+    }
+    assert(!/>-[\d,]+<\/text>/.test(svg),'Mirrored positions must not produce negative count labels');
   }
   if(id==='burden') {
     const bars=dataMarks().filter(item=>item.datum.disease).sort((a,b)=>a.layoutY-b.layoutY);
@@ -98,11 +108,14 @@ for(const source of sources)for(const name of source.data)await fs.access(path.j
 const html=await fs.readFile(path.join(site,'index.html'),'utf8');
 assert.equal((html.match(/class="viz"/g)||[]).length,13);
 assert(html.includes('Teh Ming Dong'));
-assert.equal((html.match(/class="chart-reading"/g)||[]).length,13,'Every chart needs a reading/choice explanation');
-assert.equal((html.match(/class="chart-rationale"/g)||[]).length,13,'Every chart needs an expanded rationale');
-const rationales=JSON.parse(await fs.readFile(path.join(site,'data/chart-rationale.json'),'utf8'));
-assert.deepEqual(rationales.map(row=>row.id),manifest);
-for(const row of rationales)for(const field of ['question','reading','reason','alternative','limitation'])assert(row[field]?.length>20,`${row.id}: missing ${field}`);
+assert(!/chart-reading|chart-rationale|Why this chart|Why these chart choices/.test(html),'Design justifications belong in Markdown, not the visualisation');
+assert(!/aria-describedby="reading-/.test(html),'Removed notes must not leave broken accessible descriptions');
+const design=await fs.readFile(path.join(root,'CHART_DESIGN.md'),'utf8');
+assert.equal((design.match(/^## \d\d\./gm)||[]).length,13,'Markdown must justify all thirteen charts');
+for(const label of ['Question','How to read it','Why this chart','Alternative considered','Limitations'])assert.equal((design.match(new RegExp(`\\*\\*${label}:\\*\\*`,'g'))||[]).length,13,`Markdown needs thirteen ${label} entries`);
+const sourceAcronyms=/\b(?:WHO|AIHW|ABS|ASSAD|NDSHS|NHS|NHMD\d*|ABDS\d*)\b/;
+assert(!sourceAcronyms.test(html.replace(/<[^>]*>/g,' ')),'Visible page source names must be written in full');
+for(const source of sources)for(const field of ['title','publisher','coverage','measure','note'])assert(!sourceAcronyms.test(source[field]),`${source.id}: abbreviated ${field}`);
 for(const id of ['age','states']) {
   const dataset=JSON.parse(await fs.readFile(path.join(site,`data/${id==='age'?'age-trends':'state-risk'}.json`),'utf8'));
   assert(dataset.every(row=>row.value===null||(row.value>=0&&row.value<=60)),`${id}: data outside fixed 0–60% colour domain`);
@@ -139,7 +152,7 @@ for(const [name,matrix] of Object.entries(visionMatrices)) {
   assert(ramp.every((colour,i)=>i===0||luminance(ramp[i-1])>luminance(colour)),`${name}: magnitude order changed`);
   visionAudit[name]={gender:Object.fromEntries(Object.entries(palette.gender).map(([key,colour])=>[key,simulate(colour,matrix)])),magnitude:ramp};
 }
-await fs.writeFile(path.join(reportDir,'colour-audit.json'),JSON.stringify({gender_labels_min_contrast:Math.min(...Object.values(palette.gender).map(colour=>contrast(colour,palette.paper))),vision_simulations:visionAudit,redundant_encoding:'Male circles / female squares; hospital series have fixed vertical order; all categories have labels.'},null,2));
+await fs.writeFile(path.join(reportDir,'colour-audit.json'),JSON.stringify({gender_labels_min_contrast:Math.min(...Object.values(palette.gender).map(colour=>contrast(colour,palette.paper))),vision_simulations:visionAudit,redundant_encoding:'Male circles / female squares; hospital males extend left and females right; all categories have labels.'},null,2));
 let dataBytes=0;
 for(const name of await fs.readdir(path.join(site,'data')))dataBytes+=(await fs.stat(path.join(site,'data',name))).size;
 assert(dataBytes<2_000_000,`Data must be below2MB; found${dataBytes}`);

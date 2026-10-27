@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "NDSHS published drinking percentages by age and survey year. Each wave is a different population sample. Unreliable/suppressed observations are null.",
+  "description": "National Drug Strategy Household Survey published drinking percentages by age and survey year. Each wave is a different population sample. Unreliable/suppressed observations are null.",
   "width": "container",
   "height": 310,
   "autosize": {

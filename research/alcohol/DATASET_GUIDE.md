@@ -124,7 +124,7 @@ Ten datasets are the user's requested research scope. They are not a substitute 
 - **Chart:** proportional-symbol map, symbol area proportional to alcohol-principal-drug closed episodes in each state, placed at representative state locations. State coordinates are symbol anchors, not actual treatment locations.
 - **Access:** [official downloads](https://www.aihw.gov.au/reports/alcohol-other-drug-treatment-services/alcohol-other-drug-treatment-services-australia/data); [national clients XLSX](https://www.aihw.gov.au/getmedia/b25428bf-edbc-481c-8e3a-b8c3fa2fe843/aihw-hse-258-2425-SC-clients-national-tables-25062026_3.xlsx); [state episodes XLSX](https://www.aihw.gov.au/getmedia/969ef089-7732-4ca6-9051-1d923dbeab6e/aihw-hse-258-2425-ST-state-territory-episode-tables-25062026_1.xlsx).
 - **Local:** `source-data/D08_treatment_clients_2024_2025.xlsx`, `source-data/D08_treatment_states_2024_2025.xlsx`.
-- **Preparation/caution:** filter principal drug of concern to alcohol and own-drug-use treatment. Closed episodes are not unique patients; repeated episodes and access to services affect the counts. Larger states can have larger counts because of population size. Do not merge separate age and sex marginal tables into an invented age-by-sex cross-tabulation. The hospitalisation dataset supplies the genuine joint age/sex table for the grouped horizontal bar chart.
+- **Preparation/caution:** filter principal drug of concern to alcohol and own-drug-use treatment. Closed episodes are not unique patients; repeated episodes and access to services affect the counts. Larger states can have larger counts because of population size. Do not merge separate age and sex marginal tables into an invented age-by-sex cross-tabulation. The hospitalisation dataset supplies the genuine joint age/sex table for the tornado chart.
 
 ### D09 — Alcohol-attributable burden of disease
 
@@ -144,7 +144,7 @@ Ten datasets are the user's requested research scope. They are not a substitute 
 - **Fields:** year, age, sex, principal diagnosis group, same-day/overnight status, admission/separation count, remoteness and crude population rate where published.
 - **Useful verified tables:** NHMD1 same-day; NHMD2 overnight; NHMD3 total by age/sex; NHMD4 time series; NHMD5 remoteness series.
 - **Purpose:** show the age/sex pattern of hospital consequences and distinguish it from the age pattern of reported drinking.
-- **Chart:** grouped horizontal age/sex bars from the alcohol columns in NHMD3. Label counts as hospitalisations, not people; optionally show published rates in a separate view if denominator data exists.
+- **Chart:** a mirrored age/sex tornado chart from the alcohol columns in NHMD3. Label counts as hospitalisations, not people; optionally show published rates in a separate view if denominator data exists.
 - **Access:** [official table collection](https://www.aihw.gov.au/reports/alcohol/alcohol-tobacco-other-drugs-australia/data); [NHMD XLSX](https://www.aihw.gov.au/getmedia/f774a123-a571-4938-a7b7-f7957d0dc6ce/AIHW-PHE221_NHMD-tables_DEC25_1.xlsx).
 - **Local:** `source-data/D10_alcohol_hospitalisations_2023_2024.xlsx`.
 - **Preparation/caution:** this extract explicitly provides **no state/territory disaggregation**, so it must not be used for a state choropleth. Repeated hospitalisations are not unique patients. Totals can include ages under 15 and age/sex not stated, beyond the displayed age/sex categories. The workbook applies revised diagnosis groupings retrospectively; use its revised time series consistently.
@@ -169,7 +169,7 @@ The story should have useful default views before anyone touches a control. Inte
 | 12 | Consequences: which conditions contribute to alcohol burden? | D09 | Ranked horizontal bars | Vega-Lite `bar`/`text`, positive count scale, explicit residual and sex selection |
 | 13 | Consequences: how did recorded mortality change over the decade? | D07 | Waterfall | `window`/`calculate` or precomputed deltas; ranged bars, totals, connecting rules and labels |
 
-The revised design keeps three map idioms and 13 charts. Intended advanced forms are the choropleth, boxplot, heatmap, waffle, dumbbell, mosaic, tile cartogram, proportional-symbol map and waterfall. Classification remains subject to marker judgement; the design record explains each chart against its analytical question. The hospital and burden bars replace the earlier pyramid and treemap to improve direct count comparisons. A series of similar charts still counts as one chart under the rubric.
+The revised design keeps three map idioms and 13 charts. Intended advanced forms are the choropleth, boxplot, heatmap, waffle, dumbbell, mosaic, tile cartogram, proportional-symbol map and waterfall. Classification remains subject to marker judgement; the design record explains each chart against its analytical question. Hospitalisations use a tornado chart with positive count labels and matched left/right scales; disease burden uses ranked bars for direct count comparisons. A series of similar charts still counts as one chart under the rubric.
 
 The design plan supports all ten products without making ten unrelated stories. Keep consumption and behaviour central in the first three sections, and use consequences for the final section rather than turning the project into a general health dashboard.
 

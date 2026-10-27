@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "Distribution of country-level heavy episodic drinking prevalence by WHO region,2020. Each country contributes one observation. The boxes are not individual drinking distributions.",
+  "description": "Distribution of country-level heavy episodic drinking prevalence by World Health Organization region,2020. Each country contributes one observation. The boxes are not individual drinking distributions.",
   "width": "container",
   "height": 290,
   "autosize": {
@@ -165,7 +165,7 @@
           {
             "field": "region",
             "type": "nominal",
-            "title": "WHO region"
+            "title": "World Health Organization region"
           },
           {
             "field": "countries",

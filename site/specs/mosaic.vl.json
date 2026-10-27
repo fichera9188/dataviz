@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "NDSHS Table4.31 joint weekly/episodic-risk distribution. Areas are proportional to published shares, normalised only for rounding. Weekly categories follow explicit source row labels rather than reversed source footnotes.",
+  "description": "National Drug Strategy Household Survey Table4.31 joint weekly/episodic-risk distribution. Areas are proportional to published shares, normalised only for rounding. Weekly categories follow explicit source row labels rather than reversed source footnotes.",
   "width": "container",
   "height": 330,
   "autosize": {

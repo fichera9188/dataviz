@@ -77,19 +77,17 @@ For each chart, document the question, data structure, reason for the encoding, 
 
 10. **Treatment demand: retain the proportional-symbol map.** Question: where are recorded treatment episodes concentrated geographically? Locations provide spatial context and circle area represents a count. A sorted bar chart would support more precise ranking; the map is retained because this chapter explicitly contrasts geographic prevalence and geographic service caseload. Use charcoal circles, a fixed area scale across years, count labels and a clear size legend. Keep the labelled ACT displacement and leader line. Explain that episodes are not unique clients or population-adjusted rates and do not establish unmet demand.
 
-11. **Hospitalisations: replace the mirrored pyramid with grouped horizontal bars.** Question: how do recorded hospitalisation counts differ by age group and sex? Side-by-side bars share a zero baseline and make within-age comparisons straightforward. The current mirrored display introduces signed plotting values for positive counts and resembles a population pyramid even though the age bands are uneven and 55+ is open-ended. Use male teal and female plum, chronological age order, exact counts and a zero-based count axis. Preserve the warning about the open-ended age band and avoid interpreting counts as age-specific risk.
+11. **Hospitalisations: use a tornado chart, as requested.** Question: how do hospitalisation age profiles differ between males and females? Place male counts left and female counts right of a shared zero, with an identical absolute scale, chronological age order, exact positive labels and reserved gender colours. Signed coordinates are layout positions only; counts and tooltips remain positive. Unequal age bands, especially open-ended 55+, prevent interpreting this as a population pyramid or an age-specific risk comparison. Grouped bars were considered as an alternative. See `CHART_DESIGN.md` for the complete justification.
 
 12. **Health burden: replace the treemap with ranked horizontal bars.** Question: which listed disease groups contribute the most alcohol-attributable healthy life years lost? With only six displayed groups, common-baseline lengths support easier comparison and leave room for full labels. The treemap is valid for a broad composition overview, but area comparisons and small labels are weaker for this ranking task; the categories also have no meaningful nested hierarchy in the displayed extract. Use charcoal bars with counts and shares, plus a distinct labelled treatment for the derived residual. A sex selector filters the population; it does not turn disease categories into gender colours. Preserve the exact meaning of the residual: not itemised in this extract, not an invented disease group.
 
 13. **Mortality changes: retain the waterfall and sharpen its question.** Question: how did yearly increases and decreases add up to the difference between 2015 and 2024? Floating bars show the arithmetic contribution of each change, which a line chart would not show as explicitly. For the default all-people view, the endpoint difference is 403 deaths. Update this statement with the sex selection. Use charcoal totals, brick increases, olive decreases and explicit plus/minus labels. Label the final column '2024 total' and distinguish it from '2024 change'; do not remove 'total' from that endpoint. Retain the sequential entrance animation. State that the waterfall describes arithmetic changes, not their causes, and that recent counts may be revised.
 
-**5. Explain the choices on the page and in the submission material**
+**5. Keep chart-choice explanations in Markdown**
 
-Add one short chart-reading sentence beside or immediately below each chart. For example: 'Each connector shows the difference between male and female estimates within an age group.' This serves the reader while also making the design intentional.
+All thirteen question–encoding–alternative–limitation justifications are in [CHART_DESIGN.md](CHART_DESIGN.md). The published visualisation contains no chart-choice notes or expandable design rationales. Source citations, units, definitions and necessary data limitations remain beside the charts.
 
-Keep the fuller question–encoding–alternative–limitation rationale in a design document and the page's expandable 'About this story' section, rather than adding a long academic paragraph to every card. Where the question changes, update the heading, explanatory text, tooltip terminology, accessible chart description and source notes together.
-
-Use the existing six font sizes and roughly 60-character reading measure. Preserve the current chapter alignment, side explanations, control placement and responsive column layout. The grouped bars and ranked bars are targeted chart changes, not a page redesign.
+Use the existing six font sizes and roughly 60-character reading measure. Preserve the current chapter alignment, side passages, control placement and responsive layout. Full publisher, survey and database names replace source abbreviations, including World Health Organization, Australian Institute of Health and Welfare, Australian Bureau of Statistics, National Drug Strategy Household Survey, National Health Survey, National Hospital Morbidity Database and Australian Burden of Disease Study. Dataset IDs remain internal link keys.
 
 **6. Preserve assignment coverage**
 
@@ -101,8 +99,8 @@ The revised design retains three map forms: world choropleth, state tile cartogr
 
 1. Record a baseline of all chart data, controls, labels and current rendered output. Finalise a semantic colour registry with separate gender, magnitude, change, beverage and pattern roles.
 2. Refactor the shared colours in `scripts/build_specs.mjs` and remove unrelated uses of the gender colours from CSS callouts and annotations. Set explicit category domains and ranges so filtering cannot reorder colours. Retain source field names and published values.
-3. Replace the hospital and burden specifications with grouped and ranked bars, respectively. Reuse the existing local datasets and containers. Revise the mosaic's reading aids and the waterfall's question and endpoint labels.
-4. Update chart-reading captions, descriptions, tooltips and relevant explanatory text in `site/index.html` and `site/app.js`. Selected population, period and unit must remain clear.
+3. Use the hospital tornado and ranked burden bars. Reuse the existing local datasets and containers. Revise the mosaic's reading aids and the waterfall's question and endpoint labels.
+4. Update source captions, descriptions, tooltips and relevant narrative text in `site/index.html` and `site/app.js`. Selected population, period and unit must remain clear.
 5. Regenerate the standalone `.vl.json` files. Update the documented chart/rubric inventory and retain the named trend/waterfall mark groups used by `site/motion.js`.
 6. Run data, render, colour and interaction checks. Review every changed view on desktop and mobile. Publish to GitHub Pages only after implementation is requested and these checks pass.
 
@@ -113,8 +111,8 @@ The revised design retains three map forms: world choropleth, state tile cartogr
 - A selected population never changes what the legend's colour encodes. Filters cannot swap category colours or rescale axes misleadingly.
 - Missing values remain missing, zeros remain valid zeros, derived values retain their documentation, and no data products are lost.
 - All 13 specifications compile and render without warnings, invalid geometry, clipped text or empty plots. Every supported selector is tested.
-- The hospital bars use actual positive counts; the burden values and residual match the existing data; waterfall differences reconcile exactly to the final total.
-- Legends, direct labels and chart-reading text communicate meaning without reliance on colour alone. Test common colour-vision deficiencies and greyscale. Aim for 4.5:1 contrast for normal text; inspect chart marks and backgrounds separately.
+- The hospital bars mirror signed layout coordinates while labels/tooltips use positive counts; the burden values and residual match the existing data; waterfall differences reconcile exactly to the final total.
+- Legends, direct labels and necessary definitions communicate meaning without reliance on colour alone. Test common colour-vision deficiencies and greyscale. Aim for 4.5:1 contrast for normal text; inspect chart marks and backgrounds separately.
 - Layout remains consistent at desktop, laptop and phone widths. Keep readable labels, short paragraphs, adequate plot space and no page-level horizontal overflow. On phones, the mortality chart intentionally scrolls within a labelled, keyboard-accessible region to keep all 11 steps readable at 12px.
 - Animation checks still pass: play once, reveal in chronological order, finish cleanly on filters/resizing, and show the complete chart for reduced motion and printing.
 - Recheck the 13-chart, ten-data-product and three-map inventory and document intended advanced-idiom coverage.

@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "Ranked horizontal bars of ABDS2024 alcohol-attributable healthy life years lost. All populations use the same positive count scale. The labelled residual is total minus five listed major groups; no disease allocation is invented.",
+  "description": "Ranked horizontal bars of Australian Burden of Disease Study 2024 alcohol-attributable healthy life years lost. All populations use the same positive count scale. The labelled residual is total minus five listed major groups; no disease allocation is invented.",
   "width": "container",
   "height": 350,
   "autosize": {

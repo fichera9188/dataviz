@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "Equal-size tile cartogram with approximate Australian state arrangement. NDSHS2022–23 prevalence of exceeding the adult risk thresholds, people14+.",
+  "description": "Equal-size tile cartogram with approximate Australian state arrangement. National Drug Strategy Household Survey 2022–23 prevalence of exceeding the adult risk thresholds, people14+.",
   "width": "container",
   "height": 370,
   "autosize": {

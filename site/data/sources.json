@@ -1,18 +1,18 @@
 [
   {
     "id": "D01",
-    "title": "WHO total alcohol consumption per adult",
+    "title": "World Health Organization total alcohol consumption per adult",
     "publisher": "World Health Organization, Global Health Observatory",
-    "coverage": "Countries/territories, 2000–2024 in the saved live API extract; ages 15+, both sexes combined.",
+    "coverage": "Countries/territories, 2000–2024 in the saved data interface extract; ages 15+, both sexes combined.",
     "measure": "Estimated litres of pure alcohol per person aged 15+, three-year averages, adjusted for unrecorded alcohol and tourism.",
-    "note": "Public portal coverage metadata lags the saved API. These are estimates, not annual individual observations; the 2024 Australian estimate repeats 2023. Natural Earth provides the map geometry, not the alcohol values.",
+    "note": "Public portal coverage metadata lags the saved data extract. These are estimates, not annual individual observations; the 2024 Australian estimate repeats 2023. Natural Earth provides the map geometry, not the alcohol values.",
     "links": [
       {
         "label": "Indicator metadata",
         "url": "https://data.who.int/indicators/i/EF38E6A/EE6F72A"
       },
       {
-        "label": "Exact API",
+        "label": "Source data interface",
         "url": "https://ghoapi.azureedge.net/api/SA_0000001688"
       }
     ],
@@ -22,18 +22,18 @@
   },
   {
     "id": "D02",
-    "title": "WHO heavy episodic drinking by sex",
+    "title": "World Health Organization heavy episodic drinking by sex",
     "publisher": "World Health Organization, Global Health Observatory",
     "coverage": "Latest extract year 2020, country/sex estimates; population aged 15+.",
     "measure": "Age-standardised percentage consuming at least 60 grams of pure alcohol on one occasion in the past 30 days.",
-    "note": "Denominator includes abstainers. The box plot weights countries equally and is not the distribution of individual drinkers. Its threshold differs from NDSHS measures.",
+    "note": "Denominator includes abstainers. The box plot weights countries equally and is not the distribution of individual drinkers. Its threshold differs from National Drug Strategy Household Survey measures.",
     "links": [
       {
         "label": "Definition",
         "url": "https://www.who.int/data/gho/data/indicators/indicator-details/GHO/alcohol-heavy-episodic-drinking-%2815-%29-past-30-days-%28-%29-age-standardized-with-95-ci"
       },
       {
-        "label": "Exact API",
+        "label": "Source data interface",
         "url": "https://ghoapi.azureedge.net/api/SA_0000001739"
       }
     ],
@@ -66,10 +66,10 @@
     "publisher": "Australian Bureau of Statistics",
     "coverage": "Australia 2022; the chart uses adults 18+ in seven age groups.",
     "measure": "Percentage exceeding the Australian Adult Alcohol Guideline 2020, Table 7.3. Reliability information checked against Tables 7.2/7.4.",
-    "note": "NHS differs from NDSHS in sampling and collection. Their estimates are not combined as interchangeable observations. The source reports sex categories as males/females.",
+    "note": "National Health Survey differs from National Drug Strategy Household Survey in sampling and collection. Their estimates are not combined as interchangeable observations. The source reports sex categories as males/females.",
     "links": [
       {
-        "label": "NHS downloads",
+        "label": "National Health Survey downloads",
         "url": "https://www.abs.gov.au/statistics/health/health-conditions-and-risks/national-health-survey/2022"
       },
       {
@@ -83,7 +83,7 @@
   },
   {
     "id": "D05",
-    "title": "Secondary Students’ Alcohol and Drug survey",
+    "title": "Australian Secondary Students’ Alcohol and Drug Survey",
     "publisher": "Australian Government Department of Health; Cancer Council Victoria and research partners",
     "coverage": "School students aged 12–17,2022–23. Table 2, printed page 6/PDF page 9.",
     "measure": "Weighted ever, past-year, past-month, past-week and risky-past-week prevalence; all-student and age/gender subgroups.",
@@ -102,7 +102,7 @@
   {
     "id": "D06",
     "title": "Alcohol available for consumption in Australia",
-    "publisher": "Australian Institute of Health and Welfare; continuation of the former ABS series",
+    "publisher": "Australian Institute of Health and Welfare; continuation of the former Australian Bureau of Statistics series",
     "coverage": "Total pure-alcohol availability 1960–61 to 2023–24; beverage shares shown 2011–12 onwards.",
     "measure": "Pure-alcohol supply per person aged 15+ (Table 7), and beverage-specific pure-alcohol volumes (Tables 1,3,5,6). Volumes are in thousands of litres.",
     "note": "Availability is supply, not individual self-report. It is not adjusted for all wastage, cooking or cellaring. Early beverage subtotals have discrepancies; the composition chart starts where source components reconcile within rounding. No source values are replaced to force agreement.",
@@ -145,7 +145,7 @@
     "publisher": "Australian Institute of Health and Welfare",
     "coverage": "Eight state/territory jurisdictions,2015–16 to 2024–25; state Table.6.",
     "measure": "Closed treatment episodes for own drug use, where alcohol is the principal drug of concern.",
-    "note": "Episodes are not unique clients; repeated treatment and service access affect counts. State populations differ. Geographic symbol positions are representative state anchors, not clinic locations; ACT is offset for readability.",
+    "note": "Episodes are not unique clients; repeated treatment and service access affect counts. State populations differ. Geographic symbol positions are representative state anchors, not clinic locations; Australian Capital Territory is offset for readability.",
     "links": [
       {
         "label": "Official report and downloads",
@@ -160,9 +160,9 @@
     "id": "D09",
     "title": "Alcohol-attributable disease burden",
     "publisher": "Australian Institute of Health and Welfare, Australian Burden of Disease Study 2024",
-    "coverage": "Australian 2024 modelled estimates by linked disease and sex; compact TableABDS 1.",
-    "measure": "Disability-adjusted life years (DALYs): healthy life years lost through early death and illness, attributable to alcohol.",
-    "note": "Only mutually exclusive top-level groups are summed; their child rows are excluded. The five listed groups do not exhaust the reported total. ‘Not itemised here’ is an explicitly derived residual of total minus those groups (9,860 for all people); no disease composition is inferred. Rectangles are proportional to total alcohol-attributable burden.",
+    "coverage": "Australian 2024 modelled estimates by linked disease and sex; Australian Burden of Disease Study, Table 1.",
+    "measure": "Disability-adjusted life years: healthy life years lost through early death and illness, attributable to alcohol.",
+    "note": "Only mutually exclusive top-level groups are summed; their child rows are excluded. The five listed groups do not exhaust the reported total. ‘Not itemised here’ is an explicitly derived residual of total minus those groups (9,860 for all people); no disease composition is inferred. Bars show each group’s contribution to alcohol-attributable burden.",
     "links": [
       {
         "label": "Full study",
@@ -181,7 +181,7 @@
     "id": "D10",
     "title": "Alcohol-related hospitalisations",
     "publisher": "Australian Institute of Health and Welfare, National Hospital Morbidity Database",
-    "coverage": "Australia 2023–24 joint age/sex tableNHMD 3.",
+    "coverage": "Australia 2023–24 joint age/sex data; National Hospital Morbidity Database, Table 3.",
     "measure": "Hospitalisation episodes with alcohol-related principal diagnoses, by age and sex.",
     "note": "Counts are episodes, not unique patients or population risk. The 55+ band is open-ended. Published totals include under 15/unknown age and other/unknown sex outside displayed bars. This extract provides no state breakdown. Revised diagnostic groupings are retained.",
     "links": [
