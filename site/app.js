@@ -28,7 +28,7 @@ async function renderChart(id) {
     window.storyMotion?.finish(container);
     container.setAttribute('aria-busy', 'true');
     try {
-      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261027-tornado-sources`);
+      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261027-opaque-gender`);
       specs.set(id, structuredClone(spec));
       applyInitialControls(id, spec);
       if (views.has(id)) views.get(id).finalize();

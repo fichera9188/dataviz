@@ -104,7 +104,8 @@
     {
       "mark": {
         "type": "bar",
-        "size": 26
+        "size": 26,
+        "opacity": 1
       },
       "encoding": {
         "x2": {
@@ -126,7 +127,8 @@
           },
           "legend": {
             "orient": "top",
-            "title": "Male: left · Female: right"
+            "title": "Male: left · Female: right",
+            "symbolOpacity": 1
           }
         },
         "tooltip": [

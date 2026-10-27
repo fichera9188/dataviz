@@ -46,7 +46,7 @@ for(const id of manifest) {
   function dataMarks() {
     const found=[];
     function visit(item,offsetY=0) {
-      if(item.mark&&['rect','symbol'].includes(item.mark.marktype)&&item.datum)found.push({datum:item.datum,fill:item.fill,layoutY:offsetY+(item.y??item.yc??0)});
+      if(item.mark&&['rect','symbol'].includes(item.mark.marktype)&&item.datum)found.push({datum:item.datum,fill:item.fill,opacity:item.opacity??1,fillOpacity:item.fillOpacity??1,layoutY:offsetY+(item.y??item.yc??0)});
       const groupY=item.mark?.marktype==='group'?(item.y||0):0;
       for(const child of item.items||[])visit(child,offsetY+groupY);
     }
@@ -55,7 +55,11 @@ for(const id of manifest) {
   if(['gender','hospital'].includes(id)) {
     const marks=dataMarks().filter(item=>item.datum.sex);
     assert(marks.length>=10,`${id}: missing data marks`);
-    for(const item of marks)assert.equal(item.fill,palette.gender[item.datum.sex.startsWith('Male')?'Male':'Female'],`${id}: gender colour mapping changed`);
+    for(const item of marks) {
+      assert.equal(item.fill,palette.gender[item.datum.sex.startsWith('Male')?'Male':'Female'],`${id}: gender colour mapping changed`);
+      assert.equal(item.opacity,1,`${id}: transparency must not lighten the shared gender colours`);
+      assert.equal(item.fillOpacity,1,`${id}: fill transparency must not lighten the shared gender colours`);
+    }
   }
   if(id==='hospital') {
     assert.equal(spec.encoding.x.field,'position');

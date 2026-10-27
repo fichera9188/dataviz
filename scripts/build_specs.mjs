@@ -113,7 +113,7 @@ add('gender', {
   encoding:{y:n('age',null,{sort:['18–24','25–34','35–44','45–54','55–64','65–74','75+'],axis:{grid:false}}),x:q('value','Adults exceeding the guideline (%)',{scale:{domain:[0,55]},axis:{tickCount:6,labelExpr:"datum.label + '%'"}})},
   layer:[
     {mark:{type:'rule',stroke:'#c9c0b5',strokeWidth:2},encoding:{x:{aggregate:'min',field:'value',type:'quantitative'},x2:{aggregate:'max',field:'value'}}},
-    {mark:{type:'point',filled:true,size:85},encoding:{color:n('sex',null,{scale:sexScale}),shape:n('sex',null,{scale:{domain:['Males','Females'],range:['circle','square']}}),tooltip:[tooltip('age','nominal','Age'),tooltip('sex','nominal','Sex'),tooltip('value','quantitative','Adults exceeding guideline (%)','.1f'),tooltip('flag','nominal','Reliability')]}},
+    {mark:{type:'point',filled:true,size:85,opacity:1},encoding:{color:n('sex',null,{scale:sexScale,legend:{symbolOpacity:1}}),shape:n('sex',null,{scale:{domain:['Males','Females'],range:['circle','square']}}),tooltip:[tooltip('age','nominal','Age'),tooltip('sex','nominal','Sex'),tooltip('value','quantitative','Adults exceeding guideline (%)','.1f'),tooltip('flag','nominal','Reliability')]}},
     {transform:[{filter:"datum.sex === 'Males'"}],mark:{type:'text',align:'left',dx:9,fontSize:CHART_TEXT_SIZE,color:C.gender.Male},encoding:{text:{field:'value',type:'quantitative',format:'.1f'}}},
     {transform:[{filter:"datum.sex === 'Females'"}],mark:{type:'text',align:'right',dx:-9,fontSize:CHART_TEXT_SIZE,color:C.gender.Female},encoding:{text:{field:'value',type:'quantitative',format:'.1f'}}}
   ]
@@ -192,7 +192,7 @@ add('hospital', {
   encoding:{y:n('age',null,{sort:['15–24','25–34','35–44','45–54','55+'],axis:{grid:false}}),
     x:q('position','Hospitalisation episodes',{scale:{domain:[-26000,26000]},axis:{values:[-20000,-10000,0,10000,20000],labelExpr:"format(abs(datum.value),',.0f')"}})},
   layer:[
-    {mark:{type:'bar',size:26},encoding:{x2:{datum:0},color:n('sex',null,{scale:genderScale(),legend:{orient:'top',title:'Male: left · Female: right'}}),
+    {mark:{type:'bar',size:26,opacity:1},encoding:{x2:{datum:0},color:n('sex',null,{scale:genderScale(),legend:{orient:'top',title:'Male: left · Female: right',symbolOpacity:1}}),
       tooltip:[tooltip('age','nominal','Age'),tooltip('sex','nominal','Sex'),tooltip('count','quantitative','Episodes',',.0f'),tooltip('share_within_sex','quantitative','Share within sex (%)','.1f')]}},
     {data:{values:[{}]},mark:{type:'rule',color:C.rule,strokeWidth:1},encoding:{x:{datum:0},y:{value:0},y2:{value:{expr:'height'}}}},
     {transform:[{filter:"datum.sex === 'Male'"}],mark:{type:'text',align:'right',dx:-5,fontSize:CHART_TEXT_SIZE,color:C.ink},encoding:{text:{field:'count',type:'quantitative',format:',.0f'}}},
