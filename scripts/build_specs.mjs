@@ -192,7 +192,7 @@ add('hospital', {
   encoding:{y:n('age',null,{sort:['15–24','25–34','35–44','45–54','55+'],axis:{grid:false}}),
     x:q('position','Hospitalisation episodes',{scale:{domain:[-26000,26000]},axis:{values:[-20000,-10000,0,10000,20000],labelExpr:"format(abs(datum.value),',.0f')"}})},
   layer:[
-    {mark:{type:'bar',size:26,opacity:1},encoding:{x2:{datum:0},color:n('sex',null,{scale:genderScale(),legend:{orient:'top',title:'Male: left · Female: right',symbolOpacity:1}}),
+    {mark:{type:'bar',size:26,opacity:1},encoding:{x2:{datum:0},color:n('sex',null,{scale:genderScale(),legend:{orient:'top',title:null,symbolOpacity:1}}),
       tooltip:[tooltip('age','nominal','Age'),tooltip('sex','nominal','Sex'),tooltip('count','quantitative','Episodes',',.0f'),tooltip('share_within_sex','quantitative','Share within sex (%)','.1f')]}},
     {data:{values:[{}]},mark:{type:'rule',color:C.rule,strokeWidth:1},encoding:{x:{datum:0},y:{value:0},y2:{value:{expr:'height'}}}},
     {transform:[{filter:"datum.sex === 'Male'"}],mark:{type:'text',align:'right',dx:-5,fontSize:CHART_TEXT_SIZE,color:C.ink},encoding:{text:{field:'count',type:'quantitative',format:',.0f'}}},
