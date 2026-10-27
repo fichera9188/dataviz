@@ -73,7 +73,7 @@
       },
       "mark": {
         "type": "geoshape",
-        "fill": "#eee8dc",
+        "fill": "#e4ded2",
         "stroke": "#fffaf3",
         "strokeWidth": 0.55
       },
@@ -133,18 +133,17 @@
         "color": {
           "field": "value",
           "type": "quantitative",
-          "title": "Litres of pure alcohol per adult",
+          "title": "Litres of pure alcohol per person aged 15+",
           "scale": {
             "domain": [
               0,
               15
             ],
             "range": [
-              "#f1e5cf",
-              "#d9ab72",
-              "#ae744d",
-              "#795447",
-              "#43323c"
+              "#fff1cc",
+              "#e5be62",
+              "#b78324",
+              "#6e450e"
             ],
             "clamp": true
           },

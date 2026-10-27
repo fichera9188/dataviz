@@ -91,7 +91,7 @@
       },
       "mark": {
         "type": "rule",
-        "color": "#a39e98",
+        "color": "#c9c0b5",
         "strokeWidth": 1
       },
       "encoding": {
@@ -294,7 +294,7 @@
         {
           "mark": {
             "type": "circle",
-            "color": "#397b76",
+            "color": "#46505a",
             "opacity": 0.85,
             "stroke": "#fffaf3",
             "strokeWidth": 2
@@ -352,6 +352,7 @@
             "lineHeight": 16,
             "baseline": "middle",
             "dy": -8,
+            "aria": false,
             "color": "#fffaf3",
             "stroke": "#fffaf3",
             "strokeWidth": 3

@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "description": "NHMD2023–24 alcohol-principal-diagnosis hospitalisation episodes by published age/sex categories; counts not rates, and55+ is an open-ended band.",
   "width": "container",
-  "height": 290,
+  "height": 350,
   "autosize": {
     "type": "fit",
     "contains": "padding",
@@ -56,11 +56,6 @@
   "data": {
     "url": "data/hospital-age-sex.json"
   },
-  "mark": {
-    "type": "bar",
-    "size": 27,
-    "cornerRadiusEnd": 2
-  },
   "encoding": {
     "y": {
       "field": "age",
@@ -77,67 +72,100 @@
         "grid": false
       }
     },
+    "yOffset": {
+      "field": "sex",
+      "type": "nominal",
+      "title": null,
+      "sort": [
+        "Male",
+        "Female"
+      ]
+    },
     "x": {
-      "field": "signed",
+      "field": "count",
       "type": "quantitative",
       "title": "Hospitalisation episodes",
       "scale": {
         "domain": [
-          -18000,
-          18000
+          0,
+          22000
         ]
       },
       "axis": {
         "values": [
-          -15000,
-          -10000,
-          -5000,
           0,
           5000,
           10000,
-          15000
+          15000,
+          20000
         ],
-        "labelExpr": "format(abs(datum.value),'.2s')"
+        "labelExpr": "datum.value === 0 ? '0' : format(datum.value,'.2s')"
       }
-    },
-    "color": {
-      "field": "sex",
-      "type": "nominal",
-      "title": null,
-      "scale": {
-        "domain": [
-          "Male",
-          "Female"
-        ],
-        "range": [
-          "#397b76",
-          "#80516b"
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 2
+      },
+      "encoding": {
+        "color": {
+          "field": "sex",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Male",
+              "Female"
+            ],
+            "range": [
+              "#397b76",
+              "#80516b"
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "age",
+            "type": "nominal",
+            "title": "Age"
+          },
+          {
+            "field": "sex",
+            "type": "nominal",
+            "title": "Sex"
+          },
+          {
+            "field": "count",
+            "type": "quantitative",
+            "title": "Episodes",
+            "format": ",.0f"
+          },
+          {
+            "field": "share_within_sex",
+            "type": "quantitative",
+            "title": "Share within sex (%)",
+            "format": ".1f"
+          }
         ]
       }
     },
-    "tooltip": [
-      {
-        "field": "age",
-        "type": "nominal",
-        "title": "Age"
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontSize": 12,
+        "color": "#29252e"
       },
-      {
-        "field": "sex",
-        "type": "nominal",
-        "title": "Sex"
-      },
-      {
-        "field": "count",
-        "type": "quantitative",
-        "title": "Episodes",
-        "format": ",.0f"
-      },
-      {
-        "field": "share_within_sex",
-        "type": "quantitative",
-        "title": "Share within sex (%)",
-        "format": ".1f"
+      "encoding": {
+        "text": {
+          "field": "count",
+          "type": "quantitative",
+          "format": ",.0f"
+        }
       }
-    ]
-  }
+    }
+  ]
 }

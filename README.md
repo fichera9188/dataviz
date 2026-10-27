@@ -24,9 +24,9 @@ Run `npm run check` to compile and render all 13 specifications with the actual 
 
 ## Chart and rubric coverage
 
-The story contains 13 charts using ten source data products from WHO, AIHW, ABS and ASSAD. Its three map idioms are a world choropleth, an Australian tile cartogram and an Australian proportional-symbol map. Additional advanced idioms are a box plot, heatmap, waffle, dumbbell, mosaic, treemap and waterfall. The hospital age/sex pyramid, time-series line chart and stacked beverage area chart complete the story. Classification of idioms remains subject to the marker's judgement; this is a coverage plan, not a grade guarantee.
+The story contains 13 charts using ten source data products from WHO, AIHW, ABS and ASSAD. Its three map idioms are a world choropleth, an Australian tile cartogram and an Australian proportional-symbol map. Additional advanced idioms are a box plot, heatmap, waffle, dumbbell, mosaic and waterfall. The grouped hospital age/sex bars, ranked burden bars, time-series line chart and stacked beverage area chart complete the story. Classification of idioms remains subject to the marker's judgement; this is a coverage plan, not a grade guarantee.
 
-Each chart has a purpose, tooltip information, a readable specification and a source citation. Controls change year, sex, student population or drinking measure where the underlying data supports it. Small screens use a single-column layout.
+Each chart has a purpose, a short reading explanation, an expandable rationale comparing an alternative, tooltip information, a readable specification and a source citation. Controls change year, sex, student population or drinking measure where the underlying data supports it. Small screens use a single-column layout. The mortality waterfall has a labelled, keyboard-accessible horizontal scroll region on phones so its year and change labels remain readable.
 
 ## Data interpretation
 
@@ -45,3 +45,9 @@ Source-specific coverage and notes appear in the page's expandable source sectio
 Repository: <https://github.com/fichera9188/dataviz>. Enable **Settings → Pages → Source → GitHub Actions**. A push to `main` starts the prepared publishing workflow. The expected project address is <https://fichera9188.github.io/dataviz/>; a successful deployment must be confirmed before treating that address as live.
 
 The assignment's hand-drawn sketch and tutor interview still require the student's own completion. The website does not substitute for those requirements.
+
+## Colour and chart choices
+
+Teal (`#397B76`) is reserved for males and plum (`#80516B`) for females. All other graphs use neutral series, a fixed ochre magnitude ramp, or explicit non-gender category palettes. The single registry is `scripts/chart_palette.mjs`; the build exports `site/data/colour-system.json`. Colour checks enforce exclusivity, correct rendered gender mappings, fixed percentage domains, label contrast and monotonic magnitude ramps under colour-vision simulations.
+
+Chart-choice explanations are included in every card and in the expandable design section. Their structured source is `site/data/chart-rationale.json`; the full design record is [COLOUR_AND_CHART_PLAN.md](COLOUR_AND_CHART_PLAN.md). The burden bars reuse the published values in the legacy-named `burden-treemap.json`; they do not use its old layout coordinates.

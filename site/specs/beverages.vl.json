@@ -56,10 +56,6 @@
   "data": {
     "url": "data/beverage-mix.json"
   },
-  "mark": {
-    "type": "area",
-    "opacity": 0.9
-  },
   "encoding": {
     "x": {
       "field": "year",
@@ -105,10 +101,10 @@
           "Cider"
         ],
         "range": [
-          "#d59e51",
-          "#80516b",
-          "#397b76",
-          "#aca598"
+          "#c99b35",
+          "#87583d",
+          "#5e6c7a",
+          "#b7a98b"
         ]
       }
     },
@@ -140,5 +136,74 @@
         "format": ",.0f"
       }
     ]
-  }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "opacity": 1,
+        "stroke": "#fffaf3",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year === 2023"
+        },
+        {
+          "stack": "share",
+          "groupby": [
+            "year"
+          ],
+          "sort": [
+            {
+              "field": "order",
+              "order": "ascending"
+            }
+          ],
+          "as": [
+            "lo",
+            "hi"
+          ]
+        },
+        {
+          "calculate": "(datum.lo+datum.hi)/2",
+          "as": "mid"
+        },
+        {
+          "calculate": "(datum.beverage === 'Spirits & RTDs' ? 'Spirits / RTDs' : datum.beverage) + ' ' + format(datum.share,'.0%')",
+          "as": "label"
+        },
+        {
+          "filter": "datum.share >= 0.05"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -6,
+        "fontSize": 12,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "y": {
+          "field": "mid",
+          "type": "quantitative",
+          "title": null,
+          "stack": null
+        },
+        "text": {
+          "field": "label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.beverage === 'Wine' || datum.beverage === 'Spirits & RTDs'",
+            "value": "#fffaf3"
+          },
+          "value": "#29252e"
+        }
+      }
+    }
+  ]
 }

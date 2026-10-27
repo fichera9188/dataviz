@@ -82,7 +82,8 @@
       "axis": {
         "labelAngle": 0,
         "labelFontSize": 12,
-        "labelExpr": "replace(datum.label,' total','')",
+        "labelExpr": "datum.label === '2024' ? ['2024','change'] : indexof(datum.label,'total') >= 0 ? split(datum.label,' ') : datum.label",
+        "labelLineHeight": 15,
         "grid": false
       }
     },
@@ -123,9 +124,9 @@
               "Decrease"
             ],
             "range": [
-              "#29252e",
-              "#bb5939",
-              "#397b76"
+              "#46505a",
+              "#b54432",
+              "#6f7a32"
             ]
           },
           "legend": {

@@ -172,11 +172,10 @@
               60
             ],
             "range": [
-              "#efe7d6",
-              "#dfbc90",
-              "#be8b6e",
-              "#925e60",
-              "#664052"
+              "#fff1cc",
+              "#e5be62",
+              "#b78324",
+              "#6e450e"
             ]
           },
           "legend": {
@@ -213,18 +212,15 @@
         "type": "text",
         "fontSize": 12,
         "fontWeight": 700,
-        "dy": -8
+        "dy": -8,
+        "aria": false,
+        "stroke": "#fffaf3",
+        "strokeWidth": 3,
+        "color": "#fffaf3"
       },
       "encoding": {
         "text": {
           "field": "state"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.value >= 40",
-            "value": "#fffaf3"
-          },
-          "value": "#29252e"
         }
       }
     },
@@ -232,18 +228,42 @@
       "mark": {
         "type": "text",
         "fontSize": 12,
-        "dy": 13
+        "fontWeight": 700,
+        "dy": -8,
+        "color": "#29252e"
+      },
+      "encoding": {
+        "text": {
+          "field": "state"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "dy": 13,
+        "aria": false,
+        "stroke": "#fffaf3",
+        "strokeWidth": 3,
+        "color": "#fffaf3"
       },
       "encoding": {
         "text": {
           "field": "display"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.value >= 40",
-            "value": "#fffaf3"
-          },
-          "value": "#29252e"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "dy": 13,
+        "color": "#29252e"
+      },
+      "encoding": {
+        "text": {
+          "field": "display"
         }
       }
     }

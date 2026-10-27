@@ -28,7 +28,7 @@ async function renderChart(id) {
     window.storyMotion?.finish(container);
     container.setAttribute('aria-busy', 'true');
     try {
-      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261015-story-motion`);
+      const spec = specs.has(id) ? structuredClone(specs.get(id)) : await json(`specs/${id}.vl.json?v=20261027-colour-roles`);
       specs.set(id, structuredClone(spec));
       applyInitialControls(id, spec);
       if (views.has(id)) views.get(id).finalize();
@@ -85,9 +85,15 @@ function updateNarrative() {
   const sex=document.getElementById('mortality-sex').value;
   const first=deathsData.find(r=>r.sex===sex&&r.year===2015),last=deathsData.find(r=>r.sex===sex&&r.year===2024);
   if(first&&last) {
+    const difference=last.count-first.count;
+    const population=document.getElementById('mortality-sex').selectedOptions[0].textContent;
+    document.getElementById('mortality-title').textContent=`Yearly changes add up to ${Math.abs(difference).toLocaleString('en-AU')} ${difference>=0?'more':'fewer'} deaths`;
+    document.getElementById('mortality-subtitle').textContent=`Alcohol-induced deaths registered in Australia · ${population} · 2015 to 2024`;
     document.querySelector('#mortality-note strong').textContent=`${first.count.toLocaleString('en-AU')} → ${last.count.toLocaleString('en-AU')} deaths`;
     document.getElementById('mortality-rate').textContent=`${first.rate.toFixed(1)} → ${last.rate.toFixed(1)} per 100,000`;
   }
+  const burdenPopulation=document.getElementById('burden-sex').selectedOptions[0].textContent;
+  document.getElementById('burden-subtitle').textContent=`Healthy life years lost attributable to alcohol · ${burdenPopulation} · 2024 estimates`;
 }
 
 function sourcesList(rows) {

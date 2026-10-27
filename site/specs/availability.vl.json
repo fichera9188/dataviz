@@ -101,7 +101,7 @@
       "name": "availability_area",
       "mark": {
         "type": "area",
-        "color": "#397b76",
+        "color": "#46505a",
         "opacity": 0.09
       }
     },
@@ -109,7 +109,7 @@
       "name": "availability_line",
       "mark": {
         "type": "line",
-        "color": "#397b76",
+        "color": "#46505a",
         "strokeWidth": 2.8
       }
     },
@@ -153,7 +153,7 @@
         "type": "point",
         "filled": true,
         "size": 65,
-        "color": "#397b76"
+        "color": "#46505a"
       }
     },
     {
@@ -171,7 +171,7 @@
         "dy": -15,
         "fontSize": 12,
         "fontWeight": 600,
-        "color": "#397b76"
+        "color": "#46505a"
       }
     },
     {
@@ -189,7 +189,7 @@
         "dy": -15,
         "fontSize": 12,
         "fontWeight": 700,
-        "color": "#397b76"
+        "color": "#46505a"
       }
     }
   ]

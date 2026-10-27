@@ -136,6 +136,21 @@
             ]
           }
         },
+        "shape": {
+          "field": "sex",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": [
+              "Males",
+              "Females"
+            ],
+            "range": [
+              "circle",
+              "square"
+            ]
+          }
+        },
         "tooltip": [
           {
             "field": "age",

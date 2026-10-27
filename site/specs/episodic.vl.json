@@ -65,6 +65,43 @@
   "transform": [
     {
       "filter": "datum.sex === hedSex"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "valid",
+          "field": "value",
+          "as": "countries"
+        },
+        {
+          "op": "median",
+          "field": "value",
+          "as": "median"
+        },
+        {
+          "op": "q1",
+          "field": "value",
+          "as": "q1"
+        },
+        {
+          "op": "q3",
+          "field": "value",
+          "as": "q3"
+        },
+        {
+          "op": "min",
+          "field": "value",
+          "as": "minimum"
+        },
+        {
+          "op": "max",
+          "field": "value",
+          "as": "maximum"
+        }
+      ],
+      "groupby": [
+        "region"
+      ]
     }
   ],
   "encoding": {
@@ -107,13 +144,13 @@
         "type": "boxplot",
         "extent": "min-max",
         "size": 17,
-        "color": "#397b76",
+        "color": "#46505a",
         "box": {
-          "fillOpacity": 0.35,
-          "stroke": "#397b76"
+          "fillOpacity": 0.2,
+          "stroke": "#46505a"
         },
         "median": {
-          "color": "#397b76",
+          "color": "#46505a",
           "strokeWidth": 2
         },
         "rule": {
@@ -129,6 +166,41 @@
             "field": "region",
             "type": "nominal",
             "title": "WHO region"
+          },
+          {
+            "field": "countries",
+            "type": "quantitative",
+            "title": "Countries"
+          },
+          {
+            "field": "median",
+            "type": "quantitative",
+            "title": "Median (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "q1",
+            "type": "quantitative",
+            "title": "Lower quartile (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "q3",
+            "type": "quantitative",
+            "title": "Upper quartile (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "minimum",
+            "type": "quantitative",
+            "title": "Minimum (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "maximum",
+            "type": "quantitative",
+            "title": "Maximum (%)",
+            "format": ".1f"
           }
         ]
       }
@@ -141,11 +213,12 @@
       ],
       "mark": {
         "type": "point",
+        "shape": "diamond",
         "filled": true,
-        "color": "#bb5939",
-        "size": 100,
-        "stroke": "#fffaf3",
-        "strokeWidth": 1.5
+        "color": "#fffaf3",
+        "size": 120,
+        "stroke": "#29252e",
+        "strokeWidth": 2
       },
       "encoding": {
         "tooltip": [
@@ -175,7 +248,7 @@
         "align": "left",
         "dx": 9,
         "dy": -13,
-        "color": "#bb5939",
+        "color": "#29252e",
         "fontSize": 12,
         "fontWeight": 600
       }

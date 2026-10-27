@@ -598,7 +598,7 @@
         "attributable_healthy_life_years_lost",
         "attributable_percent"
       ],
-      "preparation_status": "Exclude overlapping parent/component rows; treemap layout preparation required",
+      "preparation_status": "Exclude overlapping parent/component rows; include the explicit residual and rank positive counts",
       "local_files": [
         {
           "path": "E:\\datavisual2\\research\\alcohol\\source-data\\D09_alcohol_attributable_burden_2024.xlsx",

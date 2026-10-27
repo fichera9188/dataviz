@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-  "description": "ABDS2024 alcohol-attributable healthy life years lost. Child categories excluded; residual is explicitly total minus five listed major groups. Binary treemap layout precomputed proportional to values.",
+  "description": "Ranked horizontal bars of ABDS2024 alcohol-attributable healthy life years lost. All populations use the same positive count scale. The labelled residual is total minus five listed major groups; no disease allocation is invented.",
   "width": "container",
-  "height": 310,
+  "height": 350,
   "autosize": {
     "type": "fit",
     "contains": "padding",
@@ -67,83 +67,88 @@
       "filter": "datum.sex === burdenSex"
     },
     {
-      "calculate": "datum.disease === 'Cardiovascular diseases' ? 'Heart &\\nvessels' : datum.disease === 'Not itemised in this extract' ? 'Not\\nlisted' : datum.disease === 'Chronic liver disease' ? (datum.share < 0.04 ? 'Liver' : 'Liver\\ndisease') : datum.disease === 'Alcohol use disorder' ? 'Alcohol use\\ndisorder' : datum.disease",
-      "as": "short"
+      "calculate": "datum.disease === 'Cardiovascular diseases' ? 'Cardiovascular\\ndiseases' : datum.disease === 'Not itemised in this extract' ? 'Not itemised\\n(derived residual)' : datum.disease === 'Chronic liver disease' ? 'Chronic liver\\ndisease' : datum.disease === 'Alcohol use disorder' ? 'Alcohol use\\ndisorder' : datum.disease",
+      "as": "category"
     },
     {
-      "calculate": "datum.short + '\\n' + format(datum.value,',')",
+      "calculate": "format(datum.value,',.0f') + ' · ' + format(datum.share,'.1%')",
       "as": "display"
+    },
+    {
+      "calculate": "datum.derived ? 'Total minus the five listed groups' : 'Published disease group'",
+      "as": "derivation"
+    },
+    {
+      "calculate": "isValid(datum.attributable_percent) ? format(datum.attributable_percent,'.1f') + '%' : 'Not itemised'",
+      "as": "attributionLabel"
     }
   ],
   "encoding": {
     "x": {
-      "field": "x0",
+      "field": "value",
       "type": "quantitative",
-      "title": null,
+      "title": "Healthy life years lost",
       "scale": {
         "domain": [
           0,
-          1
+          110000
         ]
       },
-      "axis": null
+      "axis": {
+        "values": [
+          0,
+          25000,
+          50000,
+          75000,
+          100000
+        ],
+        "labelExpr": "datum.value === 0 ? '0' : format(datum.value,'.2s')"
+      }
     },
     "y": {
-      "field": "y0",
-      "type": "quantitative",
+      "field": "category",
+      "type": "nominal",
       "title": null,
-      "scale": {
-        "domain": [
-          1,
-          0
-        ]
+      "sort": {
+        "field": "value",
+        "op": "max",
+        "order": "descending"
       },
-      "axis": null
+      "axis": {
+        "labelLimit": 130,
+        "labelLineHeight": 15,
+        "labelPadding": 8,
+        "labelExpr": "split(datum.label,'\\n')"
+      }
     }
   },
   "layer": [
     {
       "mark": {
-        "type": "rect",
-        "stroke": "#fffaf3",
-        "strokeWidth": 4
+        "type": "bar",
+        "size": 26,
+        "cornerRadiusEnd": 2,
+        "stroke": "#46505a",
+        "strokeWidth": 0.6
       },
       "encoding": {
-        "x2": {
-          "field": "x1"
-        },
-        "y2": {
-          "field": "y1"
-        },
         "color": {
-          "field": "disease",
-          "type": "nominal",
-          "title": null,
-          "scale": {
-            "domain": [
-              "Alcohol use disorder",
-              "Injuries",
-              "Cancers",
-              "Cardiovascular diseases",
-              "Chronic liver disease",
-              "Not itemised in this extract"
-            ],
-            "range": [
-              "#80516b",
-              "#bb5939",
-              "#d59e51",
-              "#397b76",
-              "#799595",
-              "#c4beb5"
-            ]
+          "condition": {
+            "test": "datum.disease === 'Not itemised in this extract'",
+            "value": "#a39a8b"
           },
-          "legend": null
+          "value": "#46505a"
         },
         "tooltip": [
           {
             "field": "disease",
             "type": "nominal",
             "title": "Disease group"
+          },
+          {
+            "field": "sex",
+            "type": "nominal",
+            "title": "Population"
           },
           {
             "field": "value",
@@ -158,15 +163,14 @@
             "format": ".1%"
           },
           {
-            "field": "attributable_percent",
-            "type": "quantitative",
-            "title": "Share of this disease due to alcohol (%)",
-            "format": ".1f"
+            "field": "attributionLabel",
+            "type": "nominal",
+            "title": "Share of this disease due to alcohol"
           },
           {
-            "field": "derived",
+            "field": "derivation",
             "type": "nominal",
-            "title": "Derived remainder"
+            "title": "Value type"
           }
         ]
       }
@@ -175,41 +179,19 @@
       "mark": {
         "type": "text",
         "fontSize": 12,
-        "fontWeight": 600,
-        "lineBreak": "\n",
-        "lineHeight": 16,
-        "baseline": "middle",
-        "dy": {
-          "expr": "(datum.x1 - datum.x0) * width < 58 ? 0 : -(length(split(datum.display,'\\n'))-1)*16/2"
-        },
-        "limit": {
-          "expr": "max(28, (datum.x1 - datum.x0) * width - 10)"
-        }
+        "align": "left",
+        "dx": 6,
+        "color": "#29252e"
       },
       "encoding": {
-        "x": {
-          "field": "cx",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "cy",
-          "type": "quantitative"
-        },
         "text": {
           "condition": {
-            "test": "(datum.x1 - datum.x0) * width < 58",
-            "field": "value",
-            "type": "quantitative",
-            "format": ",.0f"
+            "test": "width >= 280",
+            "field": "display"
           },
-          "field": "display"
-        },
-        "color": {
-          "condition": {
-            "test": "datum.disease === 'Cancers' || datum.disease === 'Not itemised in this extract'",
-            "value": "#29252e"
-          },
-          "value": "#fffaf3"
+          "field": "value",
+          "type": "quantitative",
+          "format": ",.0f"
         }
       }
     }

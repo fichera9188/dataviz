@@ -1,7 +1,7 @@
 /* Shared sightlines. Six type sizes: 12, 16, 24, 32, 48 and 64px. */
 :root {
   --paper:#f7f3eb; --panel:#fffaf3; --band:#f0eade; --ink:#29252e;
-  --muted:#625c61; --rule:#ddd4c6; --teal:#397b76; --plum:#80516b; --rust:#bb5939;
+  --muted:#625c61; --rule:#ddd4c6; --rust:#bb5939;
   --serif:'Fraunces',Georgia,serif; --sans:Arial,Helvetica,sans-serif;
   --type-note:12px; --type-body:16px; --type-title:24px;
   --type-section:32px; --type-stat:48px; --type-hero:64px;
@@ -46,7 +46,7 @@ h1 span { display:block; color:var(--rust); }
 .hero-number { font:700 var(--type-hero)/1 var(--sans); font-variant-numeric:tabular-nums; letter-spacing:-3px; margin:0 0 16px; }
 .hero-number span { font-size:var(--type-title); letter-spacing:0; margin-left:5px; font-weight:400; }
 .stat-definition { font-size:var(--type-body); line-height:1.65; max-width:29ch; margin:0 0 24px; }
-.stat-comparison { display:flex; align-items:center; gap:12px; color:var(--teal); padding-top:20px; border-top:1px solid var(--rule); }
+.stat-comparison { display:flex; align-items:center; gap:12px; color:var(--ink); padding-top:20px; border-top:1px solid var(--rule); }
 .stat-arrow { font-size:var(--type-title); line-height:1; }
 .stat-comparison strong { font-size:var(--type-body); display:block; }
 .stat-comparison div>span { font-size:var(--type-note); display:block; color:var(--muted); margin-top:2px; }
@@ -102,16 +102,15 @@ figcaption>span { min-width:0; max-width:var(--reading-measure); }
 .chart-aside h4 { font-family:var(--sans); font-size:var(--type-body); margin:0 0 8px; color:var(--ink); font-weight:700; }
 .chart-aside p { margin:0 0 16px; max-width:var(--reading-measure); }
 .chart-aside p.callout-number { margin:0 0 12px; }
-.callout-number { font:700 var(--type-stat)/1.1 var(--sans); font-variant-numeric:tabular-nums; letter-spacing:-1.5px; color:var(--teal); margin:0 0 12px; }
+.callout-number { font:700 var(--type-stat)/1.1 var(--sans); font-variant-numeric:tabular-nums; letter-spacing:-1.5px; color:var(--ink); margin:0 0 12px; }
 .callout-number span { font-size:var(--type-title); font-weight:400; letter-spacing:0; margin-left:5px; }
-.callout-number.rust { color:var(--rust); }
 .aside-note { font-size:var(--type-note); line-height:1.65; color:var(--muted); }
 .map-key-note { font-size:var(--type-note); display:flex; align-items:center; gap:8px; }
-.map-key-note i { width:12px; height:12px; background:#eee8dc; border:1px solid #c9beae; display:inline-block; flex-shrink:0; }
+.map-key-note i { width:12px; height:12px; background:#e4ded2; border:1px solid #c9beae; display:inline-block; flex-shrink:0; }
 .chart-aside.compact { position:relative; border-left:0; padding-left:0; }
 .chart-aside.compact:before { content:''; position:absolute; top:0; bottom:0; left:calc(var(--full-gap) / -2); border-left:1px solid var(--rule); }
 .charts-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:var(--paired-gap); row-gap:0; align-items:stretch; }
-.charts-grid .chart-panel { display:grid; grid-row:span 4; grid-template-rows:subgrid; row-gap:0; }
+.charts-grid .chart-panel { display:grid; grid-row:span 5; grid-template-rows:subgrid; row-gap:0; }
 .charts-grid .panel-head { min-height:0; margin-bottom:20px; }
 .charts-grid .panel-insight,.charts-grid>.chart-panel>.control.horizontal { margin-bottom:20px; }
 .charts-grid .panel-head h3 { font-size:var(--type-title); }
@@ -121,7 +120,7 @@ figcaption>span { min-width:0; max-width:var(--reading-measure); }
 .panel-insight { font-size:var(--type-body); line-height:1.65; color:var(--muted); margin:0 0 18px; max-width:var(--reading-measure); }
 .panel-insight strong { color:var(--ink); font-weight:700; }
 .mini-finding { display:flex; flex-direction:column; align-items:flex-end; white-space:nowrap; }
-.mini-finding strong { font:700 var(--type-section)/1.2 var(--sans); color:var(--teal); letter-spacing:-.6px; font-variant-numeric:tabular-nums; }
+.mini-finding strong { font:700 var(--type-section)/1.2 var(--sans); color:var(--ink); letter-spacing:-.6px; font-variant-numeric:tabular-nums; }
 .mini-finding span { font-size:var(--type-note); color:var(--muted); margin-top:6px; }
 .availability-finding { white-space:normal; max-width:var(--reading-measure); }
 .availability-finding strong { font-size:var(--type-title); }
@@ -183,7 +182,7 @@ figcaption>span { min-width:0; max-width:var(--reading-measure); }
 .viz.is-updated { animation:chart-update 300ms ease-out; }
 .callout-number.is-updated,.mortality-context.is-updated { animation:number-update 700ms ease-out; }
 @keyframes chart-update { from { opacity:.55; } to { opacity:1; } }
-@keyframes number-update { from { background-color:#e6ede5; } to { background-color:transparent; } }
+@keyframes number-update { from { background-color:#ece8e0; } to { background-color:transparent; } }
 
 @media (max-width:1100px) {
   :root { --gutter:32px; --column-gap:32px; --panel-inset:24px; }
@@ -282,3 +281,21 @@ figcaption>span { min-width:0; max-width:var(--reading-measure); }
   .chapter { padding-block:24px; }
   .sources-section { background:white; }
 }
+
+/* Chart-choice explanations share the same text sightlines and type scale. */
+.chart-reading { font-size:var(--type-note); line-height:1.65; color:var(--muted); margin:16px 0 0; max-width:var(--reading-measure); }
+.chart-reading strong { color:var(--ink); }
+.design-notes { margin-top:24px; border-top:1px solid var(--rule); padding-top:20px; }
+.design-notes h4 { font-size:var(--type-body); margin:0 0 8px; }
+.design-notes>p,.chart-rationale p { font-size:var(--type-note); color:var(--muted); line-height:1.75; max-width:var(--reading-measure); }
+.design-notes>p { margin:0 0 24px; }
+.rationale-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 32px; }
+.chart-rationale { border-top:1px solid var(--rule); padding-block:12px; }
+.chart-rationale summary { font-size:var(--type-body); font-weight:700; cursor:pointer; }
+.chart-rationale p { margin:12px 0 0; }
+@media (max-width:850px) { .rationale-grid { grid-template-columns:minmax(0,1fr); } }
+
+.chart-scroll { min-width:0; width:100%; overflow-x:auto; overscroll-behavior-x:contain; }
+.chart-scroll:focus-visible { outline:3px solid var(--rust); outline-offset:4px; }
+.chart-scroll-hint { display:none; font-size:var(--type-note); line-height:1.65; color:var(--muted); margin:12px 0 0; max-width:var(--reading-measure); }
+@media (max-width:600px) { .chart-scroll>.viz { width:760px; min-width:760px; } .chart-scroll-hint { display:block; } }

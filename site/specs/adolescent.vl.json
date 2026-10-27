@@ -148,7 +148,7 @@
       ],
       "mark": {
         "type": "rect",
-        "fill": "#bb5939",
+        "fill": "#46505a",
         "cornerRadius": 2
       },
       "encoding": {
